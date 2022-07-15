@@ -9,6 +9,8 @@ const apiController = {
       servicios: {
         "api/equipos": "Total de equipos",
         "api/equipos/:serie": "Detalle de un equipo por SERIE",
+        "api/clientes": "Listado de clientes",
+        "api/clientes/id": "Detalle de un cliente por ID",
       },
     });
   },
@@ -22,7 +24,6 @@ const apiController = {
         message: "Equipos encontrados",
         equipos,
       });
-      console.log(equipos)
     });
   },
   equipo: (req, res) => {
@@ -39,6 +40,34 @@ const apiController = {
         equipo: equipo,
       });
     });
+  },
+  clientes: (req, res) => {
+    db.Clientes.findAll({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      order: [sequelize.col('Id_cliente')],
+    }).then((clientes) => {
+      res.status(200).json({
+        status: 200,
+        message: "Clientes encontrados",
+        clientes,
+      });
+    });
+  },
+  cliente: (req, res) => {
+    db.Clientes.findOne({
+      where: { Id_cliente: req.params.id },
+      // include: [
+      //   { association: "color" },
+      // ],
+    }).then((cliente) => {
+      res.status(200).json({
+        status: 200,
+        message: "Detalle de cliente encontrado",
+        url: "api/clientes/:id",
+        cliente: cliente,
+      });
+    });
+    console.log(this.cliente)
   },
 };
 
