@@ -69,6 +69,24 @@ const apiController = {
     });
     console.log(this.cliente)
   },
+  contadorActual: (req, res) => {
+    db.Contadores.findOne({
+      where: {
+        serie: req.params.serie,
+        estado: 1 },
+      // include: [
+      //   { association: "color" },
+      // ],
+    }).then((equipo) => {
+      res.status(200).json({
+        status: 200,
+        message: "Contador Actual",
+        url: "api/contador/:serie",
+        contadorActual: equipo,
+        Acumulado_BYN : equipo.ContAct_BYN - equipo.ContAnt_BYN
+      });
+    });
+  },
 };
 
 module.exports = apiController;
