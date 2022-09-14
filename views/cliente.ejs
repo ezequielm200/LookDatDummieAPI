@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div class="clienteCard">
+      <h3>ID: <%= cliente.id %></h3>
+      <p>Empresa: <%= cliente.Nombre_Empresa %></p>
+      <p>cuit: <%= cliente.cuit %></p>
+      <p>Actividad: <%= cliente.Actividad %></p>
+
+      <p>Teléfono: <%= cliente.Telefono%></p>
+      <p>Mail: <%= cliente.Mail%></p>
+      <p>Domicilio: <%= cliente.Domicilio%></p>
+      <p>Localidad: <%= cliente.Localidad_id%></p>
+      <p>Provincia: <%= cliente.Provincia_id%></p>
+      <p>País: <%= cliente.Pais_id%></p>
+      <p>CP: <%= cliente.CP%></p>
+      <p>Ejecutivo: <%= cliente.Ejecutivo%></p>
+      <p>Piso: <%= cliente.Piso%></p>
+      <p>Oficina: <%= cliente.Oficina%></p>
+      <p>WEB: <a href="http://<%= cliente.Web%>" target="_blank" rel="noopener noreferrer"><%= cliente.Web%></a></p>
+      <p>Actividad: <%= cliente.Actividad%></p>
+      <p>Modalidad de pago: <%= cliente.modalidad_pago_id%></p>
+      <p>Estadío: <%= cliente.estadio_cliente_id%></p>
+    </div>
+  </body>
+</html>

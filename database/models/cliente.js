@@ -6,9 +6,6 @@ module.exports = (sequelize, dataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    Id_cliente: {
-      type: dataTypes.STRING(20),
-    },
     Id_cliente_tmp: {
       type: dataTypes.STRING(30),
     },
@@ -33,14 +30,14 @@ module.exports = (sequelize, dataTypes) => {
     Domicilio: {
       type: dataTypes.STRING(200),
     },
-    Localidad: {
+    Localidad_id: {
       type: dataTypes.STRING(3),
     },
 
-    Provincia: {
+    Provincia_id: {
       type: dataTypes.STRING(3),
     },
-    Pais: {
+    Pais_id : {
       type: dataTypes.STRING(3),
     },
     CP: {
@@ -61,14 +58,12 @@ module.exports = (sequelize, dataTypes) => {
     Actividad: {
       type: dataTypes.STRING(200),
     },
-    modalidad_pago: {
+    modalidad_pago_id: {
       type: dataTypes.INTEGER,
     },
-    
     estadio_cliente_id: {
       type: dataTypes.INTEGER,
     },
-    
   };
   let config = {
     tableName: "CLIENTE",
@@ -76,11 +71,11 @@ module.exports = (sequelize, dataTypes) => {
     // onDelete: "CASCADE",
   };
   const Cliente = sequelize.define(alias, cols, config);
-  // Product.associate = function (models) {
-  //   Product.belongsTo(models.Colores, {
-  //     as: "color",
-  //     foreignKey: "id_color"
-  //   });
+   Cliente.associate = function(models) {
+     Cliente.belongsTo(models.pais, {
+       as: "pais",
+      foreignKey: "Pais_id"
+     });
   //   Product.belongsTo(models.Talles, {
   //     as: "talle",
   //     foreignKey: "id_talle"
@@ -105,6 +100,6 @@ module.exports = (sequelize, dataTypes) => {
   //     foreignKey: "id_Producto",
   //     timestamps: false
   //   });
-  // };
+   };
   return Cliente;
 };

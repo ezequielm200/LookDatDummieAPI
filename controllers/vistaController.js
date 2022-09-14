@@ -1,44 +1,23 @@
 const db = require('../database/models');
 const sequelize = require("sequelize");
 
-const apiController = {
+const vistaController = {
   index: (req, res) => {
-    res.status(200).json({
-      status: 200,
-      message: "API funcionando correctamente",
-      servicios: {
-        "api/equipos": "Total de equipos",
-        "api/equipos/:serie": "Detalle de un equipo por SERIE",
-        "api/clientes": "Listado de clientes",
-        "api/clientes/id": "Detalle de un cliente por ID",
-      },
-    });
+    res.render('vistas', { title: 'Vistas'})
   },
   equipos: (req, res) => {
     db.Equipos.findAll({
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       order: [sequelize.col('serie')],
     }).then((equipos) => {
-      res.status(200).json({
-        status: 200,
-        message: "Equipos encontrados",
-        equipos,
-      });
+      res.render('equipos', { title: 'Equipos encontrados',equipos: equipos })
     });
   },
   equipo: (req, res) => {
     db.Equipos.findOne({
       where: { serie: req.params.serie },
-      // include: [
-      //   { association: "color" },
-      // ],
     }).then((equipo) => {
-      res.status(200).json({
-        status: 200,
-        message: "Detalle de equipo encontrado",
-        url: "api/equipos/:serie",
-        equipo: equipo,
-      });
+      res.render('equipo', { title: 'Detalle de equipo encontrado',equipo: equipo })
     });
   },
   clientes: (req, res) => {
@@ -46,26 +25,18 @@ const apiController = {
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       order: [sequelize.col('ID')],
     }).then((clientes) => {
-      res.status(200).json({
-        status: 200,
-        message: "Clientes encontrados",
-        clientes,
-      });
+      res.render('clientes', { title: 'Clientes encontrados', clientes: clientes });
     });
   },
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id: req.params.id },
-      include: [
-         { association: "Pais" },
-       ],
+      // include: [
+      //   { association: "color" },
+      // ],
     }).then((cliente) => {
-      res.status(200).json({
-        status: 200,
-        message: "Detalle de cliente encontrado",
-        url: "api/clientes/:id",
-        cliente: cliente,
-      });
+      res.render('cliente', { title: 'Detalle de cliente', cliente: cliente });
+  
     });
     console.log(this.cliente)
   },
@@ -89,4 +60,4 @@ const apiController = {
   },
 };
 
-module.exports = apiController;
+module.exports = vistaController;
