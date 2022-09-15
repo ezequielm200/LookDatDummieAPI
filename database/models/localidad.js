@@ -1,15 +1,15 @@
 module.exports = (sequelize, dataTypes) => {
-  let alias = "Localidades";
+  let alias = "Localidad";
   let cols = {
     id: {
       type: dataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    id_pais: {
+    pais: {
       type: dataTypes.INTEGER,
     },
-    id_provincia: {
+    provincia: {
       type: dataTypes.INTEGER,
     },
     localidad_label: {
@@ -21,11 +21,11 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false,
   };
   const Localidad = sequelize.define(alias, cols, config);
-    // Localidad.associate =  (models) => {
-    // Localidad.hasMany(models.Clientes, {
-    //   as: "localidad",
-    //   foreignKey: "Localidad_id",
-    // });
-  // };
+  Localidad.associate =  (models) => {
+  Localidad.hasMany(models.Clientes, {
+    as: "Localidad",
+    foreignKey: "Localidad_id",
+  });
+};
   return Localidad;
 };

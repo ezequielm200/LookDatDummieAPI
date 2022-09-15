@@ -16,9 +16,10 @@
       <p>Teléfono: <%= cliente.Telefono%></p>
       <p>Mail: <%= cliente.Mail%></p>
       <p>Domicilio: <%= cliente.Domicilio%></p>
-      <p>Localidad: <%= cliente.Localidad_id%></p>
-      <p>Provincia: <%= cliente.Provincia_id%></p>
+      <p>Localidad: <%= cliente.Localidad.localidad_label%></p>
+      <p>Provincia: <%= cliente.Provincia.provincia_label%></p>
       <p>País: <%= cliente.pais.nombre_pais%></p>
+      <p>Cod. País: <%= cliente.pais.codigo_pais%></p>
       <p>CP: <%= cliente.CP%></p>
       <p>Ejecutivo: <%= cliente.Ejecutivo%></p>
       <p>Piso: <%= cliente.Piso%></p>

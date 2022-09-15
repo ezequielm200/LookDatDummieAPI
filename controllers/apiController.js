@@ -43,8 +43,12 @@ const apiController = {
   },
   clientes: (req, res) => {
     db.Clientes.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt","Pais_id"] },
-      include: [{ association: "pais"}],
+      attributes: { exclude: ["createdAt", "updatedAt", "Pais_id"] },
+      include: [
+        { association: "pais" },
+        { association: "Localidad" },
+        { association: "Provincia" },
+      ],
       order: [sequelize.col("ID")],
     }).then((clientes) => {
       res.status(200).json({
@@ -57,7 +61,7 @@ const apiController = {
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id: req.params.id },
-      include: [{ association: "pais", association: "localidad" }],
+      include: [{ association: "pais" }],
     }).then((cliente) => {
       res.status(200).json({
         status: 200,
@@ -87,11 +91,17 @@ const apiController = {
       });
     });
   },
- test: (req, res) => {
-  console.log("llega");
-  db.Pais.findAll().then((clientes) => {
-    console.log(clientes);
- })}
+  test: (req, res) => {
+    console.log("llega");
+    db.Localidad.findAll().then((data) => {
+      res.status(200).json({
+        status: 200,
+        message: "probando",
+        url: "api/test",
+        data
+      })
+    });
+  },
 };
 
 module.exports = apiController;

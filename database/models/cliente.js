@@ -31,14 +31,14 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(200),
     },
     Localidad_id: {
-      type: dataTypes.STRING(3),
+      type: dataTypes.INTEGER,
     },
 
     Provincia_id: {
-      type: dataTypes.STRING(3),
+      type: dataTypes.INTEGER,
     },
     Pais_id: {
-      type: dataTypes.STRING(3),
+      type: dataTypes.INTEGER,
     },
     CP: {
       type: dataTypes.STRING(20),
@@ -76,9 +76,13 @@ module.exports = (sequelize, dataTypes) => {
       as: "pais",
       foreignKey: "Pais_id",
     });
-    Cliente.belongsTo(models.Localidades, {
-      as: "localidad",
+    Cliente.belongsTo(models.Localidad, {
+      as: "Localidad",
       foreignKey: "Localidad_id",
+    });
+    Cliente.belongsTo(models.Provincia, {
+      as: "Provincia",
+      foreignKey: "Provincia_id",
     });
     //   Product.belongsTo(models.Talles, {
     //     as: "talle",
