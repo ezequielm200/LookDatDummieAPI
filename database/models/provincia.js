@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-  let alias = "Paises";
+  let alias = "Provincias";
   let cols = {
     id: {
       type: dataTypes.INTEGER,
@@ -17,15 +17,15 @@ module.exports = (sequelize, dataTypes) => {
     },
   };
   let config = {
-    tableName: "CALLEJERO_PAIS",
+    tableName: "CALLEJERO_PROVINCIAS",
     timestamps: false,
   };
-  const Pais = sequelize.define(alias, cols, config);
-  Pais.associate =  (models) => {
-    Pais.hasMany(models.Clientes, {
-      as: "pais",
+  const Provincias = sequelize.define(alias, cols, config);
+  Provincias.associate =  (models) => {
+    Provincias.hasMany(models.Clientes, {
+      as: "provincias",
       foreignKey: "Pais_id",
     });
   };
-  return Pais;
+  return Provincias;
 };

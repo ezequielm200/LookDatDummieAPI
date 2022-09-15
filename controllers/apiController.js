@@ -1,4 +1,4 @@
-const db = require('../database/models');
+const db = require("../database/models");
 const sequelize = require("sequelize");
 
 const apiController = {
@@ -16,8 +16,8 @@ const apiController = {
   },
   equipos: (req, res) => {
     db.Equipos.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('serie')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("serie")],
     }).then((equipos) => {
       res.status(200).json({
         status: 200,
@@ -43,8 +43,9 @@ const apiController = {
   },
   clientes: (req, res) => {
     db.Clientes.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('ID')],
+      attributes: { exclude: ["createdAt", "updatedAt","Pais_id"] },
+      include: [{ association: "pais"}],
+      order: [sequelize.col("ID")],
     }).then((clientes) => {
       res.status(200).json({
         status: 200,
@@ -56,9 +57,7 @@ const apiController = {
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id: req.params.id },
-      include: [
-         { association: "Pais" },
-       ],
+      include: [{ association: "pais", association: "localidad" }],
     }).then((cliente) => {
       res.status(200).json({
         status: 200,
@@ -67,13 +66,14 @@ const apiController = {
         cliente: cliente,
       });
     });
-    console.log(this.cliente)
+    console.log(this.cliente);
   },
   contadorActual: (req, res) => {
     db.Contadores.findOne({
       where: {
         serie: req.params.serie,
-        estado: 1 },
+        estado: 1,
+      },
       // include: [
       //   { association: "color" },
       // ],
@@ -83,10 +83,15 @@ const apiController = {
         message: "Contador Actual",
         url: "api/contador/:serie",
         contadorActual: equipo,
-        Acumulado_BYN : equipo.ContAct_BYN - equipo.ContAnt_BYN
+        Acumulado_BYN: equipo.ContAct_BYN - equipo.ContAnt_BYN,
       });
     });
   },
+ test: (req, res) => {
+  console.log("llega");
+  db.Pais.findAll().then((clientes) => {
+    console.log(clientes);
+ })}
 };
 
 module.exports = apiController;

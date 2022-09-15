@@ -31,9 +31,9 @@ const vistaController = {
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id: req.params.id },
-      // include: [
-      //   { association: "color" },
-      // ],
+      include: [
+         { association: "pais"},
+       ],
     }).then((cliente) => {
       res.render('cliente', { title: 'Detalle de cliente', cliente: cliente });
   

@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    
     <div class="clienteCard">
       <h3>ID: <%= cliente.id %></h3>
       <p>Empresa: <%= cliente.Nombre_Empresa %></p>
@@ -18,7 +18,7 @@
       <p>Domicilio: <%= cliente.Domicilio%></p>
       <p>Localidad: <%= cliente.Localidad_id%></p>
       <p>Provincia: <%= cliente.Provincia_id%></p>
-      <p>País: <%= cliente.Pais_id%></p>
+      <p>País: <%= cliente.pais.nombre_pais%></p>
       <p>CP: <%= cliente.CP%></p>
       <p>Ejecutivo: <%= cliente.Ejecutivo%></p>
       <p>Piso: <%= cliente.Piso%></p>
