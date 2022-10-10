@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Vista de  <%= title %></p>
+    <p>Esta vista trae algunos datos de la tabla clientes, sin paginar y con link al detalle del mismo haciendo clic en el ID</p>
+    <div class="container">
+    <% for( let i = 0; i < clientes.length; i++ ) { %>
+      <div class="clienteCard">
+      <h3>ID = <a href="/vistas/clientes/<%= clientes[i].id%>"><%= clientes[i].id%></a></h3>
+      <p> Nombre = <%= clientes[i].Nombre_Empresa%> </p>
+      <p> CUIT =  <%= clientes[i].cuit%> </p>
+      <br>
+    </div>
+    <% } %>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <div class="clienteCard">
+        <h3>ID: <%= accesorio.serie_accesorio %></h3>
+        <h3>modelo: <%= accesorio.id_accesorio %></h3>
+        <p>estado_accesorio: <%= accesorio.estado_accesorio %></p>
+        
+        <p>* Propiedad: <%= accesorio.EquiposPropietarios.propietario_label %> </p>
+        <p>* Descripcion: <%= accesorio.ModeloAccesorio.descripcion %> </p>
+        <p>* Modelo: <%= accesorio.ModeloAccesorio.modelo %> </p>
+        <p>** Marca: <%= accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %> </p>
+        <p>** Tipo Accesorio: <%= accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %> </p>
+        
+        
+        <br><br>
+        <p>* Rendimiento Original: <%= accesorio.ModeloAccesorio.rendimiento_original %> </p>
+        <p>* Rendimiento Generico: <%= accesorio.ModeloAccesorio.rendimiento_generico %> </p>
+        <p>* Cod Distribuidor: <%= accesorio.ModeloAccesorio.cod_distribuidor %> </p>
+        <p>* Cod Fabricante: <%= accesorio.ModeloAccesorio.cod_fabricante %> </p>
+        <p>* omitir_reporte_vinculacion: <%= accesorio.ModeloAccesorio.omitir_reporte_vinculacion %> </p>
+        <p>* Fecha Alta: <%= accesorio.ModeloAccesorio.fecha_alta %> </p>
+        <br><br>
+        <p>Falta</p>
+        <p>**# estado: <%= accesorio.estado %> </p>
+        <p>**# usuario_alta: <%= accesorio.usuario_alta %> </p>
+        
+        
+
+        
+        
+        
+    </div>
+  </body>
+</html>

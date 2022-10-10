@@ -6,8 +6,8 @@ module.exports = (sequelize, dataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    Id_cliente: {
-      type: dataTypes.STRING(20),
+    id_cliente: {
+      type: dataTypes.STRING(30),
     },
     Id_cliente_tmp: {
       type: dataTypes.STRING(30),
@@ -33,15 +33,15 @@ module.exports = (sequelize, dataTypes) => {
     Domicilio: {
       type: dataTypes.STRING(200),
     },
-    Localidad: {
-      type: dataTypes.STRING(3),
+    Localidad_id: {
+      type: dataTypes.INTEGER,
     },
 
-    Provincia: {
-      type: dataTypes.STRING(3),
+    Provincia_id: {
+      type: dataTypes.INTEGER,
     },
-    Pais: {
-      type: dataTypes.STRING(3),
+    Pais_id: {
+      type: dataTypes.INTEGER,
     },
     CP: {
       type: dataTypes.STRING(20),
@@ -64,47 +64,77 @@ module.exports = (sequelize, dataTypes) => {
     modalidad_pago: {
       type: dataTypes.INTEGER,
     },
-    
-    estadio_cliente_id: {
+    estadio_cliente: {
       type: dataTypes.INTEGER,
     },
-    
   };
   let config = {
-    tableName: "CLIENTE",
+    tableName: "Cliente",
     timestamps: false,
     // onDelete: "CASCADE",
   };
   const Cliente = sequelize.define(alias, cols, config);
-  // Product.associate = function (models) {
-  //   Product.belongsTo(models.Colores, {
-  //     as: "color",
-  //     foreignKey: "id_color"
-  //   });
-  //   Product.belongsTo(models.Talles, {
-  //     as: "talle",
-  //     foreignKey: "id_talle"
-  //   });
-  //   Product.belongsTo(models.Transacciones, {
-  //     as: "transaccion",
-  //     foreignKey: "id_transaccion"
-  //   });
-  //   Product.belongsTo(models.Users, {
-  //     as: "vendedor",
-  //     foreignKey: "id_vendedor"
-  //   });
-  //   Product.belongsToMany(models.Categorias, {
-  //     as: "categorias",
-  //     through: "Producto_Categoria",
-  //     foreignKey: "id_Producto",
-  //     otherKey: "id_Categoria",
-  //     timestamps: false
-  //   });
-  //   Product.hasMany(models.imagenProducto, {
-  //     as: "imagenes",
-  //     foreignKey: "id_Producto",
-  //     timestamps: false
-  //   });
-  // };
+  Cliente.associate = (models) => {
+    Cliente.belongsTo(models.Paises, {
+      as: "pais",
+      foreignKey: "Pais_id",
+    });
+    Cliente.belongsTo(models.Localidad, {
+      as: "Localidad",
+      foreignKey: "Localidad_id",
+    });
+    Cliente.belongsTo(models.Provincia, {
+      as: "Provincia",
+      foreignKey: "Provincia_id",
+    });
+    Cliente.belongsTo(models.Usuario, {
+      as: "ejecutivo",
+      foreignKey: "Ejecutivo",
+    });
+
+    Cliente.belongsTo(models.EstadoCliente, {
+      as: "estadoCliente",
+      foreignKey: "estado",
+    });
+
+    Cliente.belongsTo(models.EstadioCliente, {
+      as: "estadioCliente",
+      foreignKey: "estadio_cliente",
+    });
+
+    Cliente.belongsTo(models.ActividadCliente, {
+      as: "actividadCliente",
+      foreignKey: "Actividad",
+    });
+
+    Cliente.belongsTo(models.PagoModalidad, {
+      as: "pagoModalidad",
+      foreignKey: "modalidad_pago",
+    });
+    //   Product.belongsTo(models.Talles, {
+    //     as: "talle",
+    //     foreignKey: "id_talle"
+    //   });
+    //   Product.belongsTo(models.Transacciones, {
+    //     as: "transaccion",
+    //     foreignKey: "id_transaccion"
+    //   });
+    //   Product.belongsTo(models.Users, {
+    //     as: "vendedor",
+    //     foreignKey: "id_vendedor"
+    //   });
+    //   Product.belongsToMany(models.Categorias, {
+    //     as: "categorias",
+    //     through: "Producto_Categoria",
+    //     foreignKey: "id_Producto",
+    //     otherKey: "id_Categoria",
+    //     timestamps: false
+    //   });
+    //   Product.hasMany(models.imagenProducto, {
+    //     as: "imagenes",
+    //     foreignKey: "id_Producto",
+    //     timestamps: false
+    //   });
+  };
   return Cliente;
 };

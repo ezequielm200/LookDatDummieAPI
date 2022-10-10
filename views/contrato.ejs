@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <div class="clienteCard">
+      <h3>Cliente ID: <%= contrato.cliente_id %></h3>
+      <p>ID contrato: <%= contrato.id_contrato %></p>
+      <p>* Tipo contrato: (<%= contrato.tipo %>)<%= contrato.TipoContrato.tipo_contrato_sigla %> - <%= contrato.TipoContrato.tipo_contrato_label %></p>
+
+      <p>* Estado: <%= contrato.ContratoEstado.estado_label %></p>
+      <p>* Firmado: <%= contrato.SelladoContrato.condicion_detalle %></p>
+
+
+      <p>Cant Equipos: <%= contrato.equipos %></p>
+      <p>Observaciones: <%= contrato.observaciones %></p>
+      <p>fecha_baja: <%= contrato.fecha_baja %></p>
+      <p>fecha_inicio: <%= contrato.fecha_inicio %></p>
+      <p>fecha_vencimiento: <%= contrato.fecha_vencimiento %></p>
+    </div>
+  </body>
+</html>

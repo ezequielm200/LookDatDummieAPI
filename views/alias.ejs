@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    
+        <% for( let i = 0; i < alias.length; i++ ) { %>
+        <div class="clienteCard">
+            <h3>ID <%= alias[i].id %>: <%= alias[i].alias_label %> / <%= alias[i].id_cliente %></h3><br>
+        </div>
+        <% } %>
+      
+    
+  </body>
+</html>

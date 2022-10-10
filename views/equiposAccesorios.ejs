@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <% for( let i = 0; i < equiposAccesorios.length; i++ ) { %>
+      <div class="clienteCard">
+      <p>Serie Accesorio: <%= equiposAccesorios[i].serie_accesorio %></p>
+
+      
+      <p>nro_pedido_instalacion: <%= equiposAccesorios[i].nro_pedido_instalacion %></p>
+      <p>id_accesorio: <%= equiposAccesorios[i].Accesorio.id_accesorio %></p>
+
+      <p>modelo: <%= equiposAccesorios[i].Accesorio.ModeloAccesorio.modelo %></p>
+      <p>descripcion: <%= equiposAccesorios[i].Accesorio.ModeloAccesorio.descripcion %></p>
+      
+      <p>tipo_accesorio: <%= equiposAccesorios[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></p>
+      <p>marca: <%= equiposAccesorios[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %></p>
+      <p>Propietario: <%= equiposAccesorios[i].Accesorio.EquiposPropietarios.propietario_label %></p>
+           
+      <br>
+    </div>
+    <% } %>
+  </body>
+</html>

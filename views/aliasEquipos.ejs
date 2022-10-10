@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <% for( let i = 0; i < aliasEquipos.length; i++ ) { %>
+      <div class="clienteCard">
+        
+     <a href="/vistas/equipos/<%= aliasEquipos[i].serie_cliente %>"><%= aliasEquipos[i].serie_cliente %></a>
+      <br>
+    </div>
+    <% } %>
+   
+  </body>
+</html>

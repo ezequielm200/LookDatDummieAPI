@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>serie: <%= equipo.serie %> </p>
+    <p>modelo: <%= equipo.ModeloEquipo.modelo %> </p>
+    <p>marca: <%= equipo.ModeloEquipo.ModeloMarca.marca_label %> </p>
+    <p># estado: <%= equipo.DetalleEquipo.estado %> </p>
+    <p>version: <%= equipo.DetalleEquipo.version %> </p>
+
+    <p>contrato_id: <%= equipo.DetalleEquipo.contrato_id %> </p>
+    <p>* Alias: <%= equipo.DetalleEquipo.AliasCliente.alias_label %> </p>
+    
+    <p>direccion: <%= equipo.DetalleEquipo.direccion %> </p>
+    <p>ubicacion: <%= equipo.DetalleEquipo.ubicacion %> </p>
+    <p>* localidad: <%= equipo.DetalleEquipo.LocalidadEquipo.localidad_label %> </p>
+    <p>* provincia: <%= equipo.DetalleEquipo.ProvinciaEquipo.provincia_label %> </p>
+    <p>* pais: <%= equipo.DetalleEquipo.PaisEquipo.nombre_pais %> </p>
+    <p>cp: <%= equipo.DetalleEquipo.cp %> </p>
+    <p># zona: <%= equipo.DetalleEquipo.zona %> </p>
+    <p>* propiedad: <%= equipo.EquiposPropietarios.propietario_label %> </p>
+
+    <p>* tecnico: <%= equipo.DetalleEquipo.Tecnico.User_Nombre %> </p>
+    <p># contacto: <%= equipo.DetalleEquipo.contacto %> </p>
+
+    <p>* estado_equipo: <%= equipo.EquipoEstado.estado_equipo_label %> </p>
+    
+    <p># tipo_toma: <%= equipo.DetalleEquipo.tipo_toma %> </p>
+    <p>dia_contador: <%= equipo.DetalleEquipo.dia_contador %> </p>
+    
+    
+    <p>nro_pedido_instalacion: <%= equipo.DetalleEquipo.nro_pedido_instalacion %> </p>
+
+    
+    <p>* Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label %> </p>
+    <p>** Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %></p>
+      
+
+    <br>
+    <p><strong>Tipo Contadores:</strong> Este valor se usa para condicionar los inputs en los
+      form de carga de contadores segun el equipo y el tipo de contadores. </p>
+    
+    
+
+    
+
+  </body>
+</html>

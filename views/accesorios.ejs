@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Vista de  <%= title %></p>
+    <div class="container">
+    <% for( let i = 0; i < accesorios.length; i++ ) { %>
+      <div class="clienteCard">
+      <h3>serie_accesorio = <%= accesorios[i].serie_accesorio%></h3>
+      <p> estado_accesorio = <%= accesorios[i].estado_accesorio%> </p>
+      <p> modelo =  <%= accesorios[i].modelo%> </p>
+      <br>
+    </div>
+    <% } %>
+  </div>
+  </body>
+</html>

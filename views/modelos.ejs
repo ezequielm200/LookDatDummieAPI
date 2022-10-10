@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    
+        <% for( let i = 0; i < modelos.length; i++ ) { %>
+            <div class="clienteCard"> 
+
+          <h3>ID: <%= modelos[i].id %></h3>
+          <p>modelo: <%= modelos[i].modelo %></p>
+          <p>sku: <%= modelos[i].sku %></p>
+          <p>marca: <%= modelos[i].marca %></p>
+          <p>marca: <%= modelos[i].marca_label %></p>
+        </div>
+          <% } %>
+
+      
+      
+    
+  </body>
+</html>

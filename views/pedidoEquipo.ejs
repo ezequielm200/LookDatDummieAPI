@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Vista de  <%= title %> </p>
+    <div class="container" style="width: 900px;">
+        <% for( let i = 0; i < pedidoEquipo.length; i++ ) { %>
+            <div class="clienteCard">
+            <h3>nro_pedido = <%= pedidoEquipo[i].nro_pedido%></h3>
+            <p> id_cliente = <a href="/vistas/clientes/<%= pedidoEquipo[i].id_cliente%>"></a><%= pedidoEquipo[i].id_cliente%></a> </p>
+            <p> id_contrato = <%= pedidoEquipo[i].id_contrato%> </p>
+            <p> serie =  <%= pedidoEquipo[i].serie%> </p>
+            <p> <!-- %= pedidoEquipo[i].PedidoTipo.tipo_pedido_nombre % --> </p>
+            <p> estado =  <%= pedidoEquipo[i].PedidoEstado.estado_nombre %> </p>
+            <br>
+          </div>
+          <% } %>
+    </div>
+  </body>
+</html>

@@ -1,13 +1,9 @@
 module.exports = (sequelize, dataTypes) => {
   let alias = "Equipos";
   let cols = {
-    id: {
-      type: dataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     serie: {
       type: dataTypes.STRING(30),
+      primaryKey: true,
     },
     serie_tmp: {
       type: dataTypes.STRING(40),
@@ -30,46 +26,45 @@ module.exports = (sequelize, dataTypes) => {
     ingreso_stock: {
       type: dataTypes.DATE,
     },
-    fecha_baja: {
-      type: dataTypes.DATE,
-      allowNull: true,
+    estado_equipo: {
+      type: dataTypes.INTEGER,
     },
-  };
+    propiedad: {
+      type: dataTypes.INTEGER,
+  },
+};
   let config = {
-    tableName: "EQUIPO",
+    tableName: "Equipo",
     timestamps: false,
     // onDelete: "CASCADE",
   };
   const Equipo = sequelize.define(alias, cols, config);
-  // Product.associate = function (models) {
-  //   Product.belongsTo(models.Colores, {
-  //     as: "color",
-  //     foreignKey: "id_color"
-  //   });
-  //   Product.belongsTo(models.Talles, {
-  //     as: "talle",
-  //     foreignKey: "id_talle"
-  //   });
-  //   Product.belongsTo(models.Transacciones, {
-  //     as: "transaccion",
-  //     foreignKey: "id_transaccion"
-  //   });
-  //   Product.belongsTo(models.Users, {
-  //     as: "vendedor",
-  //     foreignKey: "id_vendedor"
-  //   });
-  //   Product.belongsToMany(models.Categorias, {
-  //     as: "categorias",
-  //     through: "Producto_Categoria",
-  //     foreignKey: "id_Producto",
-  //     otherKey: "id_Categoria",
-  //     timestamps: false
-  //   });
-  //   Product.hasMany(models.imagenProducto, {
-  //     as: "imagenes",
-  //     foreignKey: "id_Producto",
-  //     timestamps: false
-  //   });
-  // };
+  Equipo.associate = (models) => {
+    Equipo.belongsTo(models.ModeloEquipo, {
+      as: "ModeloEquipo",
+      foreignKey: "modelo",
+    });
+
+    Equipo.belongsTo(models.EquipoCliente, {
+      as: "DetalleEquipo",
+      foreignKey: "serie",
+    });
+
+    Equipo.belongsTo(models.EstadoEquipo, {
+      as: "EquipoEstado",
+      foreignKey: "estado_equipo",
+    });
+
+    Equipo.belongsTo(models.Propietarios, {
+      as: "EquiposPropietarios",
+      foreignKey: "propiedad",
+    });
+
+    Equipo.belongsTo(models.AccesorioCliente, {
+      as: "EquiposAccesorio",
+      foreignKey: "serie",
+    });
+
+  };
   return Equipo;
 };

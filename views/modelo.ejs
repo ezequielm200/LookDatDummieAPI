@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>id: <%= modelo.id %></p>
+    <p>SKU: <%= modelo.sku %></p>
+    <p>Modelo: <%= modelo.modelo %></p>
+    <p>* Marca: <%= modelo.ModeloMarca.marca_label %></p>
+    <p>* Tipo Equipo: <%= modelo.TipoEquipo.tipo_label %> (id: <%= modelo.tipo_equipo %>)</p>
+    <p>** Tipo Contadores: <%= modelo.TipoEquipo.TipoContadores.tipo_contadores_label %></p>
+    <br>
+    <p><strong>Tipo Contadores:</strong> Este valor se usa para condicionar los inputs en los
+      form de carga de contadores segun el equipo y el tipo de contadores. </p>
+    
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p><%= title %></p>
+    <% for( let i = 0; i < estadosPedido.length; i++ ) { %>
+        
+        <h3><a href="/vistas/pedidoEstado/<%= estadosPedido[i].estado %>"><%= estadosPedido[i].estado_nombre %></a></h3>
+        
+     
+      <% } %>
+  </body>
+</html>

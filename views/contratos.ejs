@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Vista de  <%= title %></p>
+    <div class="container">
+    <% for( let i = 0; i < contratos.length; i++ ) { %>
+      <div class="clienteCard">
+      
+      <p> id_contrato = <a href="/vistas/contrato/<%= contratos[i].id_contrato%>"><%= contratos[i].id_contrato%></a> </p>
+      <p> * tipo = (<%= contratos[i].TipoContrato.tipo_contrato_sigla %>) <%= contratos[i].TipoContrato.tipo_contrato_label %> </p>
+      <br>
+    </div>
+    <% } %>
+  </div>
+  </body>
+</html>
