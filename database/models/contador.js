@@ -67,35 +67,5 @@ module.exports = (sequelize, dataTypes) => {
     // onDelete: "CASCADE",
   };
   const Contador = sequelize.define(alias, cols, config);
-  // Product.associate = function (models) {
-  //   Product.belongsTo(models.Colores, {
-  //     as: "color",
-  //     foreignKey: "id_color"
-  //   });
-  //   Product.belongsTo(models.Talles, {
-  //     as: "talle",
-  //     foreignKey: "id_talle"
-  //   });
-  //   Product.belongsTo(models.Transacciones, {
-  //     as: "transaccion",
-  //     foreignKey: "id_transaccion"
-  //   });
-  //   Product.belongsTo(models.Users, {
-  //     as: "vendedor",
-  //     foreignKey: "id_vendedor"
-  //   });
-  //   Product.belongsToMany(models.Categorias, {
-  //     as: "categorias",
-  //     through: "Producto_Categoria",
-  //     foreignKey: "id_Producto",
-  //     otherKey: "id_Categoria",
-  //     timestamps: false
-  //   });
-  //   Product.hasMany(models.imagenProducto, {
-  //     as: "imagenes",
-  //     foreignKey: "id_Producto",
-  //     timestamps: false
-  //   });
-  // };
   return Contador;
 };

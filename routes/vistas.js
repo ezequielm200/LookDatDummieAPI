@@ -33,10 +33,4 @@ router.get("/accesorio/:serie_accesorio", vistaController.accesorio);
 router.get("/equipo_accesorio/:serie", vistaController.equiposAccesorios);
 
 
-
-
-
-
-
-
 module.exports = router;
