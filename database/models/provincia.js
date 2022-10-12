@@ -19,7 +19,7 @@ module.exports = (sequelize, dataTypes) => {
   };
   const Provincia = sequelize.define(alias, cols, config);
   Provincia.associate =  (models) => {
-    Provincia.hasMany(models.Clientes, {
+    Provincia.hasMany(models.Domicilio, {
       as: "provincias",
       foreignKey: "Provincia_id",
     });

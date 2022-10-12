@@ -13,21 +13,30 @@
       <p>Empresa: <%= cliente.Nombre_Empresa %></p>
       <p>CUIT: <%= cliente.cuit %></p>
       <p>* Actividad: <%= cliente.actividadCliente.actividad_label %></p>
-      <p>Teléfono: <%= cliente.Telefono%></p>
       <p>Mail: <%= cliente.Mail%></p>
-      <p>Domicilio: <%= cliente.Domicilio%></p>
-      <p>CP: <%= cliente.CP%></p>
-      <p>* Localidad: <%= cliente.Localidad.localidad_label%></p>
-      <p>* Provincia: <%= cliente.Provincia.provincia_label%></p>
-      <p>* País: <%= cliente.pais.nombre_pais%></p>
-      <p>* Cod. País: <%= cliente.pais.codigo_pais%></p>
+
+    
+      <p>** Teléfono: <%= cliente.DomicilioCliente.Telefono%></p>
+      <p>** Domicilio: <%= cliente.DomicilioCliente.Domicilio%></p>
+      <p>** CP: <%= cliente.DomicilioCliente.CP%></p>
+      <p>** Piso: <%= cliente.DomicilioCliente.Piso%></p>
+      <p>** Oficina: <%= cliente.DomicilioCliente.Oficina%></p>
+
+      <p>** Localidad: <%= cliente.DomicilioCliente.Localidad.localidad_label%></p>
+      <p>** Provincia: <%= cliente.DomicilioCliente.Provincia.provincia_label%></p>
+      <p>** País: <%= cliente.DomicilioCliente.pais.nombre_pais%></p>
+      <p>** Cod. País: <%= cliente.DomicilioCliente.pais.codigo_pais%></p>
+      
+
+      
       <p>* Ejecutivo: <%= cliente.ejecutivo.User_Nombre%></p>
-      <p>Piso: <%= cliente.Piso%></p>
-      <p>Oficina: <%= cliente.Oficina%></p>
+      
       <p>WEB: <a href="http://<%= cliente.Web%>" target="_blank" rel="noopener noreferrer"><%= cliente.Web%></a></p>
       <p>* Modalidad de pago: <%= cliente.pagoModalidad.Modalidad_label%></p>
       <p>* Estado: <%= cliente.estadoCliente.estado_cliente_label %></p>      
       <p>* Estadío: <%= cliente.estadioCliente.estadio_cliente_label %></p>
+
+      <p>Domicilio: <%= cliente.id_domicilio%></p>
     </div>
   </body>
 </html>

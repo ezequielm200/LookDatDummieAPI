@@ -108,11 +108,19 @@ const vistaController = {
   },
   cliente: (req, res) => {
     db.Clientes.findOne({
-      where: { id: req.params.id },
+      where: { id_cliente: req.params.id_cliente },
       include: [
-        { association: "pais" },
-        { association: "Localidad" },
-        { association: "Provincia" },
+        { association: "DomicilioCliente",
+          include: [
+            { association: "pais" },
+            { association: "Localidad" },
+            { association: "Provincia" },     
+          ]
+        },
+        //{ association: "DomicilioCliente" },
+        //{ association: "pais" },
+        //{ association: "Localidad" },
+        //{ association: "Provincia" },
         { association: "ejecutivo" },
         { association: "estadoCliente" },
         { association: "estadioCliente" },

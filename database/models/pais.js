@@ -22,7 +22,7 @@ module.exports = (sequelize, dataTypes) => {
   };
   const Pais = sequelize.define(alias, cols, config);
   Pais.associate =  (models) => {
-    Pais.hasMany(models.Clientes, {
+    Pais.hasMany(models.Domicilio, {
       as: "pais",
       foreignKey: "Pais_id",
     });

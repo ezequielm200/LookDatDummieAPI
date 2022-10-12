@@ -7,7 +7,7 @@ router.get("/equipos", vistaController.equipos);
 router.get("/equipos/:serie", vistaController.equipo);
 
 router.get("/clientes", vistaController.clientes);
-router.get("/clientes/:id", vistaController.cliente);
+router.get("/clientes/:id_cliente", vistaController.cliente);
 
 router.get("/modelos", vistaController.modelos);
 router.get("/modelos/:id", vistaController.modelo);

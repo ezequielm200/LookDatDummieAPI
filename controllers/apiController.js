@@ -134,13 +134,13 @@ const apiController = {
   },
   cliente: (req, res) => {
     db.Clientes.findOne({
-      where: { id: req.params.id },
+      where: { id_cliente: req.params.id_cliente },
       include: [{ association: "pais" }],
     }).then((cliente) => {
       res.status(200).json({
         status: 200,
         message: "Detalle de cliente encontrado",
-        url: "api/clientes/:id",
+        url: "api/clientes/:id_cliente",
         cliente: cliente,
       });
     });

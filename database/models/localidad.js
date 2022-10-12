@@ -22,7 +22,7 @@ module.exports = (sequelize, dataTypes) => {
   };
   const Localidad = sequelize.define(alias, cols, config);
   Localidad.associate =  (models) => {
-    Localidad.hasMany(models.Clientes, {
+    Localidad.hasMany(models.Domicilio, {
       as: "Localidad",
       foreignKey: "Localidad_id",
     });
