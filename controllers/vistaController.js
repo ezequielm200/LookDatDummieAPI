@@ -363,24 +363,42 @@ const vistaController = {
   //     });
   //   });
   // },
-  rejunte: (req, res) => {
-    let clientes = db.Clientes.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [sequelize.col("ID")],
-    });
-    console.log(clientes)
-    let accesorios = db.Accesorios.findAll({
+
+  // metodo con .then(function)
+  // rejunte: (req, res) => {
+  //   let clientes = db.Clientes.findAll({
+  //     attributes: { exclude: ["createdAt", "updatedAt"] },
+  //     order: [sequelize.col("ID")],
+  //   });
+  //   let accesorios = db.Accesorios.findAll({
+  //     attributes: { exclude: ["createdAt", "updatedAt"] },
+  //     order: [sequelize.col("ID")],
+  //   });
+
+  //   Promise.all([clientes, accesorios]).then(function ([clientes, accesorios]) {
+  //     let todo = {
+  //       clientes: clientes,
+  //       accesorios: accesorios,
+  //     };
+  //     res.send(todo);
+  //   });
+  // },
+  rejunte: async (req, res) => {
+    let clientes = await db.Clientes.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("ID")],
     });
 
-    Promise.all([clientes, accesorios]).then(function ([clientes, accesorios]) {
-      let todo = {
-        clientes: clientes,
-        accesorios: accesorios,
-      };
-      res.send(todo);
+    let accesorios = await db.Accesorios.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("ID")],
     });
+
+    let todo = {
+      clientes: clientes,
+      accesorios: accesorios,
+    };
+    res.send(todo);
   },
 };
 module.exports = vistaController;
