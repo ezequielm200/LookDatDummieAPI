@@ -1,18 +1,18 @@
-const db = require('../database/models');
+const db = require("../database/models");
 const sequelize = require("sequelize");
 
 const vistaController = {
   index: (req, res) => {
-    res.render('vistas', { title: 'Vistas'})
+    res.render("vistas", { title: "Vistas" });
   },
 
-// Equipos
+  // Equipos
   modelos: (req, res) => {
     db.ModeloEquipo.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('modelo')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("modelo")],
     }).then((modelos) => {
-      res.render('modelos', { title: 'Modelos encontrados',modelos: modelos })
+      res.render("modelos", { title: "Modelos encontrados", modelos: modelos });
     });
   },
 
@@ -20,18 +20,19 @@ const vistaController = {
     db.ModeloEquipo.findOne({
       where: { id: req.params.id },
       include: [
-        { association: "ModeloMarca"},
+        { association: "ModeloMarca" },
         //{ association: "TipoEquipo"},
 
-        { association: "TipoEquipo",
-        include: [
-          { association: "TipoContadores"},
-          
-        ]
-       },
+        {
+          association: "TipoEquipo",
+          include: [{ association: "TipoContadores" }],
+        },
       ],
     }).then((modelo) => {
-      res.render('modelo', { title: 'Detalle de equipo encontrado.',modelo: modelo })
+      res.render("modelo", {
+        title: "Detalle de equipo encontrado.",
+        modelo: modelo,
+      });
     });
   },
 
@@ -39,7 +40,10 @@ const vistaController = {
     db.Alias.findAll({
       where: { id_cliente: req.params.id_cliente },
     }).then((alias) => {
-      res.render('alias', { title: 'Detalle de equipo con alias encontrado',alias: alias })
+      res.render("alias", {
+        title: "Detalle de equipo con alias encontrado",
+        alias: alias,
+      });
     });
   },
 
@@ -47,75 +51,84 @@ const vistaController = {
     db.EquipoCliente.findAll({
       where: { alias: req.params.id_alias },
       //attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('serie_cliente')],
+      order: [sequelize.col("serie_cliente")],
     }).then((aliasEquipos) => {
-      res.render('aliasEquipos', { title: 'Equipos x Alias',aliasEquipos: aliasEquipos })
+      res.render("aliasEquipos", {
+        title: "Equipos x Alias",
+        aliasEquipos: aliasEquipos,
+      });
     });
   },
 
-
-
   equipos: (req, res) => {
     db.Equipos.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('serie')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("serie")],
     }).then((equipos) => {
-      res.render('equipos', { title: 'Equipos encontrados',equipos: equipos })
+      res.render("equipos", { title: "Equipos encontrados", equipos: equipos });
     });
   },
 
   equipo: (req, res) => {
     db.Equipos.findOne({
       where: { serie: req.params.serie },
-      include: [        
-        { association: "EquipoEstado"},
-        { association: "EquiposPropietarios"},
-        { association: "DetalleEquipo",
+      include: [
+        { association: "EquipoEstado" },
+        { association: "EquiposPropietarios" },
+        {
+          association: "DetalleEquipo",
           include: [
-            { association: "AliasCliente"},
-            { association: "PaisEquipo"},
-            { association: "LocalidadEquipo"},
-            { association: "ProvinciaEquipo"},
-            { association: "Tecnico"},
-          ]
-        },        
-        { association: "ModeloEquipo",
-          include: [
-            { association: "ModeloMarca"},
-            { association: "TipoEquipo",
-              include: [
-                { association: "TipoContadores"},
-              ]
-            },
-          ]
+            { association: "AliasCliente" },
+            { association: "PaisEquipo" },
+            { association: "LocalidadEquipo" },
+            { association: "ProvinciaEquipo" },
+            { association: "Tecnico" },
+          ],
         },
-        { association: "EquiposAccesorio"},
+        {
+          association: "ModeloEquipo",
+          include: [
+            { association: "ModeloMarca" },
+            {
+              association: "TipoEquipo",
+              include: [{ association: "TipoContadores" }],
+            },
+          ],
+        },
+        { association: "EquiposAccesorio" },
       ],
     }).then((equipo) => {
-      res.render('equipo', { title: 'Detalle de equipo encontrado',equipo: equipo })
+      res.render("equipo", {
+        title: "Detalle de equipo encontrado",
+        equipo: equipo,
+      });
     });
   },
-// Fin Equipos
+  // Fin Equipos
 
-// Clientes
+  // Clientes
   clientes: (req, res) => {
     db.Clientes.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('ID')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("ID")],
     }).then((clientes) => {
-      res.render('clientes', { title: 'Clientes encontrados', clientes: clientes });
+      res.render("clientes", {
+        title: "Clientes encontrados",
+        clientes: clientes,
+      });
     });
   },
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id_cliente: req.params.id_cliente },
       include: [
-        { association: "DomicilioCliente",
+        {
+          association: "DomicilioCliente",
           include: [
             { association: "pais" },
             { association: "Localidad" },
-            { association: "Provincia" },     
-          ]
+            { association: "Provincia" },
+          ],
         },
         //{ association: "DomicilioCliente" },
         //{ association: "pais" },
@@ -128,23 +141,24 @@ const vistaController = {
         { association: "pagoModalidad" },
       ],
     }).then((cliente) => {
-      res.render('cliente', { title: 'Detalle de cliente', cliente: cliente });
+      res.render("cliente", { title: "Detalle de cliente", cliente: cliente });
     });
-    console.log(this.cliente)
+    console.log(this.cliente);
   },
-// Fin Clientes
+  // Fin Clientes
 
-// Contratos
+  // Contratos
   contratos: (req, res) => {
     db.Contratos.findAll({
       where: { cliente_id: req.params.cliente_id },
-      include: [
-        { association: "TipoContrato" },
-      ],
+      include: [{ association: "TipoContrato" }],
     }).then((contratos) => {
-      res.render('contratos', { title: 'Detalle de contratos', contratos: contratos });
+      res.render("contratos", {
+        title: "Detalle de contratos",
+        contratos: contratos,
+      });
     });
-    console.log(this.contratos)
+    console.log(this.contratos);
   },
   contrato: (req, res) => {
     db.Contratos.findOne({
@@ -155,99 +169,115 @@ const vistaController = {
         { association: "ContratoEstado" },
       ],
     }).then((contrato) => {
-      res.render('contrato', { title: 'Detalle de contrato', contrato: contrato });
+      res.render("contrato", {
+        title: "Detalle de contrato",
+        contrato: contrato,
+      });
     });
-    console.log(this.contrato)
+    console.log(this.contrato);
   },
-// Fin Contratos
+  // Fin Contratos
 
-// Pedidos
+  // Pedidos
   pedidoContrato: (req, res) => {
     db.Pedido.findAll({
       where: { id_contrato: req.params.id_contrato },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
     }).then((pedidoContrato) => {
-      res.render('pedidoContrato', { title: 'Pedidos por Contrato',pedidoContrato: pedidoContrato })
+      res.render("pedidoContrato", {
+        title: "Pedidos por Contrato",
+        pedidoContrato: pedidoContrato,
+      });
     });
   },
 
   pedidoCliente: (req, res) => {
     db.Pedido.findAll({
       where: { id_cliente: req.params.id_cliente },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
     }).then((pedidoCliente) => {
-      res.render('pedidoCliente', { title: 'Pedidos por Cliente',pedidoCliente: pedidoCliente })
+      res.render("pedidoCliente", {
+        title: "Pedidos por Cliente",
+        pedidoCliente: pedidoCliente,
+      });
     });
   },
-
 
   pedidoEquipo: (req, res) => {
     db.Pedido.findAll({
       where: { serie: req.params.serie },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
-      include: [
-        { association: "PedidoEstado" },
-      ],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
+      include: [{ association: "PedidoEstado" }],
     }).then((pedidoEquipo) => {
-      res.render('pedidoEquipo', { title: 'Pedidos por Equipo',pedidoEquipo: pedidoEquipo })
+      res.render("pedidoEquipo", {
+        title: "Pedidos por Equipo",
+        pedidoEquipo: pedidoEquipo,
+      });
     });
   },
 
   pedidos: (req, res) => {
     db.Pedido.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
     }).then((pedidos) => {
-      res.render('pedidos', { title: 'Pedidos encontrados',pedidos: pedidos })
+      res.render("pedidos", { title: "Pedidos encontrados", pedidos: pedidos });
     });
   },
 
   pedidoNro: (req, res) => {
     db.Pedido.findOne({
       where: { nro_pedido: req.params.nro_pedido },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
     }).then((pedidoNro) => {
-      res.render('pedidoNro', { title: 'Pedidos por Nro de Pedido',pedidoNro: pedidoNro })
+      res.render("pedidoNro", {
+        title: "Pedidos por Nro de Pedido",
+        pedidoNro: pedidoNro,
+      });
     });
   },
 
   pedidoEstado: (req, res) => {
     db.Pedido.findAll({
       where: { estado: req.params.estado },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('nro_pedido')],
-      include: [
-        { association: "PedidoEstado" },
-      ],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
+      include: [{ association: "PedidoEstado" }],
     }).then((pedidoEstado) => {
-      res.render('pedidoEstado', { title: 'Pedidos por estado',pedidoEstado: pedidoEstado })
+      res.render("pedidoEstado", {
+        title: "Pedidos por estado",
+        pedidoEstado: pedidoEstado,
+      });
     });
   },
 
-
   estadosPedido: (req, res) => {
     db.PedidoEstado.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('estado')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("estado")],
     }).then((estadosPedido) => {
-      res.render('estadosPedido', { title: 'Listado de Estados de Pedidos',estadosPedido: estadosPedido })
+      res.render("estadosPedido", {
+        title: "Listado de Estados de Pedidos",
+        estadosPedido: estadosPedido,
+      });
     });
   },
   // Fin Pedidos
 
-  
-
   //Accesorios
   accesorios: (req, res) => {
     db.Accesorios.findAll({
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      order: [sequelize.col('ID')],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("ID")],
     }).then((accesorios) => {
-      res.render('accesorios', { title: 'Accesorios encontrados', accesorios: accesorios });
+      res.render("accesorios", {
+        title: "Accesorios encontrados",
+        accesorios: accesorios,
+      });
     });
   },
   accesorio: (req, res) => {
@@ -255,42 +285,46 @@ const vistaController = {
       where: { serie_accesorio: req.params.serie_accesorio },
       include: [
         { association: "EquiposPropietarios" },
-        { association: "ModeloAccesorio",
+        {
+          association: "ModeloAccesorio",
           include: [
-            { association: "ModeloMarcaAccesorio"},
-            { association: "TipoAccesorio"},     
-          ]
+            { association: "ModeloMarcaAccesorio" },
+            { association: "TipoAccesorio" },
+          ],
         },
       ],
     }).then((accesorio) => {
-      res.render('accesorio', { title: 'Detalle de accesorio', accesorio: accesorio });
+      res.render("accesorio", {
+        title: "Detalle de accesorio",
+        accesorio: accesorio,
+      });
     });
-    console.log(this.cliente)
+    console.log(this.cliente);
   },
-
 
   equiposAccesorios: (req, res) => {
     db.AccesorioCliente.findAll({
       where: { serie_equipo: req.params.serie },
-      include: 
-      [
-        { association: "Accesorio",
-          include: 
-          [
-            { association: "EquiposPropietarios"},
-            { association: "ModeloAccesorio",
-              include: 
-              [
-                { association: "ModeloMarcaAccesorio"},
-                { association: "TipoAccesorio"},     
-              ]
+      include: [
+        {
+          association: "Accesorio",
+          include: [
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
             },
-          ]
+          ],
         },
-      ]
-      
+      ],
     }).then((equiposAccesorios) => {
-      res.render('equiposAccesorios', { title: 'Accesorios de equipos encontrados', equiposAccesorios: equiposAccesorios });
+      res.render("equiposAccesorios", {
+        title: "Accesorios de equipos encontrados",
+        equiposAccesorios: equiposAccesorios,
+      });
     });
   },
   //Fin Accesorios
@@ -299,17 +333,55 @@ const vistaController = {
     db.Contadores.findOne({
       where: {
         serie: req.params.serie,
-        estado: 1 },
+        estado: 1,
+      },
     }).then((equipo) => {
       res.status(200).json({
         status: 200,
         message: "Contador Actual",
         url: "api/contador/:serie",
         contadorActual: equipo,
-        Acumulado_BYN : equipo.ContAct_BYN - equipo.ContAnt_BYN
+        Acumulado_BYN: equipo.ContAct_BYN - equipo.ContAnt_BYN,
       });
     });
   },
-};
+  //prueba eze
+  // rejunte: (req, res) => {
+  //   db.Clientes.findAll({
+  //     attributes: { exclude: ["createdAt", "updatedAt"] },
+  //     order: [sequelize.col("ID")],
+  //   }).then((clientes) => {
+  //     db.Accesorios.findAll({
+  //       attributes: { exclude: ["createdAt", "updatedAt"] },
+  //       order: [sequelize.col("ID")],
+  //     }).then((accesorios) => {
+  //       let todo = {
+  //         clientes: clientes,
+  //         accesorios: accesorios,
+  //       };
+  //       res.send(todo);
+  //     });
+  //   });
+  // },
+  rejunte: (req, res) => {
+    let clientes = db.Clientes.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("ID")],
+    });
+    let accesorios = db.Accesorios.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("ID")],
+    });
 
+
+    Promise.all([clientes, accesorios]).then(function ([clientes, accesorios]) {
+      let todo = {
+        clientes: clientes,
+        accesorios: accesorios,
+        pedidos: pedidos
+      };
+      res.send(todo);
+    });
+  },
+};
 module.exports = vistaController;

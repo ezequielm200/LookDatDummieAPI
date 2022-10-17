@@ -31,6 +31,6 @@ router.get("/estados_pedido", vistaController.estadosPedido);
 router.get("/accesorios", vistaController.accesorios);
 router.get("/accesorio/:serie_accesorio", vistaController.accesorio);
 router.get("/equipo_accesorio/:serie", vistaController.equiposAccesorios);
-
+router.get("/rejunte", vistaController.rejunte);
 
 module.exports = router;
