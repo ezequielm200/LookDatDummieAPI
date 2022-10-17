@@ -368,17 +368,16 @@ const vistaController = {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("ID")],
     });
+    console.log(clientes)
     let accesorios = db.Accesorios.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("ID")],
     });
 
-
     Promise.all([clientes, accesorios]).then(function ([clientes, accesorios]) {
       let todo = {
         clientes: clientes,
         accesorios: accesorios,
-        pedidos: pedidos
       };
       res.send(todo);
     });
