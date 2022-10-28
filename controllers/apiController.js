@@ -1,5 +1,6 @@
 const db = require("../database/models");
 const sequelize = require("sequelize");
+const fetch = require("node-fetch");
 
 const apiController = {
   index: (req, res) => {
@@ -175,6 +176,13 @@ const apiController = {
         data
       })
     });
+  },
+  test2: async (req, res) => {
+    const response = await fetch("http://localhost:3050/api/modelos");
+    const modelosEncontrados = await response.json();
+    const response2 = await fetch("http://localhost:3050/api/equipos");
+    const equiposEncontrados = await response2.json();
+    res.status(200).json({equiposEncontrados,modelosEncontrados});
   },
 };
 

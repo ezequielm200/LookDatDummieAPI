@@ -9,6 +9,7 @@ router.get("/clientes", apiController.clientes);
 router.get("/clientes/:id", apiController.cliente);
 router.get("/contador/:serie", apiController.contadorActual);
 router.get("/test", apiController.test);
+router.get("/test2", apiController.test2);
 router.get("/modelos", apiController.modelos);
 
 router.get("/contrato/:id_contrato", apiController.contrato);
