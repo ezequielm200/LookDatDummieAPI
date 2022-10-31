@@ -63,12 +63,29 @@ const apiController = {
     db.Equipos.findOne({
       where: { serie: req.params.serie },
       include: [
-        { association: "ModeloEquipo" },
-        { association: "ModeloMarca" },
-        { association: "DetalleEquipo" },
         { association: "EquipoEstado" },
-        { association: "AliasCliente" },
-        { association: "EquiposPropietarios" },           
+        { association: "EquiposPropietarios" },
+        {
+          association: "DetalleEquipo",
+          include: [
+            { association: "AliasCliente" },
+            { association: "PaisEquipo" },
+            { association: "LocalidadEquipo" },
+            { association: "ProvinciaEquipo" },
+            { association: "Tecnico" },
+          ],
+        },
+        {
+          association: "ModeloEquipo",
+          include: [
+            { association: "ModeloMarca" },
+            {
+              association: "TipoEquipo",
+              include: [{ association: "TipoContadores" }],
+            },
+          ],
+        },
+      //  { association: "EquiposAccesorio" },
       ],
     }).then((equipo) => {
       res.status(200).json({
@@ -80,6 +97,34 @@ const apiController = {
     });
   },
 
+  equiposAccesorios: (req, res) => {
+    db.AccesorioCliente.findAll({
+      where: { serie_equipo: req.params.serie },
+      include: [
+        {
+          association: "Accesorio",
+          include: [
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+    .then((equiposAccesorios) => {
+      res.status(200).json({
+        status: 200,
+        message: "Accesorios de equipos encontrados",
+        url: "api/equipo_accesorio/:serie",
+        equiposAccesorios: equiposAccesorios,
+      });
+    });
+  },
   
   contrato: (req, res) => {
     db.Contratos.findAll({
@@ -177,12 +222,13 @@ const apiController = {
       })
     });
   },
-  test2: async (req, res) => {
-    const response = await fetch("http://localhost:3050/api/modelos");
-    const modelosEncontrados = await response.json();
-    const response2 = await fetch("http://localhost:3050/api/equipos");
-    const equiposEncontrados = await response2.json();
-    res.status(200).json({equiposEncontrados,modelosEncontrados});
+
+  localizador: async (req, res) => {
+    const responseEquipo = await fetch(`http://localhost:3050/api/equipos/${req.params.serie}`);    
+    const equipoEncontrado = await responseEquipo.json();
+    const responseAccesorio = await fetch(`http://localhost:3050/api/equipo_accesorio/${req.params.serie}`);
+    const accesoriosEncontrados = await responseAccesorio.json();
+    res.status(200).json({equipoEncontrado,accesoriosEncontrados});  
   },
 };
 

@@ -1,0 +1,311 @@
+<%- include partials/header.ejs %>
+<body>
+  
+  <main class="main" id="main">
+    <!-- container-fluid -->
+		<div class="container">
+      <!-- nav -->
+      <%- include partials/sidebar.ejs %>
+      <!-- fin nav -->
+
+      <div class="content">
+        <!-- header -->
+        <%- include partials/nav.ejs %>
+        <!-- fin header -->
+
+        <!-- contenido -->
+        <div class="mb-3 card">
+          <div class="position-relative card-body">
+            <div class="row">
+              <div class="col-lg-8">
+                <h3 class="mb-0"><%= title %></h3><br>
+              
+                <h5>Serie:<%= equipo.serie %> </h5>
+                <h6><%= equipo.ModeloEquipo.modelo %> / <%= equipo.ModeloEquipo.ModeloMarca.marca_label %></h6>
+                <p class="mt-2">
+                  Estado equipo: <%= equipo.EquipoEstado.estado_equipo_label %><br>
+                  Propiedad: <%= equipo.EquiposPropietarios.propietario_label %> <br>
+                  Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label %><br>
+                  Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %><br><br>
+                  
+                  
+                
+                estado: <%= equipo.DetalleEquipo.estado %><br>
+                version: <%= equipo.DetalleEquipo.version %><br>
+                falta semaforo<br>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="g-0 row">
+          <div class="pe-lg-2 col-lg-8">
+
+            <div id="cliente" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Cliente</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">Equipo Instalado en Cliente</h6>
+                #falta razon social<br><br>
+                
+                Alias: <%= equipo.DetalleEquipo.AliasCliente.alias_label %> <br>
+                
+                Direcci&oacute;n: <%= equipo.DetalleEquipo.direccion %> <br>
+                Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
+                Localidad: <%= equipo.DetalleEquipo.LocalidadEquipo.localidad_label %> <br>
+                Provincia: <%= equipo.DetalleEquipo.ProvinciaEquipo.provincia_label %> <br>
+                Pa&iacute;s: <%= equipo.DetalleEquipo.PaisEquipo.nombre_pais %> <br>
+                CP: <%= equipo.DetalleEquipo.cp %> <br>
+                Zona: <%= equipo.DetalleEquipo.zona %> <br>
+                
+
+                T&eacute;cnico: <%= equipo.DetalleEquipo.Tecnico.User_Nombre %> <br>
+                Contacto: <%= equipo.DetalleEquipo.contacto %> <br>
+
+                Tipo Toma: <%= equipo.DetalleEquipo.tipo_toma %> <br>
+                D&iacute;a contador: <%= equipo.DetalleEquipo.dia_contador %> <br>
+                
+                
+                Nro pedido instalaci&oacute;n: <%= equipo.DetalleEquipo.nro_pedido_instalacion %><br>
+                
+              </div>
+            </div>
+
+
+            <div id="contrato" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Contrato</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">Detalle del Contrato</h6>
+                Contrato: <%= equipo.DetalleEquipo.contrato_id %> <br>
+                
+              </div>
+            </div>
+
+            
+            <div id="accesorios" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Accesorios</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">Accesorios encontrados:</h6>
+
+                <% for( let i = 0; i < accesorios.length; i++ ) { %>
+                  
+                    <p>Serie Accesorio: <%= accesorios[i].serie_accesorio %></p>
+    
+                    <p>nro_pedido_instalacion: <%= accesorios[i].nro_pedido_instalacion %></p>
+                    <p>id_accesorio: <%= accesorios[i].Accesorio.id_accesorio %></p>
+  
+                    <p>modelo: <%= accesorios[i].Accesorio.ModeloAccesorio.modelo %></p>
+                    <p>descripcion: <%= accesorios[i].Accesorio.ModeloAccesorio.descripcion %></p>
+                      
+                    <p>tipo_accesorio: <%= accesorios[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></p>
+                    <p>marca: <%= accesorios[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %></p>
+                    <p>Propietario: <%= accesorios[i].Accesorio.EquiposPropietarios.propietario_label %></p>
+                          
+                    <br>
+                  
+                  <% } %>
+                
+              </div>
+            </div>
+
+
+            <div id="contadores" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Contadores</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">&Uacute;ltimo Contador</h6>
+
+                <!-- tabla contador actual -->
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Act_BYN</th>
+                        <th scope="col">Act_Col</th>
+                        <th scope="col">Act_Scan</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Contrato</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for( let i = 0; i < contadorActual.length; i++ ) { %>
+                        <tr>
+                          <td><%= contadorActual[i].ContAct_BYN %></td>
+                          <td><%= contadorActual[i].ContAct_Col %></td>
+                          <td><%= contadorActual[i].ContAct_Scan %></td>
+                          <td><%= contadorActual[i].fecha_full %></td>
+                          <td><%= contadorActual[i].contrato %></td>
+                        </tr>
+                        
+                      <% } %>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- fin tabla contador actual -->
+
+                
+                
+
+                <h6 class="text-primary">Contadores Anteriores</h6>
+                <!-- tabla contadores -->
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Act_BYN</th>
+                        <th scope="col">Act_Col</th>
+                        <th scope="col">Act_Scan</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Contrato</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for( let i = 0; i < contadores.length; i++ ) { %>
+                        <tr>
+                          <td><%= contadores[i].ContAct_BYN %></td>
+                          <td><%= contadores[i].ContAct_Col %></td>
+                          <td><%= contadores[i].ContAct_Scan %></td>
+                          <td><%= contadores[i].fecha_full %></td>
+                          <td><%= contadores[i].contrato %></td>
+                        </tr>
+                      <% } %>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- fin tabla contadores -->
+                
+              </div>
+            </div>
+
+
+            <div id="pedidos" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Pedidos</h5>
+              </div>
+              <div class="card-body">
+                
+                <% for( let i = 0; i < pedidos.length; i++ ) { %>
+                  
+                  <p>: <%= pedidos[i].id %> <%= pedidos[i].estado %> <%= pedidos[i].PedidoEstado.tipo_pedido_nombre %></p>
+  
+                
+                <% } %>
+                
+              </div>
+            </div>
+
+
+            <div id="laboratorio" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Laboratorio</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">No disponible</h6>
+                
+              </div>
+            </div>
+
+
+            <div id="insumos" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Insumos</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">No disponible</h6>
+                
+              </div>
+            </div>
+
+
+            <div id="repuestos" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Repuestos</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">No disponible</h6>
+                
+              </div>
+            </div>
+
+
+            <div id="precarga" class="mb-3 card">
+              <div class="bg-light card-header">
+                <h5 class="mb-0">Tarjetas Precarga</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="text-primary">No disponible</h6>
+                
+              </div>
+            </div>
+
+          </div>
+          
+
+          <div class="ps-lg-2 col-lg-4">
+            <div class="sticky-sidebar">
+              <div class="sticky-top card">
+                <div class="border-bottom card-header">
+                  <h6 class="mb-0 fs-0">Accesos</h6>
+                </div>
+                <div class="card-body">
+                  <div id="terms-sidebar" class="terms-sidebar nav flex-column fs--1">
+
+                    <div class="nav-item">
+                      <a href="#cliente" class="nav-link px-0 py-1 nav-link active">Cliente</a>
+                    </div>
+
+                    <div class="nav-item">
+                      <a href="#Contrato" class="nav-link px-0 py-1 nav-link">Contrato</a>
+                    </div>
+
+                    <div class="nav-item">
+                      <a href="#accesorios" class="nav-link px-0 py-1 nav-link">Accesorios</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#contadores" class="nav-link px-0 py-1 nav-link">Contadores</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#pedidos" class="nav-link px-0 py-1 nav-link">Pedidos</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#laboratorio" class="nav-link px-0 py-1 nav-link">Laboratorio</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#insumos" class="nav-link px-0 py-1 nav-link">Insumos</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#repuestos" class="nav-link px-0 py-1 nav-link">Repuestos</a>
+                    </div>
+                    <div class="nav-item">
+                      <a href="#precarga" class="nav-link px-0 py-1 nav-link">Tarjetas Precarga</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+        
+        <!-- fin contenido-->
+
+        <!-- footer -->
+        <%- include partials/footer.ejs %>
+        <!-- fin footer -->

@@ -6,6 +6,10 @@ const vistaController = {
     res.render("vistas", { title: "Vistas" });
   },
 
+  //dashboard: (req, res) => {
+  //  res.render("dashboard", { title: "Dashboard" });
+  //},
+
   // Equipos
   modelos: (req, res) => {
     db.ModeloEquipo.findAll({
@@ -383,22 +387,93 @@ const vistaController = {
   //     res.send(todo);
   //   });
   // },
-  rejunte: async (req, res) => {
-    let clientes = await db.Clientes.findAll({
+  localizador: async (req, res) => {
+    let equipo = await db.Equipos.findOne({
+      where: { serie: req.params.serie },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [sequelize.col("ID")],
+      order: [sequelize.col("serie_cliente")],
+      include: [
+        { association: "EquipoEstado" },
+        { association: "EquiposPropietarios" },
+        {
+          association: "DetalleEquipo",
+          include: [
+            { association: "AliasCliente" },
+            { association: "PaisEquipo" },
+            { association: "LocalidadEquipo" },
+            { association: "ProvinciaEquipo" },
+            { association: "Tecnico" },
+          ],
+        },
+        {
+          association: "ModeloEquipo",
+          include: [
+            { association: "ModeloMarca" },
+            {
+              association: "TipoEquipo",
+              include: [{ association: "TipoContadores" }],
+            },
+          ],
+        },
+      ],
     });
 
-    let accesorios = await db.Accesorios.findAll({
+    let accesorios = await db.AccesorioCliente.findAll({
+      where: { serie_equipo: req.params.serie },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [sequelize.col("ID")],
+        include: [
+        {
+          association: "Accesorio",
+          include: [
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
+            },
+          ],
+        },
+      ],
     });
 
-    let todo = {
-      clientes: clientes,
+    let pedidos = await db.Pedido.findAll({
+      where: { serie: req.params.serie },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
+      include: [{ association: "PedidoEstado" }],
+    });
+
+
+    let contadorActual = await db.Contadores.findOne({
+      where: { 
+        serie: req.params.serie,
+        estado: 1
+      },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+
+    let contadores = await db.Contadores.findAll({
+      where: { 
+        serie: req.params.serie
+      },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+
+    // let todo = {
+    //   equipo: equipo,
+    //   accesorios: accesorios,
+    // };
+    //res.send(todo);
+    res.render("Localizador", {
+      title: "Localizador de Equipos",
+      equipo: equipo,
       accesorios: accesorios,
-    };
-    res.send(todo);
+      pedidos: pedidos,
+      contadorActual: contadorActual,
+      contadores: contadores,
+    });    
   },
 };
 module.exports = vistaController;

@@ -3,6 +3,8 @@ const router = express.Router();
 const vistaController = require("../controllers/vistaController");
 
 router.get("/", vistaController.index);
+//router.get("/dashboard", vistaController.dashboard);
+
 router.get("/equipos", vistaController.equipos);
 router.get("/equipos/:serie", vistaController.equipo);
 
@@ -31,6 +33,10 @@ router.get("/estados_pedido", vistaController.estadosPedido);
 router.get("/accesorios", vistaController.accesorios);
 router.get("/accesorio/:serie_accesorio", vistaController.accesorio);
 router.get("/equipo_accesorio/:serie", vistaController.equiposAccesorios);
-router.get("/rejunte", vistaController.rejunte);
+//router.get("/localizador/:serie", vistaController.localizador);
+router.get("/localizador/:serie", vistaController.localizador);
+
+
+
 
 module.exports = router;
