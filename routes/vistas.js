@@ -34,7 +34,10 @@ router.get("/accesorios", vistaController.accesorios);
 router.get("/accesorio/:serie_accesorio", vistaController.accesorio);
 router.get("/equipo_accesorio/:serie", vistaController.equiposAccesorios);
 //router.get("/localizador/:serie", vistaController.localizador);
+router.get("/localizador", vistaController.localizador2);
 router.get("/localizador/:serie", vistaController.localizador);
+
+
 
 
 

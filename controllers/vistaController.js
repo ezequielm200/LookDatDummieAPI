@@ -387,6 +387,10 @@ const vistaController = {
   //     res.send(todo);
   //   });
   // },
+  localizador2: async (req, res) => {
+    res.redirect("/vistas/localizador/"+req.query.serie)
+  },
+
   localizador: async (req, res) => {
     let equipo = await db.Equipos.findOne({
       where: { serie: req.params.serie },
