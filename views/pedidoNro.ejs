@@ -1,21 +1,39 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <h3>nro_pedido = <%= pedidoNro.nro_pedido %></h3>
-    <p> id_cliente = <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %></a> </p>
-    <p> id_contrato = <%= pedidoNro.id_contrato %></p>
-    <p> estado =  <%= pedidoNro.estado %> </p>
-    <p> estado =  <%= pedidoNro.serie %> </p>
+<%- include partials/header.ejs %>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <main class="main" id="main">
+    <!-- container-fluid -->
+		<div class="container-fluid">
+      <!-- nav -->
+      <%- include partials/sidebar.ejs %>
+      <!-- fin nav -->
 
+      <div class="content">
+        <!-- header -->
+        <%- include partials/nav.ejs %>
+        <!-- fin header -->
 
-    
+        
 
-    
-    
-  </body>
-</html>
+        <!-- contenido -->
+        <div class="mb-3 card">
+          <div class="position-relative card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <h3 class="mb-0"><%= title %></h3><br>
+        
+                <h3>nro_pedido = <%= pedidoNro.nro_pedido %></h3>
+                <p> serie =  <%= pedidoNro.serie %> </p>
+                <p> id_cliente = <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %></a> </p>
+                <p> id_contrato = <%= pedidoNro.id_contrato %></p>
+                <p> estado =  <%= pedidoNro.estado %> </p>
+        
+              </div>
+            </div>  
+          </div>    
+        </div>    
+        <!-- fin contenido-->
+
+        <!-- footer -->
+        <%- include partials/footer.ejs %>
+        <!-- fin footer -->

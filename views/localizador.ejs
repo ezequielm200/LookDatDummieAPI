@@ -1,9 +1,9 @@
 <%- include partials/header.ejs %>
 <body>
-  
+  <noscript>You need to enable JavaScript to run this app.</noscript>
   <main class="main" id="main">
     <!-- container-fluid -->
-		<div class="container">
+		<div class="container-fluid">
       <!-- nav -->
       <%- include partials/sidebar.ejs %>
       <!-- fin nav -->
@@ -55,7 +55,7 @@
                 <h6 class="text-primary">Equipo Instalado en Cliente</h6>
                 #falta razon social<br><br>
                 
-                Alias: <%= equipo.DetalleEquipo.AliasCliente.alias_label %> <br>
+                Alias: <a href="/vistas/aliasEquipos/<%= equipo.DetalleEquipo.AliasCliente.alias %>"><%= equipo.DetalleEquipo.AliasCliente.alias_label %></a> <br>
                 
                 Direcci&oacute;n: <%= equipo.DetalleEquipo.direccion %> <br>
                 Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
@@ -100,19 +100,19 @@
 
                 <% for( let i = 0; i < accesorios.length; i++ ) { %>
                   
-                    <p>Serie Accesorio: <%= accesorios[i].serie_accesorio %></p>
+                    <p>Serie Accesorio: <%= accesorios[i].serie_accesorio %><br>
     
-                    <p>nro_pedido_instalacion: <%= accesorios[i].nro_pedido_instalacion %></p>
-                    <p>id_accesorio: <%= accesorios[i].Accesorio.id_accesorio %></p>
+                    nro_pedido_instalacion: <%= accesorios[i].nro_pedido_instalacion %><br>
+                    id_accesorio: <%= accesorios[i].Accesorio.id_accesorio %><br>
   
-                    <p>modelo: <%= accesorios[i].Accesorio.ModeloAccesorio.modelo %></p>
-                    <p>descripcion: <%= accesorios[i].Accesorio.ModeloAccesorio.descripcion %></p>
+                    modelo: <%= accesorios[i].Accesorio.ModeloAccesorio.modelo %><br>
+                    descripcion: <%= accesorios[i].Accesorio.ModeloAccesorio.descripcion %><br>
                       
-                    <p>tipo_accesorio: <%= accesorios[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></p>
-                    <p>marca: <%= accesorios[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %></p>
-                    <p>Propietario: <%= accesorios[i].Accesorio.EquiposPropietarios.propietario_label %></p>
+                    tipo_accesorio: <%= accesorios[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %><br>
+                    marca: <%= accesorios[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %><br>
+                    Propietario: <%= accesorios[i].Accesorio.EquiposPropietarios.propietario_label %><br></p>
                           
-                    <br>
+                    
                   
                   <% } %>
                 
@@ -197,13 +197,35 @@
                 <h5 class="mb-0">Pedidos</h5>
               </div>
               <div class="card-body">
+
+                <!-- tabla pedidos -->
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col"># Pedido</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Detalle</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for( let i = 0; i < pedidos.length; i++ ) { %>
+                        <tr>
+                          <td><%= pedidos[i].nro_pedido %></td>
+                          <td><%= pedidos[i].PedidoEstado.estado_nombre %></td>
+                          <td><%= pedidos[i].PedidoEstado.detalle_pedido %></td>
+                          <td><%= pedidos[i].fecha %></td>
+                        </tr>
+                        
+                      <% } %>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- fin pedidos -->
                 
-                <% for( let i = 0; i < pedidos.length; i++ ) { %>
-                  
-                  <p>: <%= pedidos[i].id %> <%= pedidos[i].estado %> <%= pedidos[i].PedidoEstado.tipo_pedido_nombre %></p>
-  
                 
-                <% } %>
                 
               </div>
             </div>
@@ -299,11 +321,6 @@
             </div>
           </div>
         </div>
-
-      </div>
-
-
-        
         <!-- fin contenido-->
 
         <!-- footer -->

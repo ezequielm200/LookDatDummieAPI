@@ -9,7 +9,7 @@ router.get("/equipo_accesorio/:serie", apiController.equiposAccesorios);
 router.get("/clientes", apiController.clientes);
 router.get("/clientes/:id", apiController.cliente);
 router.get("/contador/:serie", apiController.contadorActual);
-router.get("/test", apiController.test);
+//router.get("/test", apiController.test);
 router.get("/localizador/:serie", apiController.localizador);
 //router.get("/test2", apiController.test2);
 router.get("/modelos", apiController.modelos);

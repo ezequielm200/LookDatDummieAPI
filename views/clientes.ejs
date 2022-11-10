@@ -11,8 +11,9 @@
     <div class="container">
     <% for( let i = 0; i < clientes.length; i++ ) { %>
       <div class="clienteCard">
-      <h3>ID = <a href="/vistas/clientes/<%= clientes[i].id%>"><%= clientes[i].id%></a></h3>
-      <p> Nombre = <%= clientes[i].Nombre_Empresa%> </p>
+      <h3>ID = <%= clientes[i].id%></h3>
+      
+      <p> Nombre = <a href="/vistas/clientes/<%= clientes[i].id_cliente %>"><%= clientes[i].id_cliente %> - <%= clientes[i].Nombre_Empresa %> </a></p>
       <p> CUIT =  <%= clientes[i].cuit%> </p>
       <br>
     </div>

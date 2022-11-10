@@ -3,7 +3,10 @@ const router = express.Router();
 const vistaController = require("../controllers/vistaController");
 
 router.get("/", vistaController.index);
-//router.get("/dashboard", vistaController.dashboard);
+router.get("/dashboard", vistaController.dashboard);
+router.get("/version", vistaController.version);
+
+router.get("/generarOrden", vistaController.generarOrden);
 
 router.get("/equipos", vistaController.equipos);
 router.get("/equipos/:serie", vistaController.equipo);
@@ -23,7 +26,10 @@ router.get("/aliasEquipos/:id_alias", vistaController.aliasEquipos);
 
 
 router.get("/pedidos", vistaController.pedidos);
+
+router.get("/pedido", vistaController.pedidoNroInput);
 router.get("/pedido/:nro_pedido", vistaController.pedidoNro);
+
 router.get("/pedidoEstado/:estado", vistaController.pedidoEstado);
 router.get("/pedidoContrato/:id_contrato", vistaController.pedidoContrato);
 router.get("/pedidoCliente/:id_cliente", vistaController.pedidoCliente);
@@ -34,8 +40,15 @@ router.get("/accesorios", vistaController.accesorios);
 router.get("/accesorio/:serie_accesorio", vistaController.accesorio);
 router.get("/equipo_accesorio/:serie", vistaController.equiposAccesorios);
 //router.get("/localizador/:serie", vistaController.localizador);
-router.get("/localizador", vistaController.localizador2);
+router.get("/localizador", vistaController.localizadorInput);
 router.get("/localizador/:serie", vistaController.localizador);
+
+
+router.get("/crm", vistaController.crmInput);
+router.get("/crm/:id_cliente", vistaController.crm);
+
+
+//router.get("/*", vistaController.index);
 
 
 

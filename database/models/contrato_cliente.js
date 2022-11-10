@@ -8,9 +8,11 @@ module.exports = (sequelize, dataTypes) => {
       },
       cliente_id: {
         type: dataTypes.STRING(30),
+        primaryKey: true,
       },
       id_contrato: {
         type: dataTypes.STRING(30),
+        primaryKey: true,
       },
       tipo: {
         type: dataTypes.INTEGER,
@@ -61,7 +63,13 @@ module.exports = (sequelize, dataTypes) => {
           Contratos.belongsTo(models.ContratoEstado, {
             as: "ContratoEstado",
             foreignKey: "estado",
-        });
+          });
+
+          Contratos.belongsTo(models.Clientes, {
+            as: "ContratoCliente",
+            foreignKey: "cliente_id",
+            //foreignKey: "id_cliente",
+          });
         };
     return Contratos;
   };

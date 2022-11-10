@@ -7,7 +7,7 @@
   <body>
     <h1><%= title %></h1>
     <p>Vista de  <%= title %> </p>
-    <div class="container" style="width: 900px;">
+    <div>
         <% for( let i = 0; i < pedidos.length; i++ ) { %>
             <div class="clienteCard">
             <h3>nro_pedido = <%= pedidos[i].nro_pedido%></h3>
@@ -18,7 +18,7 @@
 
             
             <br>
-          </div>
+          </div><br>
           <% } %>
     </div>
   </body>

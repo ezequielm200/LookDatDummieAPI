@@ -8,6 +8,7 @@ module.exports = (sequelize, dataTypes) => {
     },
     id_cliente: {
       type: dataTypes.STRING(30),
+      primaryKey: true,
     },
     Id_cliente_tmp: {
       type: dataTypes.STRING(30),
@@ -122,6 +123,12 @@ module.exports = (sequelize, dataTypes) => {
     Cliente.belongsTo(models.PagoModalidad, {
       as: "pagoModalidad",
       foreignKey: "modalidad_pago",
+    });
+
+    Cliente.belongsTo(models.Contratos, {
+      as: "ContratoCliente",
+      foreignKey: "id_cliente",
+      //foreignKey: "cliente_id",
     });
   };
   return Cliente;

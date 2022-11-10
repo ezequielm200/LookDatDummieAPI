@@ -10,7 +10,7 @@
     
         <% for( let i = 0; i < alias.length; i++ ) { %>
         <div class="clienteCard">
-            <h3>ID <%= alias[i].id %>: <%= alias[i].alias_label %> / <%= alias[i].id_cliente %></h3><br>
+            <h3>ID <%= alias[i].id %>: <a href="/vistas/aliasEquipos/<%= alias[i].id %>"><%= alias[i].alias_label %> </a>/ <%= alias[i].id_cliente %></h3><br>
         </div>
         <% } %>
       
