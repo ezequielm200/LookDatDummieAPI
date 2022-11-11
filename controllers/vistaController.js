@@ -14,7 +14,6 @@ const vistaController = {
     res.render("version", { title: "Version" });
   },
 
-  
   // Equipos
   modelos: (req, res) => {
     db.ModeloEquipo.findAll({
@@ -238,7 +237,7 @@ const vistaController = {
   },
 
   pedidoNroInput: async (req, res) => {
-    res.redirect("/vistas/pedido/"+req.query.nro_pedido)
+    res.redirect("/vistas/pedido/" + req.query.nro_pedido);
   },
 
   pedidoNro: async (req, res) => {
@@ -247,12 +246,11 @@ const vistaController = {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
     });
-    
+
     res.render("pedidoNro", {
       title: "Detalle de Pedido",
-      pedidoNro: pedidoNro
-    }); 
-     
+      pedidoNro: pedidoNro,
+    });
   },
 
   pedidoEstado: (req, res) => {
@@ -398,7 +396,6 @@ const vistaController = {
   //   });
   // },
 
-
   generarOrden: async (req, res) => {
     let tipoPedido = await db.PedidoTipo.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
@@ -406,45 +403,145 @@ const vistaController = {
     });
 
     let clientes = await db.Clientes.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt","id","Id_cliente_tmp","Id_prefijo","cuit","Mail","Ejecutivo","Web","Actividad","modalidad_pago","id_domicilio"] },
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "id",
+          "Id_cliente_tmp",
+          "Id_prefijo",
+          "cuit",
+          "Mail",
+          "Ejecutivo",
+          "Web",
+          "Actividad",
+          "modalidad_pago",
+          "id_domicilio",
+        ],
+      },
       order: [sequelize.col("Nombre_Empresa")],
-      //cliete where estado 
+      //cliete where estado
       //estadio_cliente
     });
 
     let contratos = await db.Contratos.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt","id","tipo","equipos","observaciones","firmado","sellado","fecha_baja","fecha_inicio","fecha_vencimiento","id_tipo","tipo_contrato_label"] },
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "id",
+          "tipo",
+          "equipos",
+          "observaciones",
+          "firmado",
+          "sellado",
+          "fecha_baja",
+          "fecha_inicio",
+          "fecha_vencimiento",
+          "id_tipo",
+          "tipo_contrato_label",
+        ],
+      },
       order: [sequelize.col("id_contrato")],
       include: [{ association: "TipoContrato" }],
       //where estado
     });
 
     let equipos = await db.EquipoCliente.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt","version","contacto","direccion","ubicacion","localidad","provincia","pais","cp","zona","tecnico","dia_contador","alias","tipo_toma","nro_pedido_instalacion","serie","serie_tmp","modelo","estado","vida_util","fecha_baja","motivo_baja","ingreso_stock","estado_equipo","propiedad","sku","marca","vida_util","estado","distribuidor","fecha_alta","usuario_alta","disponible_remoto","volumen_mensual_BN","volumen_mensual_Color","utilidad_anios","tipo_equipo"] },
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "version",
+          "contacto",
+          "direccion",
+          "ubicacion",
+          "localidad",
+          "provincia",
+          "pais",
+          "cp",
+          "zona",
+          "tecnico",
+          "dia_contador",
+          "alias",
+          "tipo_toma",
+          "nro_pedido_instalacion",
+          "serie",
+          "serie_tmp",
+          "modelo",
+          "estado",
+          "vida_util",
+          "fecha_baja",
+          "motivo_baja",
+          "ingreso_stock",
+          "estado_equipo",
+          "propiedad",
+          "sku",
+          "marca",
+          "vida_util",
+          "estado",
+          "distribuidor",
+          "fecha_alta",
+          "usuario_alta",
+          "disponible_remoto",
+          "volumen_mensual_BN",
+          "volumen_mensual_Color",
+          "utilidad_anios",
+          "tipo_equipo",
+        ],
+      },
       order: [sequelize.col("serie_cliente")],
       include: [
-        { association: "DetalleEquipo",
-        include: [
-          { association: "ModeloEquipo" },
-       ] },
-      //estado equipo
+        {
+          association: "DetalleEquipo",
+          include: [{ association: "ModeloEquipo" }],
+        },
+        //estado equipo
       ],
     });
-    
 
     res.render("generarOrden", {
       title: "Generar Orden",
-      tipoPedido : tipoPedido,
+      tipoPedido: tipoPedido,
       clientes: clientes,
       contratos: contratos,
       equipos: equipos,
     });
   },
 
-
+  //prueba con eze
+  creaOrden: async (req, res) => {
+    let { tipo_pedido, cliente, serie, id_contrato } = req.body;
+    let pedidoNuevo = {
+      id_contrato,
+      id_cliente: cliente,
+      serie,
+      nro_pedido: 22335566,
+      tipo_pedido,
+      detalle_pedido: "Prueba de orden Nueva",
+      observaciones_recepcion: "Probando las observaciones_recepcion",
+      fecha: new Date(),
+      tecnico: 1,
+      estado: 20,
+      ubicacion: "info de prueba",
+      domicilio: "info de prueba",
+      localidad: "2",
+      zona: "3",
+      pais: "2",
+      cp: "1223",
+      id_contacto: 2,
+    };
+    try {
+      let x = await db.Pedido.create(pedidoNuevo);
+    } catch (error) {
+      console.log(error.message);
+    }
+    console.log(x);
+    res.send("se grabó");
+  },
 
   localizadorInput: async (req, res) => {
-    res.redirect("/vistas/localizador/"+req.query.serie)
+    res.redirect("/vistas/localizador/" + req.query.serie);
   },
 
   localizador: async (req, res) => {
@@ -481,7 +578,7 @@ const vistaController = {
     let accesorios = await db.AccesorioCliente.findAll({
       where: { serie_equipo: req.params.serie },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-        include: [
+      include: [
         {
           association: "Accesorio",
           include: [
@@ -505,21 +602,20 @@ const vistaController = {
       include: [{ association: "PedidoEstado" }],
     });
 
-
     let contadorActual = await db.Contadores.findOne({
-      where: { 
+      where: {
         serie: req.params.serie,
-        estado: 1
+        estado: 1,
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
 
     let contadores = await db.Contadores.findAll({
-      where: { 
-        serie: req.params.serie
+      where: {
+        serie: req.params.serie,
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      limit: 10
+      limit: 10,
     });
 
     // let todo = {
@@ -534,12 +630,11 @@ const vistaController = {
       pedidos: pedidos,
       contadorActual: contadorActual,
       contadores: contadores,
-    });    
+    });
   },
 
-
   crmInput: async (req, res) => {
-    res.redirect("/vistas/crm/"+req.query.id_cliente)
+    res.redirect("/vistas/crm/" + req.query.id_cliente);
   },
 
   crm: async (req, res) => {
@@ -576,7 +671,7 @@ const vistaController = {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
       include: [{ association: "PedidoEstado" }],
-      limit: 10
+      limit: 10,
     });
 
     let alias = await db.Alias.findAll({
@@ -592,8 +687,7 @@ const vistaController = {
       //   //data.isBookmark = (hre == 1);
       // }),
 
-      
-      // 
+      //
       //   equipos: (req, res) => {
       //     db.EquipoCliente.findOne({
       //       where: { alias: req.alias.id_alias },
@@ -601,7 +695,7 @@ const vistaController = {
       //       order: [sequelize.col("serie")],
       //     },
       //   }
-      // 
+      //
     });
 
     // let lor = await Articles.find({ Status: 1, isPublish: true})
@@ -619,15 +713,14 @@ const vistaController = {
     //     data.isBookmark = (hre == 1);
     // });
     // return lor;
-       
-    
+
     res.render("crm", {
       title: "CRM",
       cliente: cliente,
       contratos: contratos,
       pedidos: pedidos,
-      alias : alias,
-    });    
+      alias: alias,
+    });
   },
 };
 module.exports = vistaController;

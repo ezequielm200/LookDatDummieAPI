@@ -7,6 +7,9 @@ router.get("/dashboard", vistaController.dashboard);
 router.get("/version", vistaController.version);
 
 router.get("/generarOrden", vistaController.generarOrden);
+//Pruebas con EZE
+router.post("/generarOrden", vistaController.creaOrden);
+
 
 router.get("/equipos", vistaController.equipos);
 router.get("/equipos/:serie", vistaController.equipo);
@@ -46,6 +49,8 @@ router.get("/localizador/:serie", vistaController.localizador);
 
 router.get("/crm", vistaController.crmInput);
 router.get("/crm/:id_cliente", vistaController.crm);
+
+
 
 
 //router.get("/*", vistaController.index);

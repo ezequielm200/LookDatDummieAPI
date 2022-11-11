@@ -16,7 +16,7 @@
         <!-- contenido -->
         <div class="mb-3 card">
             <div class="position-relative card-body">
- 
+
                 <div class="row g-5">
                     <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -57,8 +57,8 @@
                         <strong>$20</strong>
                         </li>
                     </ul>
-            
-                    
+
+
                     </div>
                     <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3"><%= title %></h4>
@@ -70,11 +70,11 @@
                             var x = 0;
                             test = 0;
                             inform.id_contrato.length = 1
-                    
+
                             <% for( let f = 0; f < contratos.length; f++ ) { %>
-                                
+
                                 x = <%= contratos[f].cliente_id %>;
-                            
+
                                 subcat = new Array();
                                 id_contratos = "<%= contratos[f].id_contrato %> - <%= contratos[f].TipoContrato.tipo_contrato_sigla %>";
                                 id_contratoof = "<%= contratos[f].cliente_id %>";
@@ -85,27 +85,27 @@
                                 if (subcat[x,1] == selecteditem) {
                                 var option<%= contratos[f].cliente_id %> = new Option(subcat[x,0], subcat[x,2]);
                                 inform.id_contrato.options[inform.id_contrato.length]=option<%= contratos[f].cliente_id %>;
-                    
+
                                 }
-                                                            
+
                             <% } %>
-                            
-                            
+
+
                         }
                         </script>
                         <script language="JavaScript">
                           function sublist2(inform, selecteditem)
                           {
-                            //var x = 0;  
-                            <% x = 0  %>     
+                            //var x = 0;
+                            <% x = 0  %>
                           inform.serie.length = 1
-                    
-                          
-                          
-                          <% for( let f = 0; f < equipos.length; f++ ) { %> 
-                            
+
+
+
+                          <% for( let f = 0; f < equipos.length; f++ ) { %>
+
                             <% x = x + 1 %>;
-                            
+
                             subcat = new Array();
                             serie_ids = "<%= equipos[f].serie_cliente %> - <%= equipos[f].DetalleEquipo.ModeloEquipo.modelo %>";
                             serie_idof = "<%= equipos[f].contrato_id %>";
@@ -115,52 +115,55 @@
                             subcat[<%= x %>,2] = serie_ididi;
                             if (subcat[<%= x %>,1] == selecteditem) {
                                 var <%= "option"+x %> = new Option(subcat[<%= x %>,0], subcat[<%= x %>,2]);
-                                inform.serie.options[inform.serie.length]= <%= "option"+x %>;                    
+                                inform.serie.options[inform.serie.length]= <%= "option"+x %>;
                             }
-                            <% } %> 
-                          }    
+                            <% } %>
+                          }
                         </script>
 
-                        <form class="needs-validation" novalidate="">
+                        <form class="needs-validation" novalidate="" 
+                            method="post"
+                            action="generarOrden"
+                            enctype="application/x-www-form-urlencoded">
                             <div class="row g-3">
-                        
+
                                 <div class="col-sm-6">
                                     <label for="state" class="form-label">Tipo</label>
-                                    <select class="form-select" id="state" required="">
+                                    <select class="form-select" id="state" name="tipo_pedido" required="">
                                         <option value="">Seleccione Tipo de pedido</option>
                                         <% for( let i = 0; i < tipoPedido.length; i++ ) { %>
                                         <option id="<%= tipoPedido[i].tipo_pedido %>" value="<%= tipoPedido[i].tipo_pedido %>"><%= tipoPedido[i].tipo_pedido_nombre %></option>
-                                        <% } %>                      
+                                        <% } %>
                                     </select>
                                     <div class="invalid-feedback">
-                                    
+
                                     </div>
                                 </div>
 
 
                                 <div class="col-sm-6">
                                     <label for="state" class="form-label">Cliente</label>
-                                    
+
 
 
                                     <select  id="cliente" name="cliente" onchange="javascript:sublist(this.form, cliente.value);this.form, serie.value='';" class="form-select"  style="width: 280px;">
                                         <option selected="selected" value="0" id="0">Seleccione empresa</option>
                                         <% for( let f = 0; f < clientes.length; f++ ) { %>
                                             <option value="<%= clientes[f].id_cliente %>" id="<%= clientes[f].id_cliente %>"><%= clientes[f].id_cliente %> - <%= clientes[f].Nombre_Empresa %></option>
-                                            
+
                                         <% } %>
-                                                    
-                                                 
+
+
                                     </select>
                                     <div class="invalid-feedback">
-                                    
+
                                     </div>
                                 </div>
 
 
                                 <div class="col-sm-6">
                                     <label for="state" class="form-label">Contrato</label>
-                                    
+
                                     <select id="id_contrato" name="id_contrato" class="form-select" onchange="javascript:sublist2(this.form, id_contrato.value);">
                                         <option selected="selected" value="">Seleccione Contrato</option>
                                     </select>
@@ -177,15 +180,15 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
 
-            
+
                                 <hr class="my-4">
-                                
+
                                 <button class="w-50 btn btn-primary btn-lg" type="submit">Cancelar</button>
                                 <button class="w-50 btn btn-primary btn-lg" type="submit" id="btn_procesar" disabled="disabled">Confirmar</button>
-                                
-            
-                        
-                        
+
+
+
+
                             </div>
                         </form>
 
@@ -194,7 +197,7 @@
 
             </div>
         </div>
-        
+
         <!-- fin contenido-->
 
         <!-- footer -->
