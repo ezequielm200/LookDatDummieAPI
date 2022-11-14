@@ -420,7 +420,7 @@ const vistaController = {
         ],
       },
       order: [sequelize.col("Nombre_Empresa")],
-      //cliete where estado
+      //cliente where estado
       //estadio_cliente
     });
 
@@ -509,35 +509,57 @@ const vistaController = {
     });
   },
 
-  //prueba con eze
-  creaOrden: async (req, res) => {
+  formOrden: async (req, res) => {
     let { tipo_pedido, cliente, serie, id_contrato } = req.body;
-    let pedidoNuevo = {
+    let pedidoForm = {
       id_contrato,
       id_cliente: cliente,
       serie,
-      nro_pedido: 22335566,
       tipo_pedido,
-      detalle_pedido: "Prueba de orden Nueva",
-      observaciones_recepcion: "Probando las observaciones_recepcion",
+    };
+    res.render("creaOrdenForm", {
+      title: "Crear Orden Formulario",
+      pedidoForm: pedidoForm,
+
+    });
+  },
+
+  //prueba con eze
+  creaOrden: async (req, res) => {
+    let { tipo_pedido, id_cliente, serie, id_contrato, nro_pedido, detalle_pedido, observaciones_recepcion, tecnico, estado, ubicacion, domicilio, localidad, zona, pais, cp, id_contacto } = req.body;
+    let pedidoNuevo = {
+      id_contrato,
+      id_cliente,
+      serie,
+      nro_pedido,
+      tipo_pedido,
+      detalle_pedido,
+      observaciones_recepcion,
       fecha: new Date(),
-      tecnico: 1,
-      estado: 20,
-      ubicacion: "info de prueba",
-      domicilio: "info de prueba",
-      localidad: "2",
-      zona: "3",
-      pais: "2",
-      cp: "1223",
-      id_contacto: 2,
+      tecnico,
+      estado,
+      ubicacion,
+      domicilio,
+      localidad,
+      zona,
+      pais,
+      cp,
+      id_contacto,
     };
     try {
       let x = await db.Pedido.create(pedidoNuevo);
     } catch (error) {
       console.log(error.message);
     }
-    console.log(x);
-    res.send("se grabó");
+    //console.log(x);
+    //res.send("se grabó");
+
+    res.render("creaOrdenForm", {
+      title: "Crear Orden",
+      pedidoNuevo: pedidoNuevo,
+
+    });
+
   },
 
   localizadorInput: async (req, res) => {
