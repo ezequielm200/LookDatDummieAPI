@@ -509,24 +509,50 @@ const vistaController = {
     });
   },
 
-  formOrden: async (req, res) => {
-    let { tipo_pedido, cliente, serie, id_contrato } = req.body;
-    let pedidoForm = {
-      id_contrato,
-      id_cliente: cliente,
-      serie,
-      tipo_pedido,
-    };
+  // formOrden: (req, res) => {
+  //   let { tipo_pedido, cliente, serie, id_contrato } = req.body;
+  //   let pedidoForm = {
+  //     id_contrato,
+  //     id_cliente: cliente,
+  //     serie,
+  //     tipo_pedido,
+  //   };
+  //   res.render("creaOrdenForm", {
+  //     title: "Crear Orden Formulario",
+  //     pedidoForm: pedidoForm,
+
+  //   });
+  // },
+
+  //pruebas con EZE Lunes
+  formOrden: (req, res) => {
+    let pedidoForm = req.body;
     res.render("creaOrdenForm", {
       title: "Crear Orden Formulario",
       pedidoForm: pedidoForm,
-
     });
   },
 
   //prueba con eze
   creaOrden: async (req, res) => {
-    let { tipo_pedido, id_cliente, serie, id_contrato, nro_pedido, detalle_pedido, observaciones_recepcion, tecnico, estado, ubicacion, domicilio, localidad, zona, pais, cp, id_contacto } = req.body;
+    let {
+      tipo_pedido,
+      id_cliente,
+      serie,
+      id_contrato,
+      nro_pedido,
+      detalle_pedido,
+      observaciones_recepcion,
+      tecnico,
+      estado,
+      ubicacion,
+      domicilio,
+      localidad,
+      zona,
+      pais,
+      cp,
+      id_contacto,
+    } = req.body;
     let pedidoNuevo = {
       id_contrato,
       id_cliente,
@@ -547,19 +573,18 @@ const vistaController = {
       id_contacto,
     };
     try {
-      let x = await db.Pedido.create(pedidoNuevo);
+      let ordenCreada = await db.Pedido.create(pedidoNuevo);
+      res.status(200).json({
+        status: 200,
+        message: "orden creada",
+        ordenCreada,
+        // res.render("creaOrdenForm", { //aca va la orden YA CREADA, vista de confirmacion.
+        //   title: "Crear Orden",
+        //   ordenCreada,
+      });
     } catch (error) {
       console.log(error.message);
     }
-    //console.log(x);
-    //res.send("se grabó");
-
-    res.render("creaOrdenForm", {
-      title: "Crear Orden",
-      pedidoNuevo: pedidoNuevo,
-
-    });
-
   },
 
   localizadorInput: async (req, res) => {

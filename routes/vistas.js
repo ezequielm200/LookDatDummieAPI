@@ -8,8 +8,8 @@ router.get("/version", vistaController.version);
 
 router.get("/generarOrden", vistaController.generarOrden);
 //Pruebas con EZE
-router.post("/creaOrdenForm", vistaController.formOrden);
-router.post("/generarOrden", vistaController.creaOrden);
+router.post("/creaOrdenForm", vistaController.creaOrden);
+router.post("/generarOrden", vistaController.formOrden);
 
 
 router.get("/equipos", vistaController.equipos);
