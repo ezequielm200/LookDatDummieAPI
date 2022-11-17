@@ -1,0 +1,182 @@
+<%- include partials/header.ejs %>
+
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <main class="main" id="main">
+            <!-- container-fluid -->
+            <div class="container-fluid">
+                <!-- nav -->
+                <%- include partials/sidebar.ejs %>
+                    <!-- fin nav -->
+
+                    <div class="content">
+                        <!-- header -->
+                        <%- include partials/nav.ejs %>
+                            <!-- fin header -->
+
+                            <!-- contenido -->
+                            <div class="mb-3 card">
+                                <div class="position-relative card-body">
+
+                                    <div class="row g-5">
+                                        <%- include partials/options_right.ejs %>
+                                    </div>
+
+
+                                    <div class="col-md-7 col-lg-8">
+                                        <h4 class="mb-3">
+                                            <%= title %>
+                                        </h4>
+
+                                        <h5 class="mb-3">
+                                            <%= tipoPedido.tipo_pedido_nombre%>
+                                        </h5>
+                                        <h6 class="mb-3">
+                                            <%=pedidoForm.cliente%> - <%= cliente.Nombre_Empresa%>
+                                        </h6>
+
+
+                                        <form class="needs-validation" novalidate="" method="post"
+                                            action="generarOrdenConfirmacion"
+                                            enctype="application/x-www-form-urlencoded">
+                                            <div class="row g-3">
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">
+                                                        <%= equipo.serie_cliente%> - <%=
+                                                                equipo.DetalleEquipo.ModeloEquipo.modelo%>
+                                                    </label>
+
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">detalle_pedido</label>
+                                                    <input value="" class="form-control me-2" type="text"
+                                                        id="detalle_pedido" name="detalle_pedido">
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state"
+                                                        class="form-label">observaciones_recepcion</label>
+                                                    <input value="" class="form-control me-2" type="text"
+                                                        id="observaciones_recepcion" name="observaciones_recepcion">
+                                                </div>
+
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">T&eacute;nico
+                                                        Responsable:</label>
+                                                    <%= equipo.Tecnico.User_Nombre %>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">T&eacute;nico
+                                                        Asignado:</label>
+                                                    <select class="form-select" id="tecnico" name="tecnico" required="">
+                                                        <option value="">Seleccione t&eacute;nico</option>
+                                                        <% for( let i=0; i < tecnicos.length; i++ ) { %>
+                                                            <option id="<%= tecnicos[i].id %>"
+                                                                value="<%= tecnicos[i].id %>">
+                                                                <%= tecnicos[i].User_Nombre %>
+                                                            </option>
+                                                            <% } %>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">estado</label>
+
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">ubicacion</label>
+                                                    <%= equipo.ubicacion %>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">domicilio</label>
+                                                    <%= equipo.direccion %>
+                                                </div>
+
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">provincia</label>
+                                                    <%= equipo.provincia_label %>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">localidad</label>
+                                                    <%= equipo.localidad_label %>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">zona</label>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">pais</label>
+                                                    <%= equipo.nombre_pais %>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">cp</label>
+                                                    <%= equipo.cp %>
+
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="state" class="form-label">id_contacto</label>
+                                                    <input value="" class="form-control me-2" type="text"
+                                                        id="id_contacto" name="id_contacto">
+                                                </div>
+
+
+                                                <!-- datos pasados -->
+                                                <div class="col-sm-6" style="display:none">
+                                                    <input value="<%=pedidoForm.id_contrato%>" class="form-control me-2"
+                                                        type="text" id="id_contrato" name="id_contrato">
+                                                    <input value="<%=pedidoForm.cliente%>" class="form-control me-2"
+                                                        type="text" id="id_cliente" name="id_cliente">
+                                                    <input value="<%=pedidoForm.serie_cliente%>"
+                                                        class="form-control me-2" type="text" id="serie" name="serie">
+                                                    <input value="<%= equipo.cp %>" class="form-control me-2"
+                                                        type="text" id="cp" name="cp">
+                                                    <input value="<%= equipo.pais %>" class="form-control me-2"
+                                                        type="text" id="pais" name="pais">
+                                                    <input value="<%= equipo.zona %>" class="form-control me-2"
+                                                        type="text" id="zona" name="zona">
+                                                    <input value="<%= equipo.localidad %>" class="form-control me-2"
+                                                        type="text" id="localidad" name="localidad">
+                                                    <input value="<%= equipo.direccion %>" class="form-control me-2"
+                                                        type="text" id="domicilio" name="domicilio">
+                                                    <input value="<%= equipo.ubicacion %>" class="form-control me-2"
+                                                        type="text" id="ubicacion" name="ubicacion">
+                                                    <input value="<%=pedidoForm.tipo_pedido%>" class="form-control me-2"
+                                                        type="text" id="tipo_pedido" name="tipo_pedido">
+                                                </div>
+                                                <!-- fin datos pasados -->
+
+
+                                                <hr class="my-4">
+
+                                                <button class="w-50 btn btn-primary btn-lg"
+                                                    type="submit">Cancelar</button>
+                                                <button class="w-50 btn btn-primary btn-lg" type="submit"
+                                                    id="btn_procesar">Confirmar</button>
+
+
+
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+                    <!-- fin contenido-->
+
+                    <!-- footer -->
+                    <%- include partials/footer.ejs %>
+                        <!-- fin footer -->

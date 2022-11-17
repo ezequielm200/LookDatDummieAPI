@@ -542,7 +542,86 @@
 
 .fad.fa-inverse {
   color: #fff;
-}</style>
+}
+
+
+
+
+.pagination  {
+    --falcon-pagination-color: #000;
+    --falcon-pagination-bg: #fff;
+    --falcon-pagination-border-color: #edf2f9;
+    --falcon-pagination-hover-color: #fff;
+    --falcon-pagination-disabled-bg: var(--falcon-pagination-disabled-bg);
+    font-family: Poppins,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    --falcon-pagination-padding-x: 0.75rem;
+    --falcon-pagination-padding-y: 0.5rem;
+    --falcon-pagination-font-size: 1rem;
+    --falcon-pagination-color: #000;
+    --falcon-pagination-bg: #fff;
+    --falcon-pagination-border-width: 1px;
+    --falcon-pagination-border-color: #edf2f9;
+    --falcon-pagination-border-radius: 0.25rem;
+    --falcon-pagination-hover-color: #fff;
+    --falcon-pagination-hover-bg: var(--falcon-primary);
+    --falcon-pagination-hover-border-color: var(--falcon-primary);
+    --falcon-pagination-focus-color: var(--falcon-pagination-focus-color);
+    --falcon-pagination-focus-bg: var(--falcon-pagination-focus-bg);
+    --falcon-pagination-focus-box-shadow: var(--falcon-pagination-focus-box-shadow);
+    --falcon-pagination-active-color: #fff;
+    --falcon-pagination-active-bg: var(--falcon-primary);
+    --falcon-pagination-active-border-color: var(--falcon-primary);
+    --falcon-pagination-disabled-color: var(--falcon-pagination-disabled-color);
+    --falcon-pagination-disabled-bg: var(--falcon-pagination-disabled-bg);
+    --falcon-pagination-disabled-border-color: var(--falcon-pagination-disabled-border-color);
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+
+.pagination li:not(:first-child) .page-link {
+    margin-left: -1px;
+}
+.pagination  li a { /*, .pagination .prev, .pagination .next*/
+    position: relative;
+    display: block;
+    padding: var(--falcon-pagination-padding-y) var(--falcon-pagination-padding-x);
+    font-size: var(--falcon-pagination-font-size);
+    color: var(--falcon-pagination-color);
+    background-color: #cecece;
+    border: var(--falcon-pagination-border-width) solid var(--falcon-pagination-border-color);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.pagination .active a {
+    /*z-index: 3;*/
+    position: relative;
+    display: block;
+    padding: var(--falcon-pagination-padding-y) var(--falcon-pagination-padding-x);
+    font-size: var(--falcon-pagination-font-size);
+    color: #fff;
+    background-color: #2c7be5;
+    border: var(--falcon-pagination-border-width) solid var(--falcon-pagination-border-color);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.pagination .prev a .icon-double-angle-left {
+  /*content: "\f467"; */
+ }
+
+.icon-double-angle-left::before { 
+  content: "<";
+  }
+
+.icon-double-angle-right::before { 
+  content: ">";
+  }
+
+
+.pagination li:not(:first-child) .page-link{margin-left:-1px}.page-item:first-child .page-link{border-top-left-radius:var(--falcon-pagination-border-radius);border-bottom-left-radius:var(--falcon-pagination-border-radius)}.page-item:last-child .page-link{border-top-right-radius:var(--falcon-pagination-border-radius);border-bottom-right-radius:var(--falcon-pagination-border-radius)}
+
+</style>
 
     
     <!-- Custom styles for this template -->

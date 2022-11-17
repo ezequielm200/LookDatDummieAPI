@@ -1,11 +1,11 @@
 module.exports = (sequelize, dataTypes) => {
   let alias = "Pedido";
   let cols = {
-    id: {
-      type: dataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    // id: {
+    //   type: dataTypes.INTEGER,
+    //   primaryKey: true,
+    //   autoIncrement: true,
+    // },
     id_contrato: {
       type: dataTypes.STRING(100),
     },
@@ -17,6 +17,8 @@ module.exports = (sequelize, dataTypes) => {
     },
     nro_pedido: {
       type: dataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     tipo_pedido: {
       type: dataTypes.INTEGER,

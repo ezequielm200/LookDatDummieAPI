@@ -14,6 +14,12 @@ const vistaController = {
     res.render("version", { title: "Version" });
   },
 
+  equiposStock: (req, res) => {
+    res.render("equiposStock", { title: "Equipos en Stock" });
+  },
+
+  
+
   // Equipos
   modelos: (req, res) => {
     db.ModeloEquipo.findAll({
@@ -245,6 +251,10 @@ const vistaController = {
       where: { nro_pedido: req.params.nro_pedido },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
+      include: [
+        { association: "PedidoEstado" },
+        { association: "PedidoTipo" },
+      ],
     });
 
     res.render("pedidoNro", {
@@ -396,7 +406,7 @@ const vistaController = {
   //   });
   // },
 
-  generarOrden: async (req, res) => {
+  generarOrdenSelect: async (req, res) => {
     let tipoPedido = await db.PedidoTipo.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("tipo_pedido_nombre")],
@@ -500,7 +510,7 @@ const vistaController = {
       ],
     });
 
-    res.render("generarOrden", {
+    res.render("generarOrdenSelect", {
       title: "Generar Orden",
       tipoPedido: tipoPedido,
       clientes: clientes,
@@ -525,22 +535,107 @@ const vistaController = {
   // },
 
   //pruebas con EZE Lunes
-  formOrden: (req, res) => {
+  generarOrdenForm: async (req, res) => {
     let pedidoForm = req.body;
-    res.render("creaOrdenForm", {
+
+    let tipoPedido = await db.PedidoTipo.findOne({
+      where: { tipo_pedido: req.body.tipo_pedido },  
+    });
+    
+    let cliente = await db.Clientes.findOne({
+      where: { id_cliente: req.body.cliente },  
+    });
+
+    let tecnicos = await db.Usuario.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("User_Nombre")],
+    });
+
+    let equipo = await db.EquipoCliente.findOne({
+      where: { serie_cliente: req.body.serie_cliente },
+      include: [
+
+        { association: "Tecnico" },
+        {
+          association: "DetalleEquipo",
+          include: [{ association: "ModeloEquipo", }],
+        },
+
+        // { association: "EquipoEstado" },
+        // { association: "EquiposPropietarios" },
+        // {
+          // association: "PaisEquipo",
+          // association: "LocalidadEquipo",
+          // association: "ProvinciaEquipo",
+
+
+          //association: "DetalleEquipo",
+          //include: [
+            // { association: "AliasCliente" },
+            // { association: "PaisEquipo" },
+            // { association: "LocalidadEquipo" },
+            // { association: "ProvinciaEquipo" },
+
+            // { association: "Tecnico" },
+          //],
+        // },
+        // {
+        //   association: "ModeloEquipo",
+        //   include: [
+        //     { association: "ModeloMarca" },
+        //     {
+        //       association: "TipoEquipo",
+        //       include: [{ association: "TipoContadores" }],
+        //     },
+        //   ],
+        // },
+      ],
+
+      // include: [
+      //   // { association: "EquipoEstado" },
+      //   { association: "EquiposPropietarios" },
+      //   {
+      //     association: "DetalleEquipo",
+      //     include: [
+      //       { association: "AliasCliente" },
+      //       { association: "PaisEquipo" },
+      //       { association: "LocalidadEquipo" },
+      //       { association: "ProvinciaEquipo" },
+      //       { association: "Tecnico" },
+      //     ],
+      //   },
+      //   {
+      //     association: "ModeloEquipo",
+      //     include: [
+      //       { association: "ModeloMarca" },
+      //       {
+      //         association: "TipoEquipo",
+      //         include: [{ association: "TipoContadores" }],
+      //       },
+      //     ],
+      //   },
+      // ],
+    });
+
+    //let pedidoForm = req.body;
+    res.render("generarOrdenForm", {
       title: "Crear Orden Formulario",
       pedidoForm: pedidoForm,
+      tipoPedido: tipoPedido,
+      cliente: cliente,
+      equipo: equipo,
+      tecnicos: tecnicos,
     });
   },
 
   //prueba con eze
-  creaOrden: async (req, res) => {
+  generarOrdenConfirmacion: async (req, res) => {
     let {
       tipo_pedido,
       id_cliente,
       serie,
       id_contrato,
-      nro_pedido,
+      // nro_pedido,
       detalle_pedido,
       observaciones_recepcion,
       tecnico,
@@ -557,7 +652,7 @@ const vistaController = {
       id_contrato,
       id_cliente,
       serie,
-      nro_pedido,
+      // nro_pedido,
       tipo_pedido,
       detalle_pedido,
       observaciones_recepcion,
@@ -574,19 +669,32 @@ const vistaController = {
     };
     try {
       let ordenCreada = await db.Pedido.create(pedidoNuevo);
-      res.status(200).json({
-        status: 200,
-        message: "orden creada",
-        ordenCreada,
+      res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
+      //res.render("index", {
+      title: "Orden Creada",
+      ordenCreada,
+
+      // res.status(200).json({
+      //   status: 200,
+      //   message: "orden creada",
+      //   ordenCreada,
+
         // res.render("creaOrdenForm", { //aca va la orden YA CREADA, vista de confirmacion.
         //   title: "Crear Orden",
         //   ordenCreada,
+
+        //});
       });
     } catch (error) {
       console.log(error.message);
     }
   },
+  // Fin Crear Ordenes
 
+
+
+
+  //Localizador
   localizadorInput: async (req, res) => {
     res.redirect("/vistas/localizador/" + req.query.serie);
   },

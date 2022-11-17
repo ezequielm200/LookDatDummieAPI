@@ -5,11 +5,19 @@ const vistaController = require("../controllers/vistaController");
 router.get("/", vistaController.index);
 router.get("/dashboard", vistaController.dashboard);
 router.get("/version", vistaController.version);
+router.get("/equiposStock", vistaController.equiposStock);
 
-router.get("/generarOrden", vistaController.generarOrden);
-//Pruebas con EZE
-router.post("/creaOrdenForm", vistaController.creaOrden);
-router.post("/generarOrden", vistaController.formOrden);
+
+
+
+router.get("/generarOrdenSelect", vistaController.generarOrdenSelect); //Paso 1
+router.post("/generarOrdenForm", vistaController.generarOrdenForm); // Paso 2
+router.post("/generarOrdenConfirmacion", vistaController.generarOrdenConfirmacion); //Paso 3
+
+
+// router.get("/generarOrden", vistaController.generarOrden);
+// router.post("/creaOrdenForm", vistaController.creaOrden);
+// router.post("/generarOrden", vistaController.formOrden);
 
 
 router.get("/equipos", vistaController.equipos);
