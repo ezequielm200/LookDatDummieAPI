@@ -43,10 +43,8 @@
 
                                                 <div class="col-sm-6">
                                                     <label for="state" class="form-label">
-                                                        <%= equipo.serie_cliente%> - <%=
-                                                                equipo.DetalleEquipo.ModeloEquipo.modelo%>
+                                                        <%= equipo.serie_cliente%> - <%= equipo.DetalleEquipo.ModeloEquipo.modelo%>
                                                     </label>
-
                                                 </div>
 
                                                 <div class="col-sm-6">
@@ -64,16 +62,16 @@
 
 
                                                 <div class="col-sm-6">
-                                                    <label for="state" class="form-label">T&eacute;nico
+                                                    <label for="state" class="form-label">T&eacute;cnico
                                                         Responsable:</label>
                                                     <%= equipo.Tecnico.User_Nombre %>
                                                 </div>
 
                                                 <div class="col-sm-6">
-                                                    <label for="state" class="form-label">T&eacute;nico
+                                                    <label for="state" class="form-label">T&eacute;cnico
                                                         Asignado:</label>
                                                     <select class="form-select" id="tecnico" name="tecnico" required="">
-                                                        <option value="">Seleccione t&eacute;nico</option>
+                                                        <option value="">Seleccione t&eacute;cnico</option>
                                                         <% for( let i=0; i < tecnicos.length; i++ ) { %>
                                                             <option id="<%= tecnicos[i].id %>"
                                                                 value="<%= tecnicos[i].id %>">
@@ -133,26 +131,17 @@
 
                                                 <!-- datos pasados -->
                                                 <div class="col-sm-6" style="display:none">
-                                                    <input value="<%=pedidoForm.id_contrato%>" class="form-control me-2"
-                                                        type="text" id="id_contrato" name="id_contrato">
-                                                    <input value="<%=pedidoForm.cliente%>" class="form-control me-2"
-                                                        type="text" id="id_cliente" name="id_cliente">
-                                                    <input value="<%=pedidoForm.serie_cliente%>"
-                                                        class="form-control me-2" type="text" id="serie" name="serie">
-                                                    <input value="<%= equipo.cp %>" class="form-control me-2"
-                                                        type="text" id="cp" name="cp">
-                                                    <input value="<%= equipo.pais %>" class="form-control me-2"
-                                                        type="text" id="pais" name="pais">
-                                                    <input value="<%= equipo.zona %>" class="form-control me-2"
-                                                        type="text" id="zona" name="zona">
-                                                    <input value="<%= equipo.localidad %>" class="form-control me-2"
-                                                        type="text" id="localidad" name="localidad">
-                                                    <input value="<%= equipo.direccion %>" class="form-control me-2"
-                                                        type="text" id="domicilio" name="domicilio">
-                                                    <input value="<%= equipo.ubicacion %>" class="form-control me-2"
-                                                        type="text" id="ubicacion" name="ubicacion">
-                                                    <input value="<%=pedidoForm.tipo_pedido%>" class="form-control me-2"
-                                                        type="text" id="tipo_pedido" name="tipo_pedido">
+                                                    <input value="<%=pedidoForm.id_contrato%>" class="form-control me-2" type="text" id="id_contrato" name="id_contrato">
+                                                    <input value="<%=pedidoForm.cliente%>" class="form-control me-2" type="text" id="id_cliente" name="id_cliente">
+                                                    <input value="<%=pedidoForm.serie_cliente%>" class="form-control me-2" type="text" id="serie" name="serie">
+                                                    <input value="<%= equipo.cp %>" class="form-control me-2" type="text" id="cp" name="cp">
+                                                    <input value="<%= equipo.pais %>" class="form-control me-2" type="text" id="pais" name="pais">
+                                                    <input value="<%= equipo.zona %>" class="form-control me-2" type="text" id="zona" name="zona">
+                                                    <input value="<%= equipo.localidad %>" class="form-control me-2" type="text" id="localidad" name="localidad">
+                                                    <input value="<%= equipo.direccion %>" class="form-control me-2" type="text" id="domicilio" name="domicilio">
+                                                    <input value="<%= equipo.ubicacion %>" class="form-control me-2" type="text" id="ubicacion" name="ubicacion">
+                                                    <input value="<%=pedidoForm.tipo_pedido%>" class="form-control me-2" type="text" id="tipo_pedido" name="tipo_pedido">
+                                                    <input value="<%= pedidoForm.tipo_pedido * 10 + 1%>" class="form-control me-2" type="text" id="estado_pedido" name="estado_pedido">
                                                 </div>
                                                 <!-- fin datos pasados -->
 

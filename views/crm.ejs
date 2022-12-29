@@ -204,35 +204,88 @@
 
 
                         <div class="tab-pane fade" id="contactos-tab-pane" role="tabpanel" aria-labelledby="contactos-tab" tabindex="0">
-                          Contactos
+                          <h3 class="text-primary">Contactos</h3>
                         </div>
                         <div class="tab-pane fade" id="ficha-tab-pane" role="tabpanel" aria-labelledby="ficha-tab" tabindex="0">
-                          Ficha
+                          <h3 class="text-primary">Ficha</h3>
                         </div>
 
                         <div class="tab-pane fade" id="pedidos-tab-pane" role="tabpanel" aria-labelledby="pedidos-tab" tabindex="0">
-                          <h6 class="text-primary">Pedidos</h6>
-                          <% for( let i = 0; i < pedidos.length; i++ ) { %>
-                            <p>: <%= pedidos[i].id %> <%= pedidos[i].estado %> <!-- %= pedidos[i].PedidoEstado.tipo_pedido_nombre %--></p>
-                          <% } %>
+                          <h3 class="text-primary">Pedidos</h3>
+                          
+                          <!-- start: DYNAMIC TABLE PANEL -->
+                          <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="sample_1" aria-describedby="sample_1_info">
+                              <thead>
+                                <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nro Pedido: ascendente / descendente" style="width: 212px;">Nro Pedido</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Cliente: ascendente / descendente" style="width: 247px;">Cliente</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Contrato: ascendente / descendente" style="width: 183px;"> Contrato</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Serie: ascendente / descendente" style="width: 115px;">Serie</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Fecha: ascendente / descendente" style="width: 127px;">Fecha</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 127px;">Estado</th>
+                                </tr>
+                              </thead>
+                              <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                <% for( let i = 0; i < pedidos.length; i++ ) { %>
+                                <tr>
+                                  <td class="hidden-xs"><a href="/vistas/pedido/<%= pedidos[i].nro_pedido%>"><%= pedidos[i].nro_pedido%></a></td>
+                                  <td class="hidden-xs"><a href="/vistas/clientes/<%= pedidos[i].id_cliente%>"><%= pedidos[i].id_cliente%></a></td>
+                                  <td class="hidden-xs"><%= pedidos[i].id_contrato%></td>
+                                  <td class="hidden-xs"><a href="/vistas/localizador/<%= pedidos[i].serie%>"><%= pedidos[i].serie%></a></td>
+                                  <td class="hidden-xs"><%= pedidos[i].fecha%></td>
+                                  <td class="hidden-xs"><%= pedidos[i].PedidoEstado.estado_nombre%></td>
+                                </tr>
+                                <% } %>
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- end: DYNAMIC TABLE PANEL -->
                         </div>
 
                         <div class="tab-pane fade" id="contratos-tab-pane" role="tabpanel" aria-labelledby="contratos-tab" tabindex="0">
-                          <h6 class="text-primary">Contratos</h6>
+                          <h3 class="text-primary">Contratos</h3>
                           <% for( let i = 0; i < contratos.length; i++ ) { %>
                             <%= contratos[i].id_contrato %><br>
-                            <%= contratos[i].tipo %><br>
+                            <%= contratos[i].TipoContrato.tipo_contrato_label %>-<%= contratos[i].TipoContrato.tipo_contrato_sigla %><br>
+                            
                             <br>
                           <% } %>
                         </div>
 
                         <div class="tab-pane fade" id="nps-tab-pane" role="tabpanel" aria-labelledby="nps-tab" tabindex="0">
-                          Nps
+                          <h3 class="text-primary">NP</h3>
+                          <!-- start: DYNAMIC TABLE PANEL -->
+                          <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="sample_1" aria-describedby="sample_1_info">
+                              <thead>
+                                <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Prospecto: ascendente / descendente" style="width: 212px;">Prospecto</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Contrato: ascendente / descendente" style="width: 247px;">Contrato</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Tipo: ascendente / descendente" style="width: 183px;"> Tipo</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 115px;">Estado</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Fecha Vencimiento: ascendente / descendente" style="width: 127px;">Fecha Vencimiento</th>
+                                </tr>
+                              </thead>
+                              <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                
+                                <tr>
+                                  <td class="hidden-xs">-</td>
+                                  <td class="hidden-xs">-</td>
+                                  <td class="hidden-xs">-</td>
+                                  <td class="hidden-xs">-</td>
+                                  <td class="hidden-xs">-</td>
+                                </tr>
+                               
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- end: DYNAMIC TABLE PANEL -->
                         </div>
 
                         <div class="tab-pane fade" id="alias-tab-pane" role="tabpanel" aria-labelledby="alias-tab" tabindex="0">
                           
-                          <h6 class="text-primary">Alias</h6>
+                          <h3 class="text-primary">Alias</h3>
 
                           <% for( let i = 0; i < alias.length; i++ ) { %>
                             <p>: <%= alias[i].id %> <%= alias[i].alias_label %> </p>
