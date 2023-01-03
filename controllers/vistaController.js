@@ -669,10 +669,13 @@ const vistaController = {
     };
     try {
       let ordenCreada = await db.Pedido.create(pedidoNuevo);
-      res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
+        //res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
+        res.redirect("/vistas/pedido/"+ ordenCreada.nro_pedido)
+      
       //res.render("index", {
-      title: "Orden Creada",
-      ordenCreada,
+      
+      //title: "Orden Creada",
+      //ordenCreada,
 
       // res.status(200).json({
       //   status: 200,
@@ -684,7 +687,8 @@ const vistaController = {
         //   ordenCreada,
 
         //});
-      });
+
+      //});
     } catch (error) {
       console.log(error.message);
     }
