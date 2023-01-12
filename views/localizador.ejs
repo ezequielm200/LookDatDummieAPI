@@ -1,6 +1,6 @@
 <%- include partials/header.ejs %>
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <noscript></noscript>
   <main class="main" id="main">
     <!-- container-fluid -->
 		<div class="container-fluid">
@@ -20,18 +20,18 @@
               <div class="col-lg-8">
                 <h3 class="mb-0"><%= title %></h3><br>
               
-                <h5>Serie:<%= equipo.serie %> </h5>
-                <h6><%= equipo.ModeloEquipo.modelo %> / <%= equipo.ModeloEquipo.ModeloMarca.marca_label %></h6>
+                <h5>Serie: <%= equipo.serie %></h5>
+                <h6><%= equipo.ModeloEquipo.modelo %>  / <%= equipo.ModeloEquipo.ModeloMarca.marca_label  %></h6>
                 <p class="mt-2">
-                  Estado equipo: <%= equipo.EquipoEstado.estado_equipo_label %><br>
-                  Propiedad: <%= equipo.EquiposPropietarios.propietario_label %> <br>
-                  Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label %><br>
-                  Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %><br><br>
+                  Estado equipo: <%= equipo.EquipoEstado.estado_equipo_label %>  <br>
+                  Propiedad: <%= equipo.EquiposPropietarios.propietario_label  %>  <br>
+                  Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label  %>  <br>
+                  Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %>  <br><br>
                   
                   
                 
-                estado: <%= equipo.DetalleEquipo.estado %><br>
-                version: <%= equipo.DetalleEquipo.version %><br>
+                estado: <%= equipo.DetalleEquipo.estado %> <br>
+                version: <%= equipo.DetalleEquipo.version %> <br>
                 falta semaforo<br>
 
                 
@@ -57,14 +57,30 @@
                 
                 Alias: <a href="/vistas/aliasEquipos/<%= equipo.DetalleEquipo.AliasCliente.alias %>"><%= equipo.DetalleEquipo.AliasCliente.alias_label %></a> <br>
                 
-                Direcci&oacute;n: <%= equipo.DetalleEquipo.direccion %> <br>
-                Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
-                Localidad: <%= equipo.DetalleEquipo.LocalidadEquipo.localidad_label %> <br>
-                Provincia: <%= equipo.DetalleEquipo.ProvinciaEquipo.provincia_label %> <br>
-                Pa&iacute;s: <%= equipo.DetalleEquipo.PaisEquipo.nombre_pais %> <br>
-                CP: <%= equipo.DetalleEquipo.cp %> <br>
-                Zona: <%= equipo.DetalleEquipo.zona %> <br>
                 
+                Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
+                
+
+
+
+                Zona:  <br>
+
+
+
+                  Domicilio<%= equipo.DetalleEquipo.DomicilioEquipo.Domicilio %><br>
+                    <br>
+                    revisar:
+                    Piso<%= equipo.DetalleEquipo.DomicilioEquipo.Piso %><br>
+                    Oficina: <%= equipo.DetalleEquipo.DomicilioEquipo.Oficina %><br>
+                    <br>
+
+                    CP: <%= equipo.DetalleEquipo.DomicilioEquipo.CP %><br>
+                    Telefono:<%= equipo.DetalleEquipo.DomicilioEquipo.Telefono %><br>
+                    Sede:<%= equipo.DetalleEquipo.DomicilioEquipo.Label %><br>
+                    País: <%= equipo.DetalleEquipo.DomicilioEquipo.pais.nombre_pais %><br>
+                    Localidad: <%= equipo.DetalleEquipo.DomicilioEquipo.Localidad.localidad_label %><br>
+                    Provincia: <%= equipo.DetalleEquipo.DomicilioEquipo.Provincia.provincia_label %><br>
+          
 
                 T&eacute;cnico: <%= equipo.DetalleEquipo.Tecnico.User_Nombre %> <br>
                 Contacto: <%= equipo.DetalleEquipo.contacto %> <br>
@@ -291,7 +307,7 @@
                     </div>
 
                     <div class="nav-item">
-                      <a href="#Contrato" class="nav-link px-0 py-1 nav-link">Contrato</a>
+                      <a href="#contrato" class="nav-link px-0 py-1 nav-link">Contrato</a>
                     </div>
 
                     <div class="nav-item">

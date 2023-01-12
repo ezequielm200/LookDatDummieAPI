@@ -54,6 +54,12 @@ module.exports = (sequelize, dataTypes) => {
     pais: {
       type: dataTypes.INTEGER,
     },
+    provincia: {
+      type: dataTypes.INTEGER,
+    },
+    telefono: {
+      type: dataTypes.STRING(200),
+    },
     cp: {
       type: dataTypes.STRING(8),
     },

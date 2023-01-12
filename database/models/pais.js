@@ -27,10 +27,10 @@ module.exports = (sequelize, dataTypes) => {
       foreignKey: "Pais_id",
     });
 
-    Pais.hasMany(models.EquipoCliente, {
-      as: "PaisEquipo",
-      foreignKey: "pais",
-    });
+    // Pais.hasMany(models.EquipoCliente, {
+    //   as: "PaisEquipo",
+    //   foreignKey: "pais",
+    // });
   };
   return Pais;
 };

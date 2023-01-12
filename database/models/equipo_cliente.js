@@ -16,27 +16,16 @@ module.exports = (sequelize, dataTypes) => {
         contacto: {
             type: dataTypes.INTEGER,
         },	
-        direccion: {
-            type: dataTypes.STRING(200),
-        },
+        
         ubicacion: {
             type: dataTypes.STRING(130),
         },
-        localidad: {
+
+        
+        id_domicilio: {
             type: dataTypes.INTEGER,
-        },
-        provincia: {
-            type: dataTypes.INTEGER,
-        },
-        pais: {
-            type: dataTypes.INTEGER,
-        },
-        cp: {
-            type: dataTypes.STRING(30),
-        },
-        zona: {
-            type: dataTypes.INTEGER,
-        },
+            primaryKey: true,
+          },
         	
         tecnico: {
             type: dataTypes.INTEGER,
@@ -65,27 +54,20 @@ module.exports = (sequelize, dataTypes) => {
     const EquipoCliente = sequelize.define(alias, cols, config);
     EquipoCliente.associate = (models) => {
         EquipoCliente.belongsTo(models.Equipos, {
-        as: "DetalleEquipo",
-        foreignKey: "serie_cliente",
+            as: "DetalleEquipo",
+            foreignKey: "serie_cliente",
         });   
         
         EquipoCliente.belongsTo(models.Alias, {
-        as: "AliasCliente",
-        foreignKey: "alias",
+            as: "AliasCliente",
+            foreignKey: "alias",
         });
 
-        EquipoCliente.belongsTo(models.Paises, {
-            as: "PaisEquipo",
-            foreignKey: "pais",
+        EquipoCliente.belongsTo(models.Domicilio, {
+            as: "DomicilioEquipo",
+            foreignKey: "id_domicilio",
         });
-        EquipoCliente.belongsTo(models.Localidad, {
-           as: "LocalidadEquipo",
-           foreignKey: "localidad",
-        });
-        EquipoCliente.belongsTo(models.Provincia, {
-            as: "ProvinciaEquipo",
-            foreignKey: "provincia",
-        });
+
         EquipoCliente.belongsTo(models.Usuario, {
             as: "Tecnico",
             foreignKey: "tecnico",

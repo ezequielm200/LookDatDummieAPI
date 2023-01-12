@@ -1,53 +1,203 @@
 <%- include partials/header.ejs %>
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <main class="main" id="main">
-    <!-- container-fluid -->
-		<div class="container-fluid">
-      <!-- nav -->
-      <%- include partials/sidebar.ejs %>
-      <!-- fin nav -->
 
-      <div class="content">
-        <!-- header -->
-        <%- include partials/nav.ejs %>
-        <!-- fin header -->
-
+    <body>
+        <noscript></noscript>
         
+        <main class="main" id="main">
+            <!-- container-fluid -->
+            <div class="container-fluid">
+                <!-- nav -->
+                <%- include partials/sidebar.ejs %>
+                    <!-- fin nav -->
 
-        <!-- contenido -->
-        <div class="mb-3 card">
-          <div class="position-relative card-body">
-            <div class="row">
-              <div class="col-lg-12">
-                <h3 class="mb-0"><%= title %></h3><br>
+                    <div class="content">
+                        <!-- header -->
+                        <%- include partials/nav.ejs %>
+                            <!-- fin header -->
+
+                            <!-- contenido -->
+                            <div class="g-lg-3 font-sans-serif row">
+                                <div class="col-lg-8">
+
+
+                                    <div class="mb-3 card">
+                                        <div class="bg-holder bg-card d-none d-md-block" style="background-image: url(&quot;/static/media/corner-4.62f4f1af.png&quot;); border-top-right-radius: 0.375rem; border-bottom-right-radius: 0.375rem;"></div>
+                                        <div class="position-relative card-body">
+                                            <div class="row">
+                                                <div class="col-xl-10">
+                                                    <h3><%= title %></h3>
+                                                    <p class="mb-0">
+                                                      <p> serie =  <%= pedidoNro.serie %> </p>
+                                                      <p> id_cliente = <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %></a> </p>
+                                                      <p> id_contrato = <%= pedidoNro.id_contrato %></p>
+                                                      <p> tipo =  <%= pedidoNro.PedidoTipo.tipo_pedido_nombre %> </p>
+                                                      <p> estado =  pedidoNro.PedidoEstado.estado_nombre</p>
+                                      
+                                                    
+                                                      <p> fecha =  <%= pedidoNro.fecha %> </p>
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-light p-0 border-top d-grid card-footer">
+                                          <button type="button" class="btn btn-link">Mostrar +</button>
+                                        </div>
+
+                                    </div>
+
+                                    <form class="needs-validation" novalidate="" method="post"
+                                            action=""
+                                            enctype="application/x-www-form-urlencoded">
+                                    <div class="mb-3 card">
+                                        <h5 class="card-header">Información del Pedido <%= pedidoNro.nro_pedido %></h5>
+                                        <div class="bg-light card-body">
+                                            <div class="gx-2 gy-3 row">
+                                                <div class="col-12">
+                                                    <div>
+                                                        <label class="form-label">Detalle Pedido:</label>
+                                                        <div class=" css-b62m3t-container">
+                                                            <textarea class="form-control me-2" rows="6" type="text" id="detalle_pedido" name="detalle_pedido"><%= pedidoNro.detalle_pedido %></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div>
+                                                        <label class="form-label">Observaciones:</label>
+                                                        <div class=" css-b62m3t-container">
+                                                            <textarea class="form-control me-2" rows="6" type="text" id="observaciones_recepcion" name="observaciones_recepcion"><%= pedidoNro.observaciones_recepcion %></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label class="form-label">####T&eacute;cnico Asignado: (<%= pedidoNro.tecnico %>)</label>
+                                                        <select class="form-select" id="tecnico" name="tecnico" required="">
+                                                            <option value="">Seleccione t&eacute;cnico</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label class="form-label">T&eacute;cnico Responsable:</label>
+                                                        <br>###
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <div>
+                                                        <label class="form-label">Información del equipo:</label>
+
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Ubicacion</label>
+                                                            <div class="col"><%= pedidoNro.ubicacion %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Domicilio:</label>
+                                                            <div class="col"><%= pedidoNro.domicilio %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Teléfono:</label>
+                                                            <div class="col">##</div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Sede:</label>
+                                                            <div class="col">##</div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Localidad:</label>
+                                                            <div class="col"><%= pedidoNro.localidad %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Provincia:</label>
+                                                            <div class="col">##</div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Pais:</label>
+                                                            <div class="col"><%= pedidoNro.pais %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">CP:</label>
+                                                            <div class="col"><%= pedidoNro.cp %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Contacto:</label>
+                                                            <div class="col"><%= pedidoNro.id_contacto %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Zona:</label>
+                                                            <div class="col"><%= pedidoNro.zona %></div>
+                                                        </div>
+
+
+                                                        <hr class="my-4">
+                                                        <div class="col-12" style="text-align: right;">
+                                                            <button class="w-45 btn btn-primary btn-lg btn-danger" type="submit">Cancelar</button>
+                                                            <button class="w-45 btn btn-primary btn-lg btn-success" type="submit" id="btn_procesar">Aceptar</button>
+                                                        </div>          
         
-                <h3>nro_pedido = <%= pedidoNro.nro_pedido %></h3>
-                <p> serie =  <%= pedidoNro.serie %> </p>
-                <p> id_cliente = <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %></a> </p>
-                <p> id_contrato = <%= pedidoNro.id_contrato %></p>
-                <p> tipo =  <%= pedidoNro.PedidoTipo.tipo_pedido_nombre %> </p>
-                <p> estado =  <%= pedidoNro.PedidoEstado.estado_nombre %> </p>
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
 
-                <p> detalle_pedido =  <%= pedidoNro.detalle_pedido %> </p>
-                <p> observaciones_recepcion =  <%= pedidoNro.observaciones_recepcion %> </p>
-                <p> fecha =  <%= pedidoNro.fecha %> </p>
-                <p> tecnico =  <%= pedidoNro.tecnico %> </p>
-                <p> domicilio =  <%= pedidoNro.domicilio %> </p>
-                <p> ubicacion =  <%= pedidoNro.ubicacion %> </p>
-                <p> localidad =  <%= pedidoNro.localidad %> </p>
-                <p> pais =  <%= pedidoNro.pais %> </p>
-                <p> cp =  <%= pedidoNro.cp %> </p>
-                <p> id_contacto =  <%= pedidoNro.id_contacto %> </p>
-                <p> zona =  <%= pedidoNro.zona %> </p>
-                
-                
-              </div>
-            </div>  
-          </div>    
-        </div>    
-        <!-- fin contenido-->
+                                    
+                                    <div class="mb-3 card">
+                                        <h5 class="bg-light card-header">Pedidos Anteriores</h5>
+                                        <div class="pt-0 card-body"></div>
+                                        <div class="py-2 card-footer">
+                                            <div class="flex-between-center g-0 row">
+                                                <div class="col-auto">
+                                                </div>
+                                                <div class="col-auto">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-bar rounded-0 d-lg-none show card">
+                                        <div class="py-2 px-0 card-body">
+                                            <div class="container">
+                                                <div class="flex-between-center g-0 row">
+                                                    <div class="col-auto">
+                                                        
+                                                    </div>
+                                                    <div class="col-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                
+                                <!-- lateral derecho -->
+                                <%- include partials/options_right_large.ejs %>
+                                <!-- fin lateral derecho -->
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- footer -->
-        <%- include partials/footer.ejs %>
-        <!-- fin footer -->
+                            
+                    <!-- fin contenido-->
+
+                    <!-- footer -->
+                    <%- include partials/footer.ejs %>
+                        <!-- fin footer -->

@@ -28,33 +28,6 @@ module.exports = (sequelize, dataTypes) => {
     Mail: {
       type: dataTypes.STRING(200),
     },
-    //Telefono: {
-    //  type: dataTypes.STRING(200),
-    //},
-    
-    //Domicilio: {
-    //  type: dataTypes.STRING(200),
-    //},
-    //Localidad_id: {
-    //  type: dataTypes.INTEGER,
-    //},
-
-    //Provincia_id: {
-    //  type: dataTypes.INTEGER,
-    //},
-    //Pais_id: {
-    //  type: dataTypes.INTEGER,
-    //},
-    //CP: {
-    //  type: dataTypes.STRING(20),
-    //},
-    
-    //Piso: {
-    //  type: dataTypes.STRING(200),
-    //},
-    //Oficina: {
-    //  type: dataTypes.STRING(200),
-    //},
     Ejecutivo: {
       type: dataTypes.INTEGER,
     },
@@ -82,19 +55,7 @@ module.exports = (sequelize, dataTypes) => {
   };
   const Cliente = sequelize.define(alias, cols, config);
   Cliente.associate = (models) => {
-    //Cliente.belongsTo(models.Paises, {
-    //  as: "pais",
-    //  foreignKey: "Pais_id",
-    //});
-    //Cliente.belongsTo(models.Localidad, {
-    //  as: "Localidad",
-    //  foreignKey: "Localidad_id",
-    //});
-    //Cliente.belongsTo(models.Provincia, {
-    //  as: "Provincia",
-    //  foreignKey: "Provincia_id",
-    //});
-
+    
     Cliente.belongsTo(models.Domicilio, {
         as: "DomicilioCliente",
         foreignKey: "id_domicilio",

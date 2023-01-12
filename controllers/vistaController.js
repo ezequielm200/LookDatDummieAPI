@@ -18,7 +18,7 @@ const vistaController = {
     res.render("equiposStock", { title: "Equipos en Stock" });
   },
 
-  
+
 
   // Equipos
   modelos: (req, res) => {
@@ -93,9 +93,6 @@ const vistaController = {
           association: "DetalleEquipo",
           include: [
             { association: "AliasCliente" },
-            { association: "PaisEquipo" },
-            { association: "LocalidadEquipo" },
-            { association: "ProvinciaEquipo" },
             { association: "Tecnico" },
           ],
         },
@@ -144,10 +141,6 @@ const vistaController = {
             { association: "Provincia" },
           ],
         },
-        //{ association: "DomicilioCliente" },
-        //{ association: "pais" },
-        //{ association: "Localidad" },
-        //{ association: "Provincia" },
         { association: "ejecutivo" },
         { association: "estadoCliente" },
         { association: "estadioCliente" },
@@ -464,13 +457,13 @@ const vistaController = {
           "updatedAt",
           "version",
           "contacto",
-          "direccion",
+          // "direccion",
           "ubicacion",
-          "localidad",
-          "provincia",
-          "pais",
-          "cp",
-          "zona",
+          // "localidad",
+          // "provincia",
+          // "pais",
+          // "cp",
+          //"zona",
           "tecnico",
           "dia_contador",
           "alias",
@@ -539,11 +532,11 @@ const vistaController = {
     let pedidoForm = req.body;
 
     let tipoPedido = await db.PedidoTipo.findOne({
-      where: { tipo_pedido: req.body.tipo_pedido },  
+      where: { tipo_pedido: req.body.tipo_pedido },
     });
-    
+
     let cliente = await db.Clientes.findOne({
-      where: { id_cliente: req.body.cliente },  
+      where: { id_cliente: req.body.cliente },
     });
 
     let tecnicos = await db.Usuario.findAll({
@@ -557,64 +550,19 @@ const vistaController = {
 
         { association: "Tecnico" },
         {
-          association: "DetalleEquipo",
-          include: [{ association: "ModeloEquipo", }],
+          association: "DomicilioEquipo",
+          include: [
+            { association: "pais" },
+            { association: "Localidad" },
+            { association: "Provincia" },
+          ],
         },
-
-        // { association: "EquipoEstado" },
-        // { association: "EquiposPropietarios" },
-        // {
-          // association: "PaisEquipo",
-          // association: "LocalidadEquipo",
-          // association: "ProvinciaEquipo",
-
-
-          //association: "DetalleEquipo",
-          //include: [
-            // { association: "AliasCliente" },
-            // { association: "PaisEquipo" },
-            // { association: "LocalidadEquipo" },
-            // { association: "ProvinciaEquipo" },
-
-            // { association: "Tecnico" },
-          //],
-        // },
-        // {
-        //   association: "ModeloEquipo",
-        //   include: [
-        //     { association: "ModeloMarca" },
-        //     {
-        //       association: "TipoEquipo",
-        //       include: [{ association: "TipoContadores" }],
-        //     },
-        //   ],
-        // },
+        {
+          association: "DetalleEquipo",
+          include: [{ association: "ModeloEquipo", }
+          ],
+        },
       ],
-
-      // include: [
-      //   // { association: "EquipoEstado" },
-      //   { association: "EquiposPropietarios" },
-      //   {
-      //     association: "DetalleEquipo",
-      //     include: [
-      //       { association: "AliasCliente" },
-      //       { association: "PaisEquipo" },
-      //       { association: "LocalidadEquipo" },
-      //       { association: "ProvinciaEquipo" },
-      //       { association: "Tecnico" },
-      //     ],
-      //   },
-      //   {
-      //     association: "ModeloEquipo",
-      //     include: [
-      //       { association: "ModeloMarca" },
-      //       {
-      //         association: "TipoEquipo",
-      //         include: [{ association: "TipoContadores" }],
-      //       },
-      //     ],
-      //   },
-      // ],
     });
 
     //let pedidoForm = req.body;
@@ -643,7 +591,9 @@ const vistaController = {
       ubicacion,
       domicilio,
       localidad,
-      zona,
+      provincia,
+      telefono,
+      //zona,
       pais,
       cp,
       id_contacto,
@@ -662,7 +612,9 @@ const vistaController = {
       ubicacion,
       domicilio,
       localidad,
-      zona,
+      provincia,
+      telefono,
+      //zona,
       pais,
       cp,
       id_contacto,
@@ -671,9 +623,9 @@ const vistaController = {
       let ordenCreada = await db.Pedido.create(pedidoNuevo);
         //res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
         res.redirect("/vistas/pedido/"+ ordenCreada.nro_pedido)
-      
+
       //res.render("index", {
-      
+
       //title: "Orden Creada",
       //ordenCreada,
 
@@ -707,18 +659,29 @@ const vistaController = {
     let equipo = await db.Equipos.findOne({
       where: { serie: req.params.serie },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [sequelize.col("serie_cliente")],
+      ////order: [sequelize.col("serie_cliente")],
+      order: [sequelize.col("serie")],
       include: [
+
         { association: "EquipoEstado" },
         { association: "EquiposPropietarios" },
+       
         {
           association: "DetalleEquipo",
           include: [
             { association: "AliasCliente" },
-            { association: "PaisEquipo" },
-            { association: "LocalidadEquipo" },
-            { association: "ProvinciaEquipo" },
+        //     // { association: "PaisEquipo" },
+        //     // { association: "LocalidadEquipo" },
+        //     // { association: "ProvinciaEquipo" },
             { association: "Tecnico" },
+            {
+              association: "DomicilioEquipo",
+              include: [
+                { association: "pais" },
+                { association: "Localidad" },
+                { association: "Provincia" },
+              ],
+            },
           ],
         },
         {
@@ -741,18 +704,18 @@ const vistaController = {
         {
           association: "Accesorio",
           include: [
-            { association: "EquiposPropietarios" },
-            {
-              association: "ModeloAccesorio",
-              include: [
-                { association: "ModeloMarcaAccesorio" },
-                { association: "TipoAccesorio" },
-              ],
-            },
-          ],
-        },
+             { association: "EquiposPropietarios" },
+             {
+               association: "ModeloAccesorio",
+               include: [
+                 { association: "ModeloMarcaAccesorio" },
+                 { association: "TipoAccesorio" },
+               ],
+             },
+           ],
+         },
       ],
-    });
+     });
 
     let pedidos = await db.Pedido.findAll({
       where: { serie: req.params.serie },

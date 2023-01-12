@@ -25,17 +25,17 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false,
     // onDelete: "CASCADE",
   };
-  const Marcas = sequelize.define(alias, cols, config);
-  Marcas.associate =  (models) => {
-    Marcas.hasMany(models.ModeloEquipo, {
+  const Marca = sequelize.define(alias, cols, config);
+  Marca.associate =  (models) => {
+    Marca.hasMany(models.ModeloEquipo, {
       as: "ModeloMarca",
       foreignKey: "id",
     });
     
-    Marcas.hasMany(models.ModeloAccesorio, {
+    Marca.hasMany(models.ModeloAccesorio, {
       as: "ModeloMarcaAccesorio",
       foreignKey: "id",
     });
   };
-  return Marcas;
+  return Marca;
 };

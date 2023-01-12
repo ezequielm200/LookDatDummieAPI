@@ -25,10 +25,10 @@ module.exports = (sequelize, dataTypes) => {
     });
 
 
-    Provincia.hasMany(models.EquipoCliente, {
-      as: "ProvinciaEquipo",
-      foreignKey: "provincia",
-    });
+    // Provincia.hasMany(models.EquipoCliente, {
+    //   as: "ProvinciaEquipo",
+    //   foreignKey: "provincia",
+    // });
   };
   return Provincia;
 };

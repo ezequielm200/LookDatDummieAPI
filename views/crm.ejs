@@ -1,6 +1,6 @@
 <%- include partials/header.ejs %>
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <noscript></noscript>
   <main class="main" id="main">
     <!-- container-fluid -->
 		<div class="container-fluid">
@@ -23,7 +23,18 @@
                 <h5><%= cliente.serie %> </h5>
                 <h6><%= cliente.Nombre_Empresa %></h6>
                 <p class="mt-2">
-                    <%= cliente.Actividad %><br>
+                    Actividad <%= cliente.actividadCliente.actividad_label %><br>
+
+                    <%= cliente.DomicilioCliente.Domicilio %>
+                    <%= cliente.DomicilioCliente.Piso %>
+                    <%= cliente.DomicilioCliente.Oficina %>
+                    <%= cliente.DomicilioCliente.CP %>
+                    <%= cliente.DomicilioCliente.Telefono %>
+                    <%= cliente.DomicilioCliente.Label %>
+                    <%= cliente.DomicilioCliente.pais.nombre_pais %>
+                    <%= cliente.DomicilioCliente.localidad_label %>
+                    <%= cliente.DomicilioCliente.provincia_label %>
+                    
                 
                     <div>
                       <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">

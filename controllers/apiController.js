@@ -69,9 +69,6 @@ const apiController = {
           association: "DetalleEquipo",
           include: [
             { association: "AliasCliente" },
-            { association: "PaisEquipo" },
-            { association: "LocalidadEquipo" },
-            { association: "ProvinciaEquipo" },
             { association: "Tecnico" },
           ],
         },
@@ -158,11 +155,12 @@ const apiController = {
 
   clientes: (req, res) => {
     db.Clientes.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt", "Pais_id"] },
+      //attributes: { exclude: ["createdAt", "updatedAt", "Pais_id"] },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
-        { association: "pais" },
-        { association: "Localidad" },
-        { association: "Provincia" },
+        //{ association: "pais" },
+        //{ association: "Localidad" },
+        //{ association: "Provincia" },
         { association: "ejecutivo" },
         { association: "estadoCliente" },
         { association: "estadioCliente" },
@@ -181,7 +179,7 @@ const apiController = {
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id_cliente: req.params.id_cliente },
-      include: [{ association: "pais" }],
+      //include: [{ association: "pais" }],
     }).then((cliente) => {
       res.status(200).json({
         status: 200,
@@ -198,9 +196,7 @@ const apiController = {
         serie: req.params.serie,
         estado: 1,
       },
-      // include: [
-      //   { association: "color" },
-      // ],
+      
     }).then((equipo) => {
       res.status(200).json({
         status: 200,
@@ -209,17 +205,6 @@ const apiController = {
         contadorActual: equipo,
         Acumulado_BYN: equipo.ContAct_BYN - equipo.ContAnt_BYN,
       });
-    });
-  },
-  test: (req, res) => {
-    console.log("llega");
-    db.Localidad.findAll().then((data) => {
-      res.status(200).json({
-        status: 200,
-        message: "probando",
-        url: "api/test",
-        data
-      })
     });
   },
 

@@ -26,10 +26,6 @@ module.exports = (sequelize, dataTypes) => {
       as: "Localidad",
       foreignKey: "Localidad_id",
     });
-    Localidad.hasMany(models.EquipoCliente, {
-      as: "LocalidadEquipo",
-      foreignKey: "localidad",
-    });
 };
   return Localidad;
 };
