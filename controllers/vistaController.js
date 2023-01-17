@@ -1,6 +1,9 @@
 const db = require("../database/models");
 const sequelize = require("sequelize");
 
+const { validationResult, body } = require("express-validator");
+
+
 const vistaController = {
   index: (req, res) => {
     res.render("vistas", { title: "Vistas" });
@@ -17,8 +20,6 @@ const vistaController = {
   equiposStock: (req, res) => {
     res.render("equiposStock", { title: "Equipos en Stock" });
   },
-
-
 
   // Equipos
   modelos: (req, res) => {
@@ -244,10 +245,7 @@ const vistaController = {
       where: { nro_pedido: req.params.nro_pedido },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
-      include: [
-        { association: "PedidoEstado" },
-        { association: "PedidoTipo" },
-      ],
+      include: [{ association: "PedidoEstado" }, { association: "PedidoTipo" }],
     });
 
     res.render("pedidoNro", {
@@ -547,7 +545,6 @@ const vistaController = {
     let equipo = await db.EquipoCliente.findOne({
       where: { serie_cliente: req.body.serie_cliente },
       include: [
-
         { association: "Tecnico" },
         {
           association: "DomicilioEquipo",
@@ -559,8 +556,7 @@ const vistaController = {
         },
         {
           association: "DetalleEquipo",
-          include: [{ association: "ModeloEquipo", }
-          ],
+          include: [{ association: "ModeloEquipo" }],
         },
       ],
     });
@@ -621,8 +617,8 @@ const vistaController = {
     };
     try {
       let ordenCreada = await db.Pedido.create(pedidoNuevo);
-        //res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
-        res.redirect("/vistas/pedido/"+ ordenCreada.nro_pedido)
+      //res.render("/vistas/pedido/"+ ordenCreada.nro_pedido, {
+      res.redirect("/vistas/pedido/" + ordenCreada.nro_pedido);
 
       //res.render("index", {
 
@@ -634,11 +630,11 @@ const vistaController = {
       //   message: "orden creada",
       //   ordenCreada,
 
-        // res.render("creaOrdenForm", { //aca va la orden YA CREADA, vista de confirmacion.
-        //   title: "Crear Orden",
-        //   ordenCreada,
+      // res.render("creaOrdenForm", { //aca va la orden YA CREADA, vista de confirmacion.
+      //   title: "Crear Orden",
+      //   ordenCreada,
 
-        //});
+      //});
 
       //});
     } catch (error) {
@@ -647,8 +643,37 @@ const vistaController = {
   },
   // Fin Crear Ordenes
 
+  // * Actualizar orden
+  actualizarOrden: async (req, res) => {
+    let errors = validationResult(req);
+    if (errors.isEmpty()) {
+    let pedidoActualizado = {
+      detalle_pedido: req.body.detalle_pedido,
+      observaciones_recepcion: req.body.observaciones_recepcion,
+      tecnico: req.body.tecnico,
+    };
+    await db.Pedido.update(pedidoActualizado, {
+      where: {
+        nro_pedido: req.params.nro_pedido,
+      },
+    });
+    res.redirect("/vistas/pedido/" + req.params.nro_pedido);
+  } else {
+    let pedidoNro = await db.Pedido.findOne({
+      where: { nro_pedido: req.params.nro_pedido },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("nro_pedido")],
+      include: [{ association: "PedidoEstado" }, { association: "PedidoTipo" }],
+    });
 
+    res.render("pedidoNro", {
+      title: "Detalle de Pedido",
+      pedidoNro: pedidoNro,
+      errors: errors.mapped()
+    });
 
+  }
+  },
 
   //Localizador
   localizadorInput: async (req, res) => {
@@ -662,17 +687,16 @@ const vistaController = {
       ////order: [sequelize.col("serie_cliente")],
       order: [sequelize.col("serie")],
       include: [
-
         { association: "EquipoEstado" },
         { association: "EquiposPropietarios" },
-       
+
         {
           association: "DetalleEquipo",
           include: [
             { association: "AliasCliente" },
-        //     // { association: "PaisEquipo" },
-        //     // { association: "LocalidadEquipo" },
-        //     // { association: "ProvinciaEquipo" },
+            //     // { association: "PaisEquipo" },
+            //     // { association: "LocalidadEquipo" },
+            //     // { association: "ProvinciaEquipo" },
             { association: "Tecnico" },
             {
               association: "DomicilioEquipo",
@@ -704,18 +728,18 @@ const vistaController = {
         {
           association: "Accesorio",
           include: [
-             { association: "EquiposPropietarios" },
-             {
-               association: "ModeloAccesorio",
-               include: [
-                 { association: "ModeloMarcaAccesorio" },
-                 { association: "TipoAccesorio" },
-               ],
-             },
-           ],
-         },
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
+            },
+          ],
+        },
       ],
-     });
+    });
 
     let pedidos = await db.Pedido.findAll({
       where: { serie: req.params.serie },
