@@ -2,9 +2,8 @@ module.exports = (sequelize, dataTypes) => {
     let alias = "Domicilio";
     let cols = {
       ID: {
-        type: dataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+        type: dataTypes.INTEGER,        
+        //autoIncrement: true,
       },
       id_cliente: {
         type: dataTypes.STRING(30),
@@ -42,6 +41,10 @@ module.exports = (sequelize, dataTypes) => {
       },
       zona: {
         type: dataTypes.INTEGER,
+        
+      },
+      id_domicilio: {
+        type: dataTypes.INTEGER,
         primaryKey: true,
       },
         
@@ -53,9 +56,14 @@ module.exports = (sequelize, dataTypes) => {
     };
     const Domicilio = sequelize.define(alias, cols, config);
     Domicilio.associate = (models) => {
+        // Domicilio.hasMany(models.Clientes, {
+        //     as: "DomicilioCliente",
+        //     foreignKey: "id_domicilio",
+        // });
+
         Domicilio.hasMany(models.Clientes, {
-            as: "DomicilioCliente",
-            foreignKey: "id_domicilio",
+          as: "DomicilioCliente",
+          foreignKey: "id_domicilio",
         });
         
         Domicilio.hasMany(models.EquipoCliente, {

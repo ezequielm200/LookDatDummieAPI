@@ -119,12 +119,11 @@
                                                         class="form-select" style="width: 280px;">
                                                         <option selected="selected" value="0" id="0">Seleccione empresa
                                                         </option>
-                                                        <% for( let f=0; f < clientes.length; f++ ) { %>
+                                                            <% for( let f=0; f < clientes.length; f++ ) { %>
                                                             <option value="<%= clientes[f].id_cliente %>"
                                                                 id="<%= clientes[f].id_cliente %>">
-                                                                <%= clientes[f].id_cliente %> - <%= clientes[f].Nombre_Empresa %>
+                                                                <%= clientes[f].Nombre_Empresa %> - <%= clientes[f].id_cliente %>
                                                             </option>
-
                                                             <% } %>
 
 

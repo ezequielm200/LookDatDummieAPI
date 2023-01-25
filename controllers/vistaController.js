@@ -100,6 +100,9 @@ const vistaController = {
           association: "ModeloEquipo",
           include: [
             { association: "ModeloMarca" },
+            { association: "Semaforo" },
+
+            
             {
               association: "TipoEquipo",
               include: [{ association: "TipoContadores" }],
@@ -360,45 +363,7 @@ const vistaController = {
       });
     });
   },
-  //prueba eze
-  // rejunte: (req, res) => {
-  //   db.Clientes.findAll({
-  //     attributes: { exclude: ["createdAt", "updatedAt"] },
-  //     order: [sequelize.col("ID")],
-  //   }).then((clientes) => {
-  //     db.Accesorios.findAll({
-  //       attributes: { exclude: ["createdAt", "updatedAt"] },
-  //       order: [sequelize.col("ID")],
-  //     }).then((accesorios) => {
-  //       let todo = {
-  //         clientes: clientes,
-  //         accesorios: accesorios,
-  //       };
-  //       res.send(todo);
-  //     });
-  //   });
-  // },
-
-  // metodo con .then(function)
-  // rejunte: (req, res) => {
-  //   let clientes = db.Clientes.findAll({
-  //     attributes: { exclude: ["createdAt", "updatedAt"] },
-  //     order: [sequelize.col("ID")],
-  //   });
-  //   let accesorios = db.Accesorios.findAll({
-  //     attributes: { exclude: ["createdAt", "updatedAt"] },
-  //     order: [sequelize.col("ID")],
-  //   });
-
-  //   Promise.all([clientes, accesorios]).then(function ([clientes, accesorios]) {
-  //     let todo = {
-  //       clientes: clientes,
-  //       accesorios: accesorios,
-  //     };
-  //     res.send(todo);
-  //   });
-  // },
-
+  
   generarOrdenSelect: async (req, res) => {
     let tipoPedido = await db.PedidoTipo.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
@@ -423,9 +388,11 @@ const vistaController = {
         ],
       },
       order: [sequelize.col("Nombre_Empresa")],
-      //cliente where estado
-      //estadio_cliente
+       /** 
+       * TODO:MQ filtar y/o alertar estados de clientes (activos, inactivos, deuda). filtar estadíos (sacar leads y prospectos)
+       */
     });
+  
 
     let contratos = await db.Contratos.findAll({
       attributes: {
@@ -662,17 +629,29 @@ const vistaController = {
       ////order: [sequelize.col("serie_cliente")],
       order: [sequelize.col("serie")],
       include: [
-
+        
         { association: "EquipoEstado" },
         { association: "EquiposPropietarios" },
-       
         {
           association: "DetalleEquipo",
           include: [
+            { association: "ContratoDetalle",
+              include: [
+                { association: "TipoContrato" },
+                { association: "ContratoEstado" },
+                { association: "SelladoContrato" },
+                { association: "ContratoCliente",
+                  include: [
+                    { association: "estadioCliente" },
+                    { association: "ejecutivo" },
+                    { association: "estadoCliente" },                  
+                  ],
+                },
+                
+              ], 
+            },
+
             { association: "AliasCliente" },
-        //     // { association: "PaisEquipo" },
-        //     // { association: "LocalidadEquipo" },
-        //     // { association: "ProvinciaEquipo" },
             { association: "Tecnico" },
             {
               association: "DomicilioEquipo",
@@ -684,9 +663,12 @@ const vistaController = {
             },
           ],
         },
+
+        
         {
           association: "ModeloEquipo",
           include: [
+            { association: "Semaforo" },                
             { association: "ModeloMarca" },
             {
               association: "TipoEquipo",
@@ -696,6 +678,34 @@ const vistaController = {
         },
       ],
     });
+
+
+    //
+    let SemaforoContadorActual = await db.Contadores.findOne({
+      where: { 
+        serie: req.params.serie,
+        estado: '1', 
+      },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      // include: [
+      //   {
+      //     association: "Accesorio",
+      //     include: [
+      //        { association: "EquiposPropietarios" },
+      //        {
+      //          association: "ModeloAccesorio",
+      //          include: [
+      //            { association: "ModeloMarcaAccesorio" },
+      //            { association: "TipoAccesorio" },
+      //          ],
+      //        },
+      //      ],
+      //    },
+      // ],
+    });
+    //
+
+
 
     let accesorios = await db.AccesorioCliente.findAll({
       where: { serie_equipo: req.params.serie },
@@ -715,7 +725,7 @@ const vistaController = {
            ],
          },
       ],
-     });
+    });
 
     let pedidos = await db.Pedido.findAll({
       where: { serie: req.params.serie },
@@ -727,9 +737,10 @@ const vistaController = {
     let contadorActual = await db.Contadores.findOne({
       where: {
         serie: req.params.serie,
-        estado: 1,
+        estado: '1',
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      limit: 10,
     });
 
     let contadores = await db.Contadores.findAll({
@@ -740,11 +751,6 @@ const vistaController = {
       limit: 10,
     });
 
-    // let todo = {
-    //   equipo: equipo,
-    //   accesorios: accesorios,
-    // };
-    //res.send(todo);
     res.render("Localizador", {
       title: "Localizador de Equipos",
       equipo: equipo,
@@ -752,6 +758,7 @@ const vistaController = {
       pedidos: pedidos,
       contadorActual: contadorActual,
       contadores: contadores,
+      SemaforoContadorActual: SemaforoContadorActual,
     });
   },
 
@@ -799,42 +806,7 @@ const vistaController = {
     let alias = await db.Alias.findAll({
       where: { id_cliente: req.params.id_cliente },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-
-      // await Promise.all(alias.map(async data => {
-      //   let EquipoCliente =  await EquipoCliente.find({
-      //     where: { alias: req.alias.id_alias },
-      //     attributes: { exclude: ["createdAt", "updatedAt"] },
-      //     order: [sequelize.col("serie")],
-      //   }).countDocuments();
-      //   //data.isBookmark = (hre == 1);
-      // }),
-
-      //
-      //   equipos: (req, res) => {
-      //     db.EquipoCliente.findOne({
-      //       where: { alias: req.alias.id_alias },
-      //       attributes: { exclude: ["createdAt", "updatedAt"] },
-      //       order: [sequelize.col("serie")],
-      //     },
-      //   }
-      //
     });
-
-    // let lor = await Articles.find({ Status: 1, isPublish: true})
-    // .sort({TotalClapCount: -1})
-    // .sort({ViewCount: -1})
-    // .skip(offset)
-    // .limit(limit);
-
-    // await Promise.all(lor.map(async data => {
-    //     let hre =  await ArticleBookmarks.find({
-    //         ArticleID: data.ID,
-    //         UserID: ArgsUserID,
-    //         Status: 1
-    //     }).countDocuments();
-    //     data.isBookmark = (hre == 1);
-    // });
-    // return lor;
 
     res.render("crm", {
       title: "CRM",

@@ -23,17 +23,22 @@
                 <h5><%= cliente.serie %> </h5>
                 <h6><%= cliente.Nombre_Empresa %></h6>
                 <p class="mt-2">
-                    Actividad <%= cliente.actividadCliente.actividad_label %><br>
+                    Actividad <%= cliente.actividadCliente?.actividad_label %><br>
 
-                    <%= cliente.DomicilioCliente.Domicilio %>
-                    <%= cliente.DomicilioCliente.Piso %>
-                    <%= cliente.DomicilioCliente.Oficina %>
-                    <%= cliente.DomicilioCliente.CP %>
-                    <%= cliente.DomicilioCliente.Telefono %>
-                    <%= cliente.DomicilioCliente.Label %>
-                    <%= cliente.DomicilioCliente.pais.nombre_pais %>
-                    <%= cliente.DomicilioCliente.localidad_label %>
-                    <%= cliente.DomicilioCliente.provincia_label %>
+                    {<%= cliente.id_domicilio %>/<%= cliente.id_cliente %>}
+                     <h2>Domicilio:</h2>
+
+                     <%= cliente.DomicilioCliente?.Domicilio %><br>
+                     <%= cliente.DomicilioCliente?.Piso %><br>
+                     <%= cliente.DomicilioCliente?.Oficina %><br>
+                     <%= cliente.DomicilioCliente?.CP %><br>
+                     <%= cliente.DomicilioCliente?.Telefono %><br>
+                     <%= cliente.DomicilioCliente?.Label %><br>
+                     <%= cliente.DomicilioCliente?.pais.nombre_pais %><br>
+                     <%= cliente.DomicilioCliente?.Localidad?.localidad_label %><br>
+                     <%= cliente.DomicilioCliente?.Provincia?.provincia_label %><br>
+                    
+
                     
                 
                     <div>

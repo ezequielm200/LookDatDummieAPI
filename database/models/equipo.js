@@ -65,6 +65,12 @@ module.exports = (sequelize, dataTypes) => {
       foreignKey: "serie",
     });
 
+    Equipo.belongsTo(models.Contadores, {
+      as: "Contador",
+      foreignKey: "modelo",
+    });
+
+
   };
   return Equipo;
 };

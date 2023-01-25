@@ -66,6 +66,12 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false,
     // onDelete: "CASCADE",
   };
-  const Contador = sequelize.define(alias, cols, config);
-  return Contador;
+  const Contadores = sequelize.define(alias, cols, config);
+  Contadores.associate = (models) => {
+    Contadores.hasMany(models.Equipos, {
+        as: "Contador",
+       foreignKey: "modelo",
+    });
+  };
+  return Contadores;
 };

@@ -12,6 +12,7 @@ module.exports = (sequelize, dataTypes) => {
 
       modelo: {
         type: dataTypes.STRING(100),
+        primaryKey: true,
       },
 
       marca: {
@@ -82,6 +83,10 @@ module.exports = (sequelize, dataTypes) => {
       });
 
 
+      ModeloEquipo.belongsTo(models.EquipoModeloSemaforo, {
+        as: "Semaforo",
+        foreignKey: "modelo",
+      });
       
     };
 

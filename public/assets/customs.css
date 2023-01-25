@@ -1,0 +1,43 @@
+.box-image-background {
+    background-image: url('../images/corner-4.62f4f1af.png'); 
+    border-top-right-radius: 0.375rem; 
+    border-bottom-right-radius: 0.375rem;
+}
+
+
+  .semaforo_circulo {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    float: left; 
+    margin-right: 10px;               
+  }
+
+  .semaforo_amarillo {                   
+    background-color: yellow;
+  }
+
+  .semaforo_amarillo_rojo {                   
+    background-image: linear-gradient(to right, yellow, red );
+  }
+
+
+  .semaforo_verde {                   
+    background-color: green;
+  }
+
+  .semaforo_verde_amarillo {                   
+    background-image: linear-gradient(to right, green, yellow );
+  }
+
+  .semaforo_rojo {                   
+    background-color: red;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    padding-bottom: 4px;
+  }
+
+  .semaforo_vacio {                   
+    background-color: white;
+  }

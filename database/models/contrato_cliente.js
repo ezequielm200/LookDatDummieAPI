@@ -3,12 +3,12 @@ module.exports = (sequelize, dataTypes) => {
     let cols = {
       id: {
         type: dataTypes.INTEGER,
-        primaryKey: true,
+        //primaryKey: true,
         autoIncrement: true,
       },
       cliente_id: {
         type: dataTypes.STRING(30),
-        primaryKey: true,
+        //primaryKey: true,
       },
       id_contrato: {
         type: dataTypes.STRING(30),
@@ -28,7 +28,7 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.INTEGER,
       },
       firmado: {
-        type: dataTypes.STRING(200),
+        type: dataTypes.STRING(2),
       },
       sellado: {
         type: dataTypes.INTEGER,
@@ -44,7 +44,7 @@ module.exports = (sequelize, dataTypes) => {
       },
     };
     let config = {
-      tableName: "CONTRATO_CLIENTE",
+      tableName: "ContratoCliente",
       timestamps: false,
       // onDelete: "CASCADE",
     };
@@ -70,6 +70,11 @@ module.exports = (sequelize, dataTypes) => {
             foreignKey: "cliente_id",
             //foreignKey: "id_cliente",
           });
+
+          Contratos.belongsTo(models.EquipoCliente, {
+            as: "ContratoDetalle",
+            foreignKey: "id_contrato",
+        });
         };
     return Contratos;
   };
