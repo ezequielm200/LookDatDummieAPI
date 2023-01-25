@@ -10,6 +10,9 @@ const apiRouter = require('./routes/api');
 const vistaRouter = require('./routes/vistas')
 
 var app = express();
+// method override para PUT y DELETE
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 require('dotenv').config()
 

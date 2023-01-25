@@ -2,7 +2,7 @@
 
     <body>
         <noscript></noscript>
-        
+
         <main class="main" id="main">
             <!-- container-fluid -->
             <div class="container-fluid">
@@ -32,8 +32,8 @@
                                                       <p> id_contrato = <%= pedidoNro.id_contrato %></p>
                                                       <p> tipo =  <%= pedidoNro.PedidoTipo.tipo_pedido_nombre %> </p>
                                                       <p> estado =  pedidoNro.PedidoEstado.estado_nombre</p>
-                                      
-                                                    
+
+
                                                       <p> fecha =  <%= pedidoNro.fecha %> </p>
 
                                                     </p>
@@ -47,9 +47,9 @@
 
                                     </div>
 
-                                    <form class="needs-validation" novalidate="" method="post"
-                                            action=""
-                                            enctype="application/x-www-form-urlencoded">
+                                    <form class="needs-validation orderForm" novalidate="" method="post"
+                                            action="/vistas/actualizarOrden/<%= pedidoNro.nro_pedido %>?_method=PUT"
+                                            >
                                     <div class="mb-3 card">
                                         <h5 class="card-header">Información del Pedido <%= pedidoNro.nro_pedido %></h5>
                                         <div class="bg-light card-body">
@@ -58,7 +58,11 @@
                                                     <div>
                                                         <label class="form-label">Detalle Pedido:</label>
                                                         <div class=" css-b62m3t-container">
-                                                            <textarea class="form-control me-2" rows="6" type="text" id="detalle_pedido" name="detalle_pedido"><%= pedidoNro.detalle_pedido %></textarea>
+                                                            <textarea class="form-control me-2 <%= locals.errors && errors.detalle_pedido ? 'is-invalid' : null %>" rows="6" type="text" id="detalle_pedido" name="detalle_pedido"><%= pedidoNro.detalle_pedido %></textarea>
+                                                            <p id="detalle_pedidoError" class="errorTextFront"></p>
+                                                             <% if (locals.errors && errors.detalle_pedido) { %>
+                                                             <p class="errorTextBack"> <%= errors.detalle_pedido.msg %> </p>
+                                                             <% } %>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -67,7 +71,11 @@
                                                     <div>
                                                         <label class="form-label">Observaciones:</label>
                                                         <div class=" css-b62m3t-container">
-                                                            <textarea class="form-control me-2" rows="6" type="text" id="observaciones_recepcion" name="observaciones_recepcion"><%= pedidoNro.observaciones_recepcion %></textarea>
+                                                            <textarea class="form-control me-2 <%= locals.errors && errors.observaciones_recepcion ? 'is-invalid' : null %>" rows="6" type="text" id="observaciones_recepcion" name="observaciones_recepcion"><%= pedidoNro.observaciones_recepcion %></textarea>
+                                                            <p id="observaciones_recepcionError" class="errorTextFront"></p>
+                                                             <% if (locals.errors && errors.observaciones_recepcion) { %>
+                                                             <p class="errorTextBack"> <%= errors.observaciones_recepcion.msg %> </p>
+                                                             <% } %>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -77,7 +85,7 @@
                                                         <label class="form-label">####T&eacute;cnico Asignado: (<%= pedidoNro.tecnico %>)</label>
                                                         <select class="form-select" id="tecnico" name="tecnico" required="">
                                                             <option value="">Seleccione t&eacute;cnico</option>
-                                                            
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -87,7 +95,7 @@
                                                         <br>###
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-12">
                                                     <div>
                                                         <label class="form-label">Información del equipo:</label>
@@ -148,10 +156,10 @@
                                                         <div class="col-12" style="text-align: right;">
                                                             <button class="w-45 btn btn-primary btn-lg btn-danger" type="submit">Cancelar</button>
                                                             <button class="w-45 btn btn-primary btn-lg btn-success" type="submit" id="btn_procesar">Aceptar</button>
-                                                        </div>          
-        
-                                                        
-                                                        
+                                                        </div>
+
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +167,7 @@
                                     </div>
                                     </form>
 
-                                    
+
                                     <div class="mb-3 card">
                                         <h5 class="bg-light card-header">Pedidos Anteriores</h5>
                                         <div class="pt-0 card-body"></div>
@@ -168,7 +176,7 @@
                                                 <div class="col-auto">
                                                 </div>
                                                 <div class="col-auto">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -178,16 +186,16 @@
                                             <div class="container">
                                                 <div class="flex-between-center g-0 row">
                                                     <div class="col-auto">
-                                                        
+
                                                     </div>
                                                     <div class="col-auto"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                 </div>
-                                
+
                                 <!-- lateral derecho -->
                                 <%- include partials/options_right_large.ejs %>
                                 <!-- fin lateral derecho -->
@@ -195,7 +203,7 @@
                         </div>
                     </div>
 
-                            
+
                     <!-- fin contenido-->
 
                     <!-- footer -->
