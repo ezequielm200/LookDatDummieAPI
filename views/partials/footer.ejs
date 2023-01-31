@@ -66,13 +66,13 @@
     <script src="/assets/main.e524639b.chunk.js"></script>
 
 
-
+    
 
 
 
     <link rel="stylesheet" href="_/assets/dataTable/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/dataTable/DT_bootstrap.css">
-    <script src="_/assets/dataTable/jquery.min.js"></script>
+      <script src="_/assets/dataTable/jquery.min.js"></script>
     <script src="/assets/dataTable/bootstrap.min.js"></script>
     <script src="/assets/dataTable/perfect-scrollbar.js"></script>
     <script src="/assets/dataTable/jquery.cookie.js"></script>
@@ -84,12 +84,30 @@
     <script>
         jQuery(document).ready(function() {
           TableData.init();
+          Main.init();
         });
     </script>
     <script src="/js/ordersValidation.js"></script>
 
 
 
+    
+
+    <!-- DarkLight -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  
+    <script id="rendered-js" >
+      
+      $(document).ready(function () {
+        var parrafo = $("html");
+
+        $('#DarkLight').click(function () {
+        parrafo.toggleClass('dark');
+        });
+        
+        });
+    </script>
+    <!-- fin DarkLight -->
 
 
   </body>

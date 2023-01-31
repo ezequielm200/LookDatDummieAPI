@@ -21,11 +21,18 @@ module.exports = (sequelize, dataTypes) => {
     };
     const Alias = sequelize.define(alias, cols, config);
     Alias.associate =  (models) => {
-        Alias.belongsTo(models.EquipoCliente, {
-        as: "AliasCliente",
+      Alias.belongsTo(models.EquipoCliente, {
+        as: "AliasID",
         foreignKey: "id",
       });
+
+      // Alias.belongsTo(models.EquipoCliente, {
+      //   as: "AliasCliente",
+      //   foreignKey: "id_cliente",
+      // });
     };
+
+    
    
     return Alias;
   };

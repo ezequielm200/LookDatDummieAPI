@@ -93,7 +93,7 @@ const vistaController = {
         {
           association: "DetalleEquipo",
           include: [
-            { association: "AliasCliente" },
+            { association: "AliasID" },
             { association: "Tecnico" },
           ],
         },
@@ -248,12 +248,60 @@ const vistaController = {
       where: { nro_pedido: req.params.nro_pedido },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
-      include: [{ association: "PedidoEstado" }, { association: "PedidoTipo" }],
+      include: [
+        { association: "PedidoEstado" }, 
+        { association: "PedidoTipo" }, 
+        { association: "PedidoCliente" },        
+        {
+          association: "DomicilioPedido",
+          include: [
+            { association: "pais" },
+            { association: "Localidad" },
+            { association: "Provincia" },
+            { association: "Zona" },
+            
+          ],
+        },  
+        // { association: "PedidoPais" },
+        // { association: "PedidoProvincia" },
+        // { association: "PedidoLocalidad" },  
+        { association: "PedidoSerie",
+        include: [
+          { association: "Tecnico" },
+          { association: "AliasID" },
+          { association: "DetalleEquipo",
+          include: [
+            
+            {
+              association: "ModeloEquipo",
+              include: [
+                { association: "Semaforo" },                
+                { association: "ModeloMarca" },
+                {
+                  association: "TipoEquipo",
+                  include: [{ association: "TipoContadores" }],
+                },
+              ],
+            }
+          ]
+         }, 
+                    
+        ],
+           }        
+      ],
     });
+
+    let tecnicos = await db.Usuario.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("User_Nombre")],
+      where: {User_Activo: 1}
+    });
+
 
     res.render("pedidoNro", {
       title: "Detalle de Pedido",
       pedidoNro: pedidoNro,
+      tecnicos: tecnicos,
     });
   },
 
@@ -262,7 +310,10 @@ const vistaController = {
       where: { estado: req.params.estado },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
-      include: [{ association: "PedidoEstado" }],
+      include: [
+        { association: "PedidoEstado" },
+        { association: "PedidoCliente" }
+      ],
     }).then((pedidoEstado) => {
       res.render("pedidoEstado", {
         title: "Pedidos por estado",
@@ -422,13 +473,9 @@ const vistaController = {
           "updatedAt",
           "version",
           "contacto",
-          // "direccion",
           "ubicacion",
-          // "localidad",
-          // "provincia",
-          // "pais",
-          // "cp",
-          //"zona",
+          "Piso",
+          "Oficina",
           "tecnico",
           "dia_contador",
           "alias",
@@ -496,17 +543,23 @@ const vistaController = {
   generarOrdenForm: async (req, res) => {
     let pedidoForm = req.body;
 
-    let tipoPedido = await db.PedidoTipo.findOne({
-      where: { tipo_pedido: req.body.tipo_pedido },
-    });
-
     let cliente = await db.Clientes.findOne({
       where: { id_cliente: req.body.cliente },
+      include: [
+        { association: "estadoCliente" },
+        { association: "ejecutivo" },
+        
+      ]
+    });
+
+    let tipoPedido = await db.PedidoTipo.findOne({
+      where: { tipo_pedido: req.body.tipo_pedido },
     });
 
     let tecnicos = await db.Usuario.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("User_Nombre")],
+      where: {User_Activo: 1}
     });
 
     let equipo = await db.EquipoCliente.findOne({
@@ -519,6 +572,7 @@ const vistaController = {
             { association: "pais" },
             { association: "Localidad" },
             { association: "Provincia" },
+            { association: "Zona" },
           ],
         },
         {
@@ -526,6 +580,12 @@ const vistaController = {
           include: [{ association: "ModeloEquipo" }],
         },
       ],
+    });
+
+    let PedidosAnteriores = await db.Pedido.findAll({
+      where: { serie: req.body.serie_cliente },
+      limit: 10,
+      include: [{ association: "PedidoEstado" }],
     });
 
     //let pedidoForm = req.body;
@@ -536,6 +596,7 @@ const vistaController = {
       cliente: cliente,
       equipo: equipo,
       tecnicos: tecnicos,
+      PedidosAnteriores: PedidosAnteriores,
     });
   },
 
@@ -651,12 +712,10 @@ const vistaController = {
     let equipo = await db.Equipos.findOne({
       where: { serie: req.params.serie },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      ////order: [sequelize.col("serie_cliente")],
       order: [sequelize.col("serie")],
       include: [
         { association: "EquipoEstado" },
         { association: "EquiposPropietarios" },
-
         {
           association: "DetalleEquipo",
           include: [
@@ -673,17 +732,22 @@ const vistaController = {
                   ],
                 },
                 
+                
               ], 
             },
+             
 
-            { association: "AliasCliente" },
+            { association: "AliasID" },
             { association: "Tecnico" },
+            { association: "TipoToma" },
             {
               association: "DomicilioEquipo",
               include: [
                 { association: "pais" },
                 { association: "Localidad" },
                 { association: "Provincia" },
+                { association: "Zona" },
+                
               ],
             },
           ],
@@ -704,36 +768,66 @@ const vistaController = {
       ],
     });
 
-
-    //
     let SemaforoContadorActual = await db.Contadores.findOne({
       where: { 
         serie: req.params.serie,
         estado: '1', 
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      // include: [
-      //   {
-      //     association: "Accesorio",
-      //     include: [
-      //        { association: "EquiposPropietarios" },
-      //        {
-      //          association: "ModeloAccesorio",
-      //          include: [
-      //            { association: "ModeloMarcaAccesorio" },
-      //            { association: "TipoAccesorio" },
-      //          ],
-      //        },
-      //      ],
-      //    },
-      // ],
     });
-    //
-
-
 
     let accesorios = await db.AccesorioCliente.findAll({
-      where: { serie_equipo: req.params.serie },
+      where: { 
+        serie_equipo: req.params.serie,
+        estado: 1,
+      },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [
+        {
+          association: "Accesorio",
+          include: [
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    let accesoriosInstalar = await db.AccesorioCliente.findAll({
+      where: { 
+        serie_equipo: req.params.serie,
+        estado: 2,
+       },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [
+        {
+          association: "Accesorio",
+          include: [
+            { association: "EquiposPropietarios" },
+            {
+              association: "ModeloAccesorio",
+              include: [
+                { association: "ModeloMarcaAccesorio" },
+                { association: "TipoAccesorio" },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+
+    let accesoriosRetirar = await db.AccesorioCliente.findAll({
+      where: { 
+        serie_equipo: req.params.serie,
+        estado: 3,
+       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
@@ -780,6 +874,8 @@ const vistaController = {
       title: "Localizador de Equipos",
       equipo: equipo,
       accesorios: accesorios,
+      accesoriosInstalar: accesoriosInstalar,
+      accesoriosRetirar: accesoriosRetirar,
       pedidos: pedidos,
       contadorActual: contadorActual,
       contadores: contadores,
@@ -820,6 +916,15 @@ const vistaController = {
       include: [{ association: "TipoContrato" }],
     });
 
+    let sedes = await db.Domicilio.findAll({
+      where: { id_cliente: req.params.id_cliente },
+      include: [
+        { association: "pais" },
+        { association: "Localidad" },
+        { association: "Provincia" },
+      ],
+    });
+
     let pedidos = await db.Pedido.findAll({
       where: { id_cliente: req.params.id_cliente },
       attributes: { exclude: ["createdAt", "updatedAt"] },
@@ -839,6 +944,7 @@ const vistaController = {
       contratos: contratos,
       pedidos: pedidos,
       alias: alias,
+      sedes: sedes,
     });
   },
 };

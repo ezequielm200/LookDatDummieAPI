@@ -42,6 +42,12 @@ module.exports = (sequelize, dataTypes) => {
     ubicacion: {
       type: dataTypes.STRING(200),
     },
+    Piso: {
+      type: dataTypes.STRING(200),
+    },
+    Oficina: {
+      type: dataTypes.STRING(200),
+    },
     domicilio: {
       type: dataTypes.STRING(200),
     },
@@ -66,6 +72,9 @@ module.exports = (sequelize, dataTypes) => {
     id_contacto: {
       type: dataTypes.STRING(100),
     },
+    id_domicilio: {
+      type: dataTypes.STRING(10),
+    },
   
   };
   let config = {
@@ -84,6 +93,38 @@ module.exports = (sequelize, dataTypes) => {
       as: "PedidoTipo",
       foreignKey: "tipo_pedido",
     });
+
+    Pedido.belongsTo(models.Clientes, {
+      as: "PedidoCliente",
+      foreignKey: "id_cliente",
+    });
+
+    Pedido.belongsTo(models.EquipoCliente, {
+      as: "PedidoSerie",
+      foreignKey: "serie",
+    });
+
+
+    Pedido.belongsTo(models.Domicilio, {
+      as: "DomicilioPedido",
+      foreignKey: "id_domicilio",
+    });
+
+    // Pedido.belongsTo(models.Paises, {
+    //   as: "PedidoPais",
+    //   foreignKey: "pais",
+    // });
+
+    // Pedido.belongsTo(models.Provincia, {
+    //   as: "PedidoProvincia",
+    //   foreignKey: "provincia",
+    // });
+
+    // Pedido.belongsTo(models.Localidad, {
+    //   as: "PedidoLocalidad",
+    //   foreignKey: "localidad",
+    // });
+
   };
   return Pedido;
 };

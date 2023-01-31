@@ -6,6 +6,9 @@ module.exports = (sequelize, dataTypes) => {
             primaryKey: true,
             //autoIncrement: false,
         },
+        estado: {
+            type: dataTypes.INTEGER,
+        },
 
         contrato_id: {
             type: dataTypes.STRING(30),
@@ -15,7 +18,14 @@ module.exports = (sequelize, dataTypes) => {
         },
         contacto: {
             type: dataTypes.INTEGER,
-        },	
+        },
+
+        Piso: {
+            type: dataTypes.STRING(200),
+        },
+        Oficina: {
+            type: dataTypes.STRING(200),
+        },
         
         ubicacion: {
             type: dataTypes.STRING(130),
@@ -65,10 +75,12 @@ module.exports = (sequelize, dataTypes) => {
         });
         
         EquipoCliente.belongsTo(models.Alias, {
-            as: "AliasCliente",
+            as: "AliasID",
             foreignKey: "alias",
         });
 
+
+        
         EquipoCliente.belongsTo(models.Domicilio, {
             as: "DomicilioEquipo",
             foreignKey: "id_domicilio",
@@ -78,6 +90,20 @@ module.exports = (sequelize, dataTypes) => {
             as: "Tecnico",
             foreignKey: "tecnico",
         });
+
+
+        EquipoCliente.belongsTo(models.ContadoresTipoToma, {
+            as: "TipoToma",
+            foreignKey: "tipo_toma",
+        });
+
+
+        EquipoCliente.belongsTo(models.Pedido, {
+            as: "PedidoSerie",
+            foreignKey: "serie_cliente",
+        });
+
+        
     };
     return EquipoCliente;
   };

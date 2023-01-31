@@ -9,6 +9,9 @@ module.exports = (sequelize, dataTypes) => {
             primaryKey: true,
             //autoIncrement: false,
         },
+        estado: {
+            type: dataTypes.INTEGER,
+        },
         serie_equipo: {
             type: dataTypes.STRING(30),
             primaryKey: true,

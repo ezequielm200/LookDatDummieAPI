@@ -23,7 +23,7 @@
                 <h5><%= cliente.serie %> </h5>
                 <h6><%= cliente.Nombre_Empresa %></h6>
                 <p class="mt-2">
-                    Actividad <%= cliente.actividadCliente?.actividad_label %><br>
+                    Actividad <%= cliente?.actividadCliente?.actividad_label %><br>
 
                     {<%= cliente.id_domicilio %>/<%= cliente.id_cliente %>}
                      <h2>Domicilio:</h2>
@@ -64,6 +64,9 @@
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link" id="nps-tab" data-bs-toggle="tab" data-bs-target="#nps-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false" tabindex="-1">NPs</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="sedes-tab" data-bs-toggle="tab" data-bs-target="#sedes-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false" tabindex="-1">Sedes</button>
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link" id="alias-tab" data-bs-toggle="tab" data-bs-target="#alias-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false" tabindex="-1">Alias</button>
@@ -230,16 +233,16 @@
                           <h3 class="text-primary">Pedidos</h3>
                           
                           <!-- start: DYNAMIC TABLE PANEL -->
-                          <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="sample_1" aria-describedby="sample_1_info">
+                          <div id="table_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="table_1" aria-describedby="table_1_info">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nro Pedido: ascendente / descendente" style="width: 212px;">Nro Pedido</th>
-                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Cliente: ascendente / descendente" style="width: 247px;">Cliente</th>
-                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Contrato: ascendente / descendente" style="width: 183px;"> Contrato</th>
-                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Serie: ascendente / descendente" style="width: 115px;">Serie</th>
-                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Fecha: ascendente / descendente" style="width: 127px;">Fecha</th>
-                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 127px;">Estado</th>
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nro Pedido: ascendente / descendente" style="width: 212px;">Nro Pedido</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Cliente: ascendente / descendente" style="width: 247px;">Cliente</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label=" Contrato: ascendente / descendente" style="width: 183px;"> Contrato</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Serie: ascendente / descendente" style="width: 115px;">Serie</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Fecha: ascendente / descendente" style="width: 127px;">Fecha</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 127px;">Estado</th>
                                 </tr>
                               </thead>
                               <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -272,15 +275,15 @@
                         <div class="tab-pane fade" id="nps-tab-pane" role="tabpanel" aria-labelledby="nps-tab" tabindex="0">
                           <h3 class="text-primary">NP</h3>
                           <!-- start: DYNAMIC TABLE PANEL -->
-                          <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="sample_1" aria-describedby="sample_1_info">
+                          <div id="table_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="table_1" aria-describedby="table_1_info">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Prospecto: ascendente / descendente" style="width: 212px;">Prospecto</th>
-                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Contrato: ascendente / descendente" style="width: 247px;">Contrato</th>
-                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Tipo: ascendente / descendente" style="width: 183px;"> Tipo</th>
-                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 115px;">Estado</th>
-                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Fecha Vencimiento: ascendente / descendente" style="width: 127px;">Fecha Vencimiento</th>
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Prospecto: ascendente / descendente" style="width: 212px;">Prospecto</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Contrato: ascendente / descendente" style="width: 247px;">Contrato</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label=" Tipo: ascendente / descendente" style="width: 183px;"> Tipo</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 115px;">Estado</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Fecha Vencimiento: ascendente / descendente" style="width: 127px;">Fecha Vencimiento</th>
                                 </tr>
                               </thead>
                               <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -298,6 +301,48 @@
                           </div>
                           <!-- end: DYNAMIC TABLE PANEL -->
                         </div>
+
+
+                        <div class="tab-pane fade" id="sedes-tab-pane" role="tabpanel" aria-labelledby="sedes-tab" tabindex="0">
+                          <h3 class="text-primary">Sedes / Sucursales</h3>
+                          <!-- start: DYNAMIC TABLE PANEL -->
+                          <div id="table_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="table_1" aria-describedby="table_1_info">
+                              <thead>
+                                <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sede: ascendente / descendente" style="width: 212px;">Sede</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Domicilio: ascendente / descendente" style="width: 247px;">Domicilio</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Telefono: ascendente / descendente" style="width: 183px;"> Telefono</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="CP: ascendente / descendente" style="width: 115px;">CP</th>
+                                  <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Pais: ascendente / descendente" style="width: 127px;">Pais</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Provincia: ascendente / descendente" style="width: 115px;">Provincia</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Localidad: ascendente / descendente" style="width: 115px;">Localidad</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Zona: ascendente / descendente" style="width: 115px;">Zona</th>
+                                </tr>
+                              </thead>
+                              <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                <% for( let i = 0; i < sedes.length; i++ ) { %>
+
+                                  <tr>
+                                    <td class="hidden-xs"><%= sedes[i].id_domicilio %> <%= sedes[i].Label %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Domicilio %> <%= sedes[i].Piso %> <%= sedes[i].Oficina %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Telefono %></td>
+                                    <td class="hidden-xs"><%= sedes[i].CP %></td>
+                                    <td class="hidden-xs"><%= sedes[i].pais.nombre_pais %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Provincia?.provincia_label %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Localidad?.localidad_label %></td>
+                                    <td class="hidden-xs"><%= sedes[i].zona %></td>
+                                  </tr>
+                                <% } %>
+                                
+                               
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- end: DYNAMIC TABLE PANEL -->
+                        </div>  
+
+
 
                         <div class="tab-pane fade" id="alias-tab-pane" role="tabpanel" aria-labelledby="alias-tab" tabindex="0">
                           

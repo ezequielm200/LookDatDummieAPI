@@ -18,31 +18,35 @@
           <div class="position-relative card-body">
             <div class="row">
               <div class="col-lg-12">
-                <h3 class="mb-0"><%= title %></h3><br>
+                <h3 class="mb-0"><%= title %>..</h3><br>
                 
                 
                 <!-- start: DYNAMIC TABLE PANEL -->
-                <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                  <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="sample_1" aria-describedby="sample_1_info">
+                <div id="table_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                  <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="table_1" aria-describedby="table_1_info">
                     <thead>
                       <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nro Pedido: ascendente / descendente" style="width: 212px;">Nro Pedido</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Cliente: ascendente / descendente" style="width: 247px;">Cliente</th>
-                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Contrato: ascendente / descendente" style="width: 183px;"> Contrato</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Serie: ascendente / descendente" style="width: 115px;">Serie</th>
-                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Fecha: ascendente / descendente" style="width: 127px;">Fecha</th>
-                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" style="width: 127px;">Estado</th>
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nro Pedido: ascendente / descendente">Nro Pedido</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Cliente: ascendente / descendente" >Cliente</th>
+                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label=" Contrato: ascendente / descendente" > Contrato</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Serie: ascendente / descendente" >Serie</th>
+                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Fecha: ascendente / descendente">Fecha</th>
+                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" >Detalle</th>
+                        <th class="hidden-xs sorting" role="columnheader" tabindex="0" aria-controls="table_1" rowspan="1" colspan="1" aria-label="Estado: ascendente / descendente" >Estado</th>
                       </tr>
                     </thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                       <% for( let i = 0; i < pedidoEstado.length; i++ ) { %>
                       <tr>
                         <td class="hidden-xs"><a href="/vistas/pedido/<%= pedidoEstado[i].nro_pedido%>"><%= pedidoEstado[i].nro_pedido%></a></td>
-                        <td class="hidden-xs"><a href="/vistas/clientes/<%= pedidoEstado[i].id_cliente%>"><%= pedidoEstado[i].id_cliente%></a></td>
+                        <td class="hidden-xs"><a href="/vistas/clientes/<%= pedidoEstado[i].id_cliente%>"><%= pedidoEstado[i].id_cliente%> - <%= pedidoEstado[i]?.PedidoCliente?.Nombre_Empresa%></a></td>
                         <td class="hidden-xs"><%= pedidoEstado[i].id_contrato%></td>
                         <td class="hidden-xs"><a href="/vistas/localizador/<%= pedidoEstado[i].serie%>"><%= pedidoEstado[i].serie%></a></td>
                         <td class="hidden-xs"><%= pedidoEstado[i].fecha%></td>
+                        <td class="hidden-xs"><%= pedidoEstado[i].detalle_pedido %></td>
                         <td class="hidden-xs"><%= pedidoEstado[i].PedidoEstado.estado_nombre%></td>
+
+                        
                       </tr>
                       <% } %>
                     </tbody>

@@ -68,7 +68,8 @@ const apiController = {
         {
           association: "DetalleEquipo",
           include: [
-            { association: "AliasCliente" },
+            { association: "AliasID" },
+            { association: "AliasCliente" },            
             { association: "Tecnico" },
           ],
         },

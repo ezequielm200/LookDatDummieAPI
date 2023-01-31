@@ -24,25 +24,39 @@
                                         <div class="bg-holder bg-card d-none d-md-block box-image-background" ></div>
                                         <div class="position-relative card-body">
                                             <div class="row">
-                                                <div class="col-xl-10">
+                                                <div class="col-xl-10 ">
                                                     <h3><%= title %></h3>
                                                     <p class="mb-0">
-                                                      <p> serie =  <%= pedidoNro.serie %> </p>
-                                                      <p> id_cliente = <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %></a> </p>
-                                                      <p> id_contrato = <%= pedidoNro.id_contrato %></p>
-                                                      <p> tipo =  <%= pedidoNro.PedidoTipo.tipo_pedido_nombre %> </p>
-                                                      <p> estado =  pedidoNro.PedidoEstado.estado_nombre</p>
+                                                      
+                                                      <p> serie =  <%= pedidoNro.serie %> <br>
+                                                        <%= pedidoNro.PedidoSerie.DetalleEquipo.ModeloEquipo.modelo %>
+                                                        <%= pedidoNro.PedidoSerie.DetalleEquipo.ModeloEquipo.ModeloMarca.marca_label %></p>
+                                                      <p> <a href="/vistas/clientes/<%= pedidoNro.id_cliente %>"></a><%= pedidoNro.id_cliente %> - <%= pedidoNro.PedidoCliente.Nombre_Empresa %></a> </p>
+                                                      
+                                                      <!---->
+                                                        <div class="navbar-collapse collapse"  id="detalle_pedido">
+                                                            <p> id_contrato = <%= pedidoNro.id_contrato %></p>
+                                                            <p> tipo =  <%= pedidoNro.PedidoTipo.tipo_pedido_nombre %> </p>
+                                                            <p> estado =  <%= pedidoNro.PedidoEstado.estado_nombre %></p>
 
+                                                            <p>Alias: <%= pedidoNro.PedidoSerie.AliasID.alias_label %></p>
+                                                      
+                                                      
+                                                      
 
-                                                      <p> fecha =  <%= pedidoNro.fecha %> </p>
+                                                            <p> fecha =  <%= pedidoNro.fecha %> </p>
+
+                                                        </div>
+                                                    <!---->
 
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="bg-light p-0 border-top d-grid card-footer">
-                                          <button type="button" class="btn btn-link">Mostrar +</button>
+                                        <div class="bg-light p-0 border-top d-grid card-footer position-relative" style="text-align: center; padding: 5px;">
+                                            <a class="nav-link" data-toggle="collapse" href="#detalle_pedido">Mostrar +</a>
+
                                         </div>
 
                                     </div>
@@ -82,17 +96,24 @@
 
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label class="form-label">####T&eacute;cnico Asignado: (<%= pedidoNro.tecnico %>)</label>
+                                                        <label class="form-label">T&eacute;cnico Asignado: </label>
                                                         <select class="form-select" id="tecnico" name="tecnico" required="">
-                                                            <option value="">Seleccione t&eacute;cnico</option>
+                                                            
+                                                            <% for( let i=0; i < tecnicos.length; i++ ) { %>
+                                                                <%if ( tecnicos[i].id == pedidoNro.tecnico) { %>
+                                                                    <option value="<%= tecnicos[i].id %>" id="<%= tecnicos[i].id %>" selected>T&eacute;cnico Asignado: <%= tecnicos[i].User_Nombre %></option>
+                                                                <% } else { %>
+                                                                    <option value="<%= tecnicos[i].id %>" id="<%= tecnicos[i].id %>"><%= tecnicos[i].User_Nombre %></option>
+                                                                <% } %>
 
+                                                            <% } %>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div>
                                                         <label class="form-label">T&eacute;cnico Responsable:</label>
-                                                        <br>###
+                                                        <br><%= pedidoNro.PedidoSerie.Tecnico.User_Nombre %>
                                                     </div>
                                                 </div>
 
@@ -102,38 +123,38 @@
 
 
                                                         <div class="g-3 row">
-                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Ubicacion</label>
-                                                            <div class="col"><%= pedidoNro.ubicacion %></div>
-                                                        </div>
-
-                                                        <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Domicilio:</label>
                                                             <div class="col"><%= pedidoNro.domicilio %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
+                                                            <label class="form-label col-form-label col-form-label-sm col-lg-2">Ubicacion</label>
+                                                            <div class="col"><%= pedidoNro.Piso %> <%= pedidoNro.Oficina %> <%= pedidoNro.ubicacion %></div>
+                                                        </div>
+
+                                                        <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Teléfono:</label>
-                                                            <div class="col">##</div>
+                                                            <div class="col"><%= pedidoNro.telefono %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Sede:</label>
-                                                            <div class="col">##</div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Label %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Localidad:</label>
-                                                            <div class="col"><%= pedidoNro.localidad %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Localidad.localidad_label %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Provincia:</label>
-                                                            <div class="col">##</div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Provincia.provincia_label %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Pais:</label>
-                                                            <div class="col"><%= pedidoNro.pais %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.pais.nombre_pais %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
@@ -148,7 +169,7 @@
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Zona:</label>
-                                                            <div class="col"><%= pedidoNro.zona %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Zona.zona_label %></div>
                                                         </div>
 
 
@@ -170,16 +191,10 @@
 
                                     <div class="mb-3 card">
                                         <h5 class="bg-light card-header">Pedidos Anteriores</h5>
-                                        <div class="pt-0 card-body"></div>
-                                        <div class="py-2 card-footer">
-                                            <div class="flex-between-center g-0 row">
-                                                <div class="col-auto">
-                                                </div>
-                                                <div class="col-auto">
+                                        <div class="pt-0 card-body">
 
-                                                </div>
-                                            </div>
                                         </div>
+                                        <div class="py-2 card-footer"></div>
                                     </div>
                                     <div class="bottom-bar rounded-0 d-lg-none show card">
                                         <div class="py-2 px-0 card-body">
@@ -208,4 +223,4 @@
 
                     <!-- footer -->
                     <%- include partials/footer.ejs %>
-                        <!-- fin footer -->
+                    <!-- fin footer -->

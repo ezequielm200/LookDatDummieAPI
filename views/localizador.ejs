@@ -19,44 +19,29 @@
             <div class="row">
               <div class="col-lg-8">
                 <h3 class="mb-0"><%= title %></h3><br>
-              
-                <h5>Serie: <%= equipo.serie %></h5>
-                <h6><%= equipo.ModeloEquipo.modelo %>  / <%= equipo.ModeloEquipo.ModeloMarca.marca_label  %></h6>
-                <p class="mt-2">
-                  Estado equipo: <%= equipo.EquipoEstado.estado_equipo_label %>  <br>
-                  Propiedad: <%= equipo.EquiposPropietarios.propietario_label  %>  <br>
-                  Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label  %>  <br>
-                  Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %>  <br><br>
+
+                <!-- valido existencia serie -->
+                <% if (equipo?.serie) {  %>
+
+                  <!-- valido existencia serie cliente -->
+                  <% if (equipo?.DetalleEquipo?.serie_cliente) {  %>
+                   
                   
                   
-                
-                estado: <%= equipo.DetalleEquipo.estado %> <br>
-                version: <%= equipo.DetalleEquipo.version %> <br>
-                falta semaforo<br>
-                {{<%= equipo.ModeloEquipo.Semaforo.modelo %> /  }}
+                  
 
-
-                <% semaforo_rojo_i = equipo.ModeloEquipo.Semaforo.semaforo_rojo_i %><br>
-                <% semaforo_rojo_f = equipo.ModeloEquipo.Semaforo.semaforo_rojo_f %><br>
-                <% semaforo_amarillo_i = equipo.ModeloEquipo.Semaforo.semaforo_amarillo_i %><br>
-                <% semaforo_amarillo_f = equipo.ModeloEquipo.Semaforo.semaforo_amarillo_f %><br>
-                <% semaforo_verde_i = equipo.ModeloEquipo.Semaforo.semaforo_verde_i %><br>
-                <% semaforo_verde_f = equipo.ModeloEquipo.Semaforo.semaforo_verde_f %><br>
-                <% semaforo_tolerancia = equipo.ModeloEquipo.Semaforo.semaforo_tolerancia %><br>
-                <% semaforo_alarma_parque = equipo.ModeloEquipo.Semaforo.semaforo_alarma_parque %><br>
-
-
-                <% Contador = SemaforoContadorActual.ContAct_BYN %><br>
-                <%= SemaforoContadorActual.ContAct_Col %><br>
-                <%= SemaforoContadorActual.ContAct_Scan %><br>
-
-
-
-
-                
-
-                
                 <!-- inicio semaforo-->
+
+                <% semaforo_rojo_i = equipo.ModeloEquipo.Semaforo.semaforo_rojo_i %>
+                <% semaforo_rojo_f = equipo.ModeloEquipo.Semaforo.semaforo_rojo_f %>
+                <% semaforo_amarillo_i = equipo.ModeloEquipo.Semaforo.semaforo_amarillo_i %>
+                <% semaforo_amarillo_f = equipo.ModeloEquipo.Semaforo.semaforo_amarillo_f %>
+                <% semaforo_verde_i = equipo.ModeloEquipo.Semaforo.semaforo_verde_i %>
+                <% semaforo_verde_f = equipo.ModeloEquipo.Semaforo.semaforo_verde_f %>
+                <% semaforo_tolerancia = equipo.ModeloEquipo.Semaforo.semaforo_tolerancia %>
+                <% semaforo_alarma_parque = equipo.ModeloEquipo.Semaforo.semaforo_alarma_parque %>
+                <% Contador = SemaforoContadorActual.ContAct_BYN %>
+                
                 <!-- calculo verde-->
                 <% if (Contador >= 0 && Contador <= semaforo_verde_f)   {  %>
                   <!-- calculo tolerancia verde-->
@@ -114,15 +99,26 @@
                 <!-- fin calculo verde-->
                 <!-- fin semaforo-->
 
-                <div class="semaforo_circulo <%= alerta_color %>"><%= alerta_signo %></div> <%= equipo.serie %>
+                 
+              
+                <h5>Serie: <div class="semaforo_circulo <%= alerta_color %>"><%= alerta_signo %></div> <%= equipo.serie %></h5>
+                <h6><%= equipo.ModeloEquipo.modelo %>  / <%= equipo.ModeloEquipo.ModeloMarca.marca_label  %></h6>
 
-                
-                
-                
+
+                <p class="mt-2">
+                  Estado equipo: <%= equipo.EquipoEstado.estado_equipo_label %>  <br>
+                  Propiedad: <%= equipo.EquiposPropietarios.propietario_label  %>  <br>
+                  Tipo Equipo: <%= equipo.ModeloEquipo.TipoEquipo.tipo_label  %>  <br>
+                  Tipo Contadores: <%= equipo.ModeloEquipo.TipoEquipo.TipoContadores.tipo_contadores_label %>  <br><br>
+                  Estado: <%= equipo.DetalleEquipo.estado %> <br>
+                  Versi&oacute;n: <%= equipo.DetalleEquipo.version %> <br>
               </div>
             </div>
           </div>
         </div>
+
+        
+        
 
 
         <div class="g-0 row">
@@ -137,42 +133,41 @@
                 <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.id_cliente %> - <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.Nombre_Empresa %><br><br>
                 
                 
-                <br><br>
                 Estadío Cliente: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.estadioCliente.estadio_cliente_label %><br>
-                Ejecutivo: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.ejecutivo.User_Nombre %><br>
-                <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.Web %>
+                Ejecutivo: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente?.ejecutivo?.User_Nombre %><br>
+                Web: <a href="<%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.Web %>" target="_blank"><%= equipo.DetalleEquipo.ContratoDetalle.ContratoCliente.Web %></a>
                 <br><br>
 
-
-
                 
-                Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
                 
-                Zona:  <br>
+                
+                Zona: <%= equipo.DetalleEquipo.DomicilioEquipo.Zona?.zona_label %><br>
 
 
 
-                  Domicilio<%= equipo.DetalleEquipo.DomicilioEquipo.Domicilio %><br>
+                  Domicilio: <%= equipo.DetalleEquipo.DomicilioEquipo.Domicilio %><br>
+
                     <br>
-                    revisar:
-                    Piso<%= equipo.DetalleEquipo.DomicilioEquipo.Piso %><br>
-                    Oficina: <%= equipo.DetalleEquipo.DomicilioEquipo.Oficina %><br>
+                    
+                    Piso: <%= equipo.DetalleEquipo.Piso %><br>
+                    Oficina: <%= equipo.DetalleEquipo.Oficina %><br>
+                    Ubicaci&oacute;n: <%= equipo.DetalleEquipo.ubicacion %> <br>
                     <br>
 
                     CP: <%= equipo.DetalleEquipo.DomicilioEquipo.CP %><br>
                     Telefono:<%= equipo.DetalleEquipo.DomicilioEquipo.Telefono %><br>
                     Sede:<%= equipo.DetalleEquipo.DomicilioEquipo.Label %><br>
-                    País: <%= equipo.DetalleEquipo.DomicilioEquipo.pais.nombre_pais %><br>
+                    País: <%= equipo.DetalleEquipo.DomicilioEquipo.pais?.nombre_pais %><br>
 
-                    Localidad: <%= equipo.DetalleEquipo.DomicilioEquipo.Localidad.localidad_label %><br>
+                    Localidad: <%= equipo.DetalleEquipo.DomicilioEquipo.Localidad?.localidad_label %><br>
 
-                    Provincia: <%= equipo.DetalleEquipo.DomicilioEquipo.Provincia.provincia_label %><br>
+                    Provincia: <%= equipo.DetalleEquipo.DomicilioEquipo.Provincia?.provincia_label %><br>
           
 
                 T&eacute;cnico: <%= equipo.DetalleEquipo.Tecnico.User_Nombre %> <br>
                 Contacto: <%= equipo.DetalleEquipo.contacto %> <br>
 
-                Tipo Toma: <%= equipo.DetalleEquipo.tipo_toma %> <br>
+                Tipo Toma: <%= equipo.DetalleEquipo.TipoToma.tipo %><br>
                 D&iacute;a contador: <%= equipo.DetalleEquipo.dia_contador %> <br>
                 
                 
@@ -193,7 +188,7 @@
 
                 estado: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoEstado.estado_label %><br>
                 firmado: <%= equipo.DetalleEquipo.ContratoDetalle.firmado %><br>
-                Condicion Sellado: <%= equipo.DetalleEquipo.ContratoDetalle.SelladoContrato.condicion_detalle %><br>
+                Condicion Sellado: <%= equipo.DetalleEquipo.ContratoDetalle.SelladoContrato?.condicion_detalle %><br>
 
                 Cantidad Equipos: <%= equipo.DetalleEquipo.ContratoDetalle.equipos %><br>
 
@@ -216,8 +211,7 @@
               <div class="card-body">
                 <h6 class="text-primary">Alias del cliente</h6>
                 
-                Alias: <a href="/vistas/aliasEquipos/<%= equipo.DetalleEquipo.AliasCliente.id %>" target="_blank"><%= equipo.DetalleEquipo.AliasCliente.alias_label %></a> <br>
-                
+                Alias: <a href="/vistas/aliasEquipos/<%= equipo.DetalleEquipo.AliasID.id %>" target="_blank"><%= equipo.DetalleEquipo.AliasID.alias_label %></a> <br>
 
 
               </div>
@@ -256,7 +250,7 @@
                           <td><%= accesorios[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></td>
                           <td><%= accesorios[i].Accesorio.ModeloAccesorio.descripcion %></td>
                           <td><%= accesorios[i].Accesorio.EquiposPropietarios.propietario_label %></td>
-                          <td><%= accesorios[i].nro_pedido_instalacion %></td>
+                          <td><a href="/vistas/pedido/<%= accesorios[i].nro_pedido_instalacion %>"><%= accesorios[i].nro_pedido_instalacion %></a></td>
 
                         </tr>                      
                       <% } %>
@@ -269,9 +263,85 @@
 
               <div class="card-body">
                 <h6 class="text-primary">Accesorios por Instalar:</h6>
-                ##falta
+                
+                <!-- tabla Accesorios x instalar-->
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Serie Accesorio</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descripci&oacute;n</th>
+                        <th scope="col">Propietario</th>
+                        <th scope="col">Instalaci&oacute;n</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for( let i = 0; i < accesoriosInstalar.length; i++ ) { %>
+                        <tr>
+                          <td><a href="/vistas/accesorio/<%= accesoriosInstalar[i].serie_accesorio %>" target="_blank"><%= accesoriosInstalar[i].serie_accesorio %></a></td>
+                          <td style="white-space: nowrap;"><%= accesoriosInstalar[i].Accesorio.id_accesorio %></td>
+                          <td style="white-space: nowrap;"><%= accesoriosInstalar[i].Accesorio.ModeloAccesorio.modelo %></td>
+                          <td><%= accesoriosInstalar[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %></td>
+                          <td><%= accesoriosInstalar[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></td>
+                          <td><%= accesoriosInstalar[i].Accesorio.ModeloAccesorio.descripcion %></td>
+                          <td><%= accesoriosInstalar[i].Accesorio.EquiposPropietarios.propietario_label %></td>
+                          <td><a href="/vistas/pedido/<%= accesoriosInstalar[i].nro_pedido_instalacion %>"><%= accesoriosInstalar[i].nro_pedido_instalacion %></a></td>
+
+
+                        </tr>                      
+                      <% } %>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- fin Accesorios x instalar -->
               </div>
-            </div>
+
+
+              <div class="card-body">
+                <h6 class="text-primary">Accesorios por Retirar:</h6>
+                <!-- tabla Accesorios x retirar-->
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Serie Accesorio</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descripci&oacute;n</th>
+                        <th scope="col">Propietario</th>
+                        <th scope="col">Instalaci&oacute;n</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for( let i = 0; i < accesoriosRetirar.length; i++ ) { %>
+                        <tr>
+                          <td><a href="/vistas/accesorio/<%= accesoriosRetirar[i].serie_accesorio %>" target="_blank"><%= accesoriosRetirar[i].serie_accesorio %></a></td>
+                          <td style="white-space: nowrap;"><%= accesoriosRetirar[i].Accesorio.id_accesorio %></td>
+                          <td style="white-space: nowrap;"><%= accesoriosRetirar[i].Accesorio.ModeloAccesorio.modelo %></td>
+                          <td><%= accesoriosRetirar[i].Accesorio.ModeloAccesorio.ModeloMarcaAccesorio.marca_label %></td>
+                          <td><%= accesoriosRetirar[i].Accesorio.ModeloAccesorio.TipoAccesorio.tipo_accesorio %></td>
+                          <td><%= accesoriosRetirar[i].Accesorio.ModeloAccesorio.descripcion %></td>
+                          <td><%= accesoriosRetirar[i].Accesorio.EquiposPropietarios.propietario_label %></td>
+                          <td><a href="/vistas/pedido/<%= accesoriosRetirar[i].nro_pedido_instalacion %>"><%= accesoriosRetirar[i].nro_pedido_instalacion %></a></td>
+
+
+                        </tr>                      
+                      <% } %>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- fin Accesorios x retirar -->
+              </div>
+
+          </div>
 
 
             <div id="contadores" class="mb-3 card">
@@ -364,7 +434,7 @@
                     <tbody>
                       <% for( let i = 0; i < pedidos.length; i++ ) { %>
                         <tr>
-                          <td><%= pedidos[i].nro_pedido %></td>
+                          <td><a href="/vistas/pedido/<%= pedidos[i].nro_pedido %>"><%= pedidos[i].nro_pedido %></a></td>
                           <td  style="white-space: nowrap;"><%= pedidos[i].PedidoEstado.estado_nombre %></td>
                           <td><%= pedidos[i].detalle_pedido %></td>
                           <td style="white-space: nowrap;"><%= pedidos[i].fecha %></td>
@@ -473,6 +543,20 @@
                     </div>
                   </div>
                 </div>
+
+                <% } else { %>
+                  <!-- si no existe serie cliente -->
+                    El equipo no se encuentra instalado en cliente
+
+                <% } %>
+                <!-- fin valido existencia serie cliente -->
+
+
+                <% } else { %>
+                  El equipo no se encuentra registrado
+                <% } %>
+                <!-- fin valido existencia serie -->
+
               </div>
             </div>
           </div>

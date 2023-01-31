@@ -18,14 +18,12 @@ module.exports = (sequelize, dataTypes) => {
       // onDelete: "CASCADE",
     };
     const Zona = sequelize.define(alias, cols, config);
-    // Zona.associate =  (models) => {
-    //     Zona.hasMany(models.Domicilio, {
-    //     as: "Zona",
-    //     foreignKey: "zona"
-    //     });
-      
-     
-    // };
+    Zona.associate =  (models) => {
+      Zona.hasMany(models.Domicilio, {
+        as: "Zona",
+        foreignKey: "ID"
+      });
+    };
     return Zona;
   };
   

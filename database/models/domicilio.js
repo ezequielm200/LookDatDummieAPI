@@ -67,26 +67,32 @@ module.exports = (sequelize, dataTypes) => {
         });
         
         Domicilio.hasMany(models.EquipoCliente, {
-            as: "DomicilioEquipo",
-            foreignKey: "id_domicilio",
-        });  
+          as: "DomicilioEquipo",
+          foreignKey: "id_domicilio",
+        }); 
+        
+        Domicilio.hasMany(models.Pedido, {
+          as: "DomicilioPedido",
+          foreignKey: "id_domicilio",
+        }); 
 
         Domicilio.belongsTo(models.Paises, {
-            as: "pais",
-            foreignKey: "Pais_id",
+          as: "pais",
+          foreignKey: "Pais_id",
         });
         Domicilio.belongsTo(models.Localidad, {
-            as: "Localidad",
-            foreignKey: "Localidad_id",
+          as: "Localidad",
+          foreignKey: "Localidad_id",
         });
         Domicilio.belongsTo(models.Provincia, {
-            as: "Provincia",
-            foreignKey: "Provincia_id",
+          as: "Provincia",
+          foreignKey: "Provincia_id",
         });
-        // Domicilio.belongsTo(models.Zona, {
-        //   as: "Zona",
-        //   foreignKey: "zona",
-        // });
+        
+        Domicilio.belongsTo(models.Zonas, {
+          as: "Zona",
+          foreignKey: "zona",
+        });
       
     };
     return Domicilio;

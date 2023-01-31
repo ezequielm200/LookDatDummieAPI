@@ -4,7 +4,7 @@ var TableData = function () {
     //which will add advanced interaction controls to any HTML table
     //For more information, please visit https://datatables.net/
     var runDataTable = function () {
-        var oTable = $('#sample_1').dataTable({
+        var oTable = $('#table_1').dataTable({
             "aoColumnDefs": [{
                 "aTargets": [0]
             }],
@@ -26,18 +26,19 @@ var TableData = function () {
             // set the initial value
             "iDisplayLength": 10,
         });
-        $('#sample_1_wrapper .dataTables_filter input').addClass("form-control input-sm").attr("placeholder", "Buscar");
+        $('#table_1_wrapper .dataTables_filter input').addClass("form-control input-sm").attr("placeholder", "Buscar");
         // modify table search input
-        $('#sample_1_wrapper .dataTables_length select').addClass("m-wrap small");
+        $('#table_1_wrapper .dataTables_length select').addClass("m-wrap form-select");
         // modify table per page dropdown
-        $('#sample_1_wrapper .dataTables_length select').select2();
+        $('#table_1_wrapper .dataTables_length select').select2();
         // initialzie select2 dropdown
-        $('#sample_1_column_toggler input[type="checkbox"]').change(function () {
+        $('#table_1_column_toggler input[type="checkbox"]').change(function () {
             /* Get the DataTables object again - this is not a recreation, just a get of the object */
             var iCol = parseInt($(this).attr("data-column"));
             var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
             oTable.fnSetColumnVis(iCol, (bVis ? false : true));
         });
+
     };
     
     var runEditableTable = function(){
