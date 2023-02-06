@@ -140,7 +140,7 @@ const vistaController = {
         {
           association: "DomicilioCliente",
           include: [
-            { association: "pais" },
+            { association: "Pais" },
             { association: "Localidad" },
             { association: "Provincia" },
           ],
@@ -255,7 +255,7 @@ const vistaController = {
         {
           association: "DomicilioPedido",
           include: [
-            { association: "pais" },
+            { association: "Pais" },
             { association: "Localidad" },
             { association: "Provincia" },
             { association: "Zona" },
@@ -569,7 +569,7 @@ const vistaController = {
         {
           association: "DomicilioEquipo",
           include: [
-            { association: "pais" },
+            { association: "Pais" },
             { association: "Localidad" },
             { association: "Provincia" },
             { association: "Zona" },
@@ -743,7 +743,7 @@ const vistaController = {
             {
               association: "DomicilioEquipo",
               include: [
-                { association: "pais" },
+                { association: "Pais" },
                 { association: "Localidad" },
                 { association: "Provincia" },
                 { association: "Zona" },
@@ -894,13 +894,13 @@ const vistaController = {
         {
           association: "DomicilioCliente",
           include: [
-            { association: "pais" },
+            { association: "Pais" },
             { association: "Localidad" },
             { association: "Provincia" },
           ],
         },
         //{ association: "DomicilioCliente" },
-        //{ association: "pais" },
+        //{ association: "Pais" },
         //{ association: "Localidad" },
         //{ association: "Provincia" },
         { association: "ejecutivo" },
@@ -919,7 +919,7 @@ const vistaController = {
     let sedes = await db.Domicilio.findAll({
       where: { id_cliente: req.params.id_cliente },
       include: [
-        { association: "pais" },
+        { association: "Pais" },
         { association: "Localidad" },
         { association: "Provincia" },
       ],

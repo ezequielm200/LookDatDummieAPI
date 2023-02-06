@@ -12,7 +12,7 @@ module.exports = (sequelize, dataTypes) => {
     provincia: {
       type: dataTypes.INTEGER,
     },
-    localidad_label: {
+    localidad_nombre: {
       type: dataTypes.STRING(100),
     },
   };

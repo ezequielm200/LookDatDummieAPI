@@ -157,21 +157,21 @@
                     CP: <%= equipo.DetalleEquipo.DomicilioEquipo.CP %><br>
                     Telefono:<%= equipo.DetalleEquipo.DomicilioEquipo.Telefono %><br>
                     Sede:<%= equipo.DetalleEquipo.DomicilioEquipo.Label %><br>
-                    País: <%= equipo.DetalleEquipo.DomicilioEquipo.pais?.nombre_pais %><br>
+                    País: <%= equipo.DetalleEquipo.DomicilioEquipo.Pais?.pais_nombre %><br>
 
-                    Localidad: <%= equipo.DetalleEquipo.DomicilioEquipo.Localidad?.localidad_label %><br>
+                    Localidad: <%= equipo.DetalleEquipo.DomicilioEquipo.Localidad?.localidad_nombre %><br>
 
-                    Provincia: <%= equipo.DetalleEquipo.DomicilioEquipo.Provincia?.provincia_label %><br>
+                    Provincia: <%= equipo.DetalleEquipo.DomicilioEquipo.Provincia?.provincia_nombre %><br>
           
 
-                T&eacute;cnico: <%= equipo.DetalleEquipo.Tecnico.User_Nombre %> <br>
+                T&eacute;cnico: <%= equipo.DetalleEquipo?.Tecnico.User_Nombre %> <br>
                 Contacto: <%= equipo.DetalleEquipo.contacto %> <br>
 
-                Tipo Toma: <%= equipo.DetalleEquipo.TipoToma.tipo %><br>
-                D&iacute;a contador: <%= equipo.DetalleEquipo.dia_contador %> <br>
+                Tipo Toma: <%= equipo.DetalleEquipo?.TipoToma.tipo %><br>
+                D&iacute;a contador: <%= equipo.DetalleEquipo?.dia_contador %> <br>
                 
                 
-                Nro pedido instalaci&oacute;n: <%= equipo.DetalleEquipo.nro_pedido_instalacion %><br>
+                Nro pedido instalaci&oacute;n: <%= equipo.DetalleEquipo?.nro_pedido_instalacion %><br>
                 
               </div>
             </div>
@@ -186,15 +186,15 @@
                 Contrato: <%= equipo.DetalleEquipo.contrato_id %> <br>
 
 
-                estado: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoEstado.estado_label %><br>
-                firmado: <%= equipo.DetalleEquipo.ContratoDetalle.firmado %><br>
+                Estado: <%= equipo.DetalleEquipo.ContratoDetalle.ContratoEstado.estado_label %><br>
+                Firmado: <%= equipo.DetalleEquipo.ContratoDetalle.firmado %><br>
                 Condicion Sellado: <%= equipo.DetalleEquipo.ContratoDetalle.SelladoContrato?.condicion_detalle %><br>
 
                 Cantidad Equipos: <%= equipo.DetalleEquipo.ContratoDetalle.equipos %><br>
 
-                fecha_inicio: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_inicio %><br>
-                fecha_vencimiento: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_vencimiento %><br>
-                fecha_baja: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_baja %><br>
+                Fecha inicio: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_inicio %><br>
+                Fecha vencimiento: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_vencimiento %><br>
+                Fecha baja: <%= equipo.DetalleEquipo.ContratoDetalle.fecha_baja %><br>
 
                 <%= equipo.DetalleEquipo.ContratoDetalle.TipoContrato.tipo_contrato_sigla %> - <%= equipo.DetalleEquipo.ContratoDetalle.TipoContrato.tipo_contrato_label %><br>
                 <%= equipo.DetalleEquipo.ContratoDetalle.observaciones %><br>

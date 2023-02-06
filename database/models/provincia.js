@@ -6,7 +6,7 @@ module.exports = (sequelize, dataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    provincia_label: {
+    provincia_nombre: {
       type: dataTypes.STRING(150),
     },
     pais: {

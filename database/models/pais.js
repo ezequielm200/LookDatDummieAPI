@@ -6,7 +6,7 @@ module.exports = (sequelize, dataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre_pais: {
+    pais_nombre: {
       type: dataTypes.STRING(150),
     },
     is_predeterminado: {
@@ -23,7 +23,7 @@ module.exports = (sequelize, dataTypes) => {
   const Pais = sequelize.define(alias, cols, config);
   Pais.associate =  (models) => {
     Pais.hasMany(models.Domicilio, {
-      as: "pais",
+      as: "Pais",
       foreignKey: "Pais_id",
     });
 

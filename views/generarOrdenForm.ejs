@@ -130,17 +130,17 @@
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Localidad:</label>
-                                                            <div class="col"><%= equipo.DomicilioEquipo.Localidad.localidad_label %></div>
+                                                            <div class="col"><%= equipo.DomicilioEquipo.Localidad.localidad_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Provincia:</label>
-                                                            <div class="col"><%= equipo.DomicilioEquipo.Provincia.provincia_label %></div>
+                                                            <div class="col"><%= equipo.DomicilioEquipo.Provincia.provincia_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Pais:</label>
-                                                            <div class="col"><%= equipo.DomicilioEquipo.pais.nombre_pais %></div>
+                                                            <div class="col"><%= equipo.DomicilioEquipo.pais.pais_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
@@ -162,7 +162,7 @@
                                                         <hr class="my-4">
                                                         <div class="col-12" style="text-align: right;">
                                                             <button class="w-45 btn btn-primary btn-danger" type="submit">Cancelar</button>
-                                                            <button class="w-45 btn btn-primary btn-success <%= estado_boton %>" type="submit" id="btn_procesar" <%= estado_boton %> >Confirmar</button>
+                                                            <button class="w-45 btn btn-primary btn-success <%= estado_boton %>" type="submit" id="btn_procesar">Confirmar</button>
 
                                                         </div>
 

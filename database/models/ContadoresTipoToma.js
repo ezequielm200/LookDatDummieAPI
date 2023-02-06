@@ -7,10 +7,6 @@ module.exports = (sequelize, dataTypes) => {
         autoIncrement: true,
       },
       
-      tipo_id: {
-        type: dataTypes.INTEGER,
-      },
-
       tipo: {
         type: dataTypes.STRING(100),
       },
@@ -26,7 +22,7 @@ module.exports = (sequelize, dataTypes) => {
         ContadoresTipoToma.belongsTo(models.EquipoCliente, {
             as: "TipoToma",
             //foreignKey: "id_tipo_contadores",
-            foreignKey: "tipo_id",
+            foreignKey: "ID",
         });
     };
 

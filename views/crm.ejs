@@ -34,9 +34,9 @@
                      <%= cliente.DomicilioCliente?.CP %><br>
                      <%= cliente.DomicilioCliente?.Telefono %><br>
                      <%= cliente.DomicilioCliente?.Label %><br>
-                     <%= cliente.DomicilioCliente?.pais.nombre_pais %><br>
-                     <%= cliente.DomicilioCliente?.Localidad?.localidad_label %><br>
-                     <%= cliente.DomicilioCliente?.Provincia?.provincia_label %><br>
+                     <%= cliente.DomicilioCliente?.Pais.pais_nombre %><br>
+                     <%= cliente.DomicilioCliente?.Localidad?.localidad_nombre %><br>
+                     <%= cliente.DomicilioCliente?.Provincia?.provincia_nombre %><br>
                     
 
                     
@@ -253,7 +253,7 @@
                                   <td class="hidden-xs"><%= pedidos[i].id_contrato%></td>
                                   <td class="hidden-xs"><a href="/vistas/localizador/<%= pedidos[i].serie%>"><%= pedidos[i].serie%></a></td>
                                   <td class="hidden-xs"><%= pedidos[i].fecha%></td>
-                                  <td class="hidden-xs"><%= pedidos[i].PedidoEstado.estado_nombre%></td>
+                                  <td class="hidden-xs"><%= pedidos[i].PedidoEstado?.estado_nombre%></td>
                                 </tr>
                                 <% } %>
                               </tbody>
@@ -324,13 +324,13 @@
                                 <% for( let i = 0; i < sedes.length; i++ ) { %>
 
                                   <tr>
-                                    <td class="hidden-xs"><%= sedes[i].id_domicilio %> <%= sedes[i].Label %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Label %></td>
                                     <td class="hidden-xs"><%= sedes[i].Domicilio %> <%= sedes[i].Piso %> <%= sedes[i].Oficina %></td>
                                     <td class="hidden-xs"><%= sedes[i].Telefono %></td>
                                     <td class="hidden-xs"><%= sedes[i].CP %></td>
-                                    <td class="hidden-xs"><%= sedes[i].pais.nombre_pais %></td>
-                                    <td class="hidden-xs"><%= sedes[i].Provincia?.provincia_label %></td>
-                                    <td class="hidden-xs"><%= sedes[i].Localidad?.localidad_label %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Pais?.pais_nombre %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Provincia?.provincia_nombre %></td>
+                                    <td class="hidden-xs"><%= sedes[i].Localidad?.localidad_nombre %></td>
                                     <td class="hidden-xs"><%= sedes[i].zona %></td>
                                   </tr>
                                 <% } %>

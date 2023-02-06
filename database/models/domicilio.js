@@ -2,8 +2,9 @@ module.exports = (sequelize, dataTypes) => {
     let alias = "Domicilio";
     let cols = {
       ID: {
-        type: dataTypes.INTEGER,        
-        //autoIncrement: true,
+        type: dataTypes.INTEGER, 
+        primaryKey: true,       
+        autoIncrement: true,
       },
       id_cliente: {
         type: dataTypes.STRING(30),
@@ -43,10 +44,9 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.INTEGER,
         
       },
-      id_domicilio: {
-        type: dataTypes.INTEGER,
-        primaryKey: true,
-      },
+      // id_domicilio: {
+      //   type: dataTypes.INTEGER,
+      // },
         
     };
     let config = {
@@ -63,21 +63,24 @@ module.exports = (sequelize, dataTypes) => {
 
         Domicilio.hasMany(models.Clientes, {
           as: "DomicilioCliente",
-          foreignKey: "id_domicilio",
+          //foreignKey: "id_domicilio",
+          foreignKey: "ID",
         });
         
         Domicilio.hasMany(models.EquipoCliente, {
           as: "DomicilioEquipo",
           foreignKey: "id_domicilio",
+          //foreignKey: "ID",
         }); 
         
         Domicilio.hasMany(models.Pedido, {
           as: "DomicilioPedido",
           foreignKey: "id_domicilio",
+          //foreignKey: "ID",
         }); 
 
         Domicilio.belongsTo(models.Paises, {
-          as: "pais",
+          as: "Pais",
           foreignKey: "Pais_id",
         });
         Domicilio.belongsTo(models.Localidad, {

@@ -39,7 +39,7 @@
                       <% for( let i = 0; i < pedidoEstado.length; i++ ) { %>
                       <tr>
                         <td class="hidden-xs"><a href="/vistas/pedido/<%= pedidoEstado[i].nro_pedido%>"><%= pedidoEstado[i].nro_pedido%></a></td>
-                        <td class="hidden-xs"><a href="/vistas/clientes/<%= pedidoEstado[i].id_cliente%>"><%= pedidoEstado[i].id_cliente%> - <%= pedidoEstado[i]?.PedidoCliente?.Nombre_Empresa%></a></td>
+                        <td class="hidden-xs"><a href="/vistas/crm/<%= pedidoEstado[i].id_cliente%>"><%= pedidoEstado[i].id_cliente%> - <%= pedidoEstado[i]?.PedidoCliente?.Nombre_Empresa%></a></td>
                         <td class="hidden-xs"><%= pedidoEstado[i].id_contrato%></td>
                         <td class="hidden-xs"><a href="/vistas/localizador/<%= pedidoEstado[i].serie%>"><%= pedidoEstado[i].serie%></a></td>
                         <td class="hidden-xs"><%= pedidoEstado[i].fecha%></td>

@@ -127,7 +127,7 @@ const apiController = {
   contrato: (req, res) => {
     db.Contratos.findAll({
       where: { id_contrato: req.params.id_contrato },
-      //include: [{ association: "pais" }],
+      //include: [{ association: "Pais" }],
     }).then((contrato) => {
       res.status(200).json({
         status: 200,
@@ -142,7 +142,7 @@ const apiController = {
   contratos: (req, res) => {
     db.Contratos.findAll({
       where: { cliente_id: req.params.cliente_id },
-      //include: [{ association: "pais" }],
+      //include: [{ association: "Pais" }],
     }).then((contratos) => {
       res.status(200).json({
         status: 200,
@@ -159,7 +159,7 @@ const apiController = {
       //attributes: { exclude: ["createdAt", "updatedAt", "Pais_id"] },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
-        //{ association: "pais" },
+        //{ association: "Pais" },
         //{ association: "Localidad" },
         //{ association: "Provincia" },
         { association: "ejecutivo" },
@@ -180,7 +180,7 @@ const apiController = {
   cliente: (req, res) => {
     db.Clientes.findOne({
       where: { id_cliente: req.params.id_cliente },
-      //include: [{ association: "pais" }],
+      //include: [{ association: "Pais" }],
     }).then((cliente) => {
       res.status(200).json({
         status: 200,

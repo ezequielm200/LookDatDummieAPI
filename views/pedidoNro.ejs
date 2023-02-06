@@ -139,22 +139,22 @@
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Sede:</label>
-                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Label %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido?.Label %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Localidad:</label>
-                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Localidad.localidad_label %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Localidad.localidad_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Provincia:</label>
-                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Provincia.provincia_label %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Provincia.provincia_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Pais:</label>
-                                                            <div class="col"><%= pedidoNro.DomicilioPedido.pais.nombre_pais %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Pais.pais_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
@@ -169,7 +169,7 @@
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Zona:</label>
-                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Zona.zona_label %></div>
+                                                            <div class="col"><%= pedidoNro.DomicilioPedido.Zona?.zona_label %></div>
                                                         </div>
 
 

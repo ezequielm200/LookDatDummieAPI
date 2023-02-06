@@ -12,7 +12,7 @@
       <h3>Cliente ID: <%= cliente.id_cliente %></h3>
       <p>Empresa: <%= cliente.Nombre_Empresa %></p>
       <p>CUIT: <%= cliente.cuit %></p>
-      <p>* Actividad: <%= cliente.actividadCliente.actividad_label %></p>
+      <p>* Actividad: <%= cliente.actividadCliente?.actividad_label %></p>
       <p>Mail: <%= cliente.Mail%></p>
 
     
@@ -22,14 +22,12 @@
       <p>** Piso: <%= cliente.DomicilioCliente.Piso%></p>
       <p>** Oficina: <%= cliente.DomicilioCliente.Oficina%></p>
 
-      <p>** Localidad: <%= cliente.DomicilioCliente.Localidad.localidad_label%></p>
-      <p>** Provincia: <%= cliente.DomicilioCliente.Provincia.provincia_label%></p>
-      <p>** País: <%= cliente.DomicilioCliente.pais.nombre_pais%></p>
-      <p>** Cod. País: <%= cliente.DomicilioCliente.pais.codigo_pais%></p>
-      
+      <p>** Localidad: <%= cliente?.DomicilioCliente.Localidad.localidad_nombre%></p>
+      <p>** Provincia: <%= cliente?.DomicilioCliente.Provincia.provincia_nombre%></p>
+      <p>** País: <%= cliente?.DomicilioCliente.Pais.pais_nombre%></p>
+      <p>** Cod. País: <%= cliente?.DomicilioCliente.Pais.codigo_pais%></p>
+      <p>* Ejecutivo: <%= cliente?.ejecutivo.User_Nombre%></p>
 
-      
-      <p>* Ejecutivo: <%= cliente.ejecutivo.User_Nombre%></p>
       
       <p>WEB: <a href="http://<%= cliente.Web%>" target="_blank" rel="noopener noreferrer"><%= cliente.Web%></a></p>
       <p>* Modalidad de pago: <%= cliente.pagoModalidad.Modalidad_label%></p>
