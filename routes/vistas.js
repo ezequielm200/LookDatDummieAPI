@@ -5,6 +5,10 @@ const vistaController = require("../controllers/vistaController");
 // Validaciones Backend
 const {body} = require('express-validator');
 
+//validaciones de formulario creacion de ordenes
+const orderValidations = [
+  body('tipo_pedido').notEmpty().withMessage("* Este campo no puede estar vacío (Backend)"),
+]
 //validaciones de formulario de  ordenes
 const editValidations = [
   body('detalle_pedido').notEmpty().withMessage("* Este campo no puede estar vacío (Backend)"),
@@ -20,7 +24,7 @@ router.get("/equiposStock", vistaController.equiposStock);
 
 
 router.get("/generarOrdenSelect", vistaController.generarOrdenSelect); //Paso 1
-router.post("/generarOrdenForm", vistaController.generarOrdenForm); // Paso 2
+router.post("/generarOrdenForm",orderValidations, vistaController.generarOrdenForm); // Paso 2
 router.post("/generarOrdenConfirmacion", vistaController.generarOrdenConfirmacion); //Paso 3
 
 // * actualizar orden

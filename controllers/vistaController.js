@@ -103,7 +103,7 @@ const vistaController = {
             { association: "ModeloMarca" },
             { association: "Semaforo" },
 
-            
+
             {
               association: "TipoEquipo",
               include: [{ association: "TipoContadores" }],
@@ -249,9 +249,9 @@ const vistaController = {
       attributes: { exclude: ["createdAt", "updatedAt"] },
       order: [sequelize.col("nro_pedido")],
       include: [
-        { association: "PedidoEstado" }, 
-        { association: "PedidoTipo" }, 
-        { association: "PedidoCliente" },        
+        { association: "PedidoEstado" },
+        { association: "PedidoTipo" },
+        { association: "PedidoCliente" },
         {
           association: "DomicilioPedido",
           include: [
@@ -259,23 +259,23 @@ const vistaController = {
             { association: "Localidad" },
             { association: "Provincia" },
             { association: "Zona" },
-            
+
           ],
-        },  
+        },
         // { association: "PedidoPais" },
         // { association: "PedidoProvincia" },
-        // { association: "PedidoLocalidad" },  
+        // { association: "PedidoLocalidad" },
         { association: "PedidoSerie",
         include: [
           { association: "Tecnico" },
           { association: "AliasID" },
           { association: "DetalleEquipo",
           include: [
-            
+
             {
               association: "ModeloEquipo",
               include: [
-                { association: "Semaforo" },                
+                { association: "Semaforo" },
                 { association: "ModeloMarca" },
                 {
                   association: "TipoEquipo",
@@ -284,10 +284,10 @@ const vistaController = {
               ],
             }
           ]
-         }, 
-                    
+         },
+
         ],
-           }        
+           }
       ],
     });
 
@@ -412,7 +412,7 @@ const vistaController = {
       });
     });
   },
-  
+
   generarOrdenSelect: async (req, res) => {
     let tipoPedido = await db.PedidoTipo.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
@@ -437,11 +437,11 @@ const vistaController = {
         ],
       },
       order: [sequelize.col("Nombre_Empresa")],
-       /** 
+       /**
        * TODO:MQ filtar y/o alertar estados de clientes (activos, inactivos, deuda). filtar estadíos (sacar leads y prospectos)
        */
     });
-  
+
 
     let contratos = await db.Contratos.findAll({
       attributes: {
@@ -540,15 +540,17 @@ const vistaController = {
   // },
 
   //pruebas con EZE Lunes
-  generarOrdenForm: async (req, res) => {
-    let pedidoForm = req.body;
 
+  //Agregando Validacion Backend
+  generarOrdenForm: async (req, res) => {
+    let errors = validationResult(req);
+    if (errors.isEmpty()) {
+    let pedidoForm = req.body;
     let cliente = await db.Clientes.findOne({
       where: { id_cliente: req.body.cliente },
       include: [
         { association: "estadoCliente" },
         { association: "ejecutivo" },
-        
       ]
     });
 
@@ -598,6 +600,117 @@ const vistaController = {
       tecnicos: tecnicos,
       PedidosAnteriores: PedidosAnteriores,
     });
+  } else {
+    let tipoPedido = await db.PedidoTipo.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [sequelize.col("tipo_pedido_nombre")],
+    });
+
+    let clientes = await db.Clientes.findAll({
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "id",
+          "Id_cliente_tmp",
+          "Id_prefijo",
+          "cuit",
+          "Mail",
+          "Ejecutivo",
+          "Web",
+          "Actividad",
+          "modalidad_pago",
+          "id_domicilio",
+        ],
+      },
+      order: [sequelize.col("Nombre_Empresa")],
+       /**
+       * TODO:MQ filtar y/o alertar estados de clientes (activos, inactivos, deuda). filtar estadíos (sacar leads y prospectos)
+       */
+    });
+
+
+    let contratos = await db.Contratos.findAll({
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "id",
+          "tipo",
+          "equipos",
+          "observaciones",
+          "firmado",
+          "sellado",
+          "fecha_baja",
+          "fecha_inicio",
+          "fecha_vencimiento",
+          "id_tipo",
+          "tipo_contrato_label",
+        ],
+      },
+      order: [sequelize.col("id_contrato")],
+      include: [{ association: "TipoContrato" }],
+      //where estado
+    });
+
+    let equipos = await db.EquipoCliente.findAll({
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "version",
+          "contacto",
+          "ubicacion",
+          "Piso",
+          "Oficina",
+          "tecnico",
+          "dia_contador",
+          "alias",
+          "tipo_toma",
+          "nro_pedido_instalacion",
+          "serie",
+          "serie_tmp",
+          "modelo",
+          "estado",
+          "vida_util",
+          "fecha_baja",
+          "motivo_baja",
+          "ingreso_stock",
+          "estado_equipo",
+          "propiedad",
+          "sku",
+          "marca",
+          "vida_util",
+          "estado",
+          "distribuidor",
+          "fecha_alta",
+          "usuario_alta",
+          "disponible_remoto",
+          "volumen_mensual_BN",
+          "volumen_mensual_Color",
+          "utilidad_anios",
+          "tipo_equipo",
+        ],
+      },
+      order: [sequelize.col("serie_cliente")],
+      include: [
+        {
+          association: "DetalleEquipo",
+          include: [{ association: "ModeloEquipo" }],
+        },
+        //estado equipo
+      ],
+    });
+
+    res.render("generarOrdenSelect", {
+      title: "Generar Orden",
+      tipoPedido: tipoPedido,
+      clientes: clientes,
+      contratos: contratos,
+      equipos: equipos,
+      errors: errors.mapped()
+    });
+  }
   },
 
   //prueba con eze
@@ -728,14 +841,14 @@ const vistaController = {
                   include: [
                     { association: "estadioCliente" },
                     { association: "ejecutivo" },
-                    { association: "estadoCliente" },                  
+                    { association: "estadoCliente" },
                   ],
                 },
-                
-                
-              ], 
+
+
+              ],
             },
-             
+
 
             { association: "AliasID" },
             { association: "Tecnico" },
@@ -747,17 +860,17 @@ const vistaController = {
                 { association: "Localidad" },
                 { association: "Provincia" },
                 { association: "Zona" },
-                
+
               ],
             },
           ],
         },
 
-        
+
         {
           association: "ModeloEquipo",
           include: [
-            { association: "Semaforo" },                
+            { association: "Semaforo" },
             { association: "ModeloMarca" },
             {
               association: "TipoEquipo",
@@ -769,15 +882,15 @@ const vistaController = {
     });
 
     let SemaforoContadorActual = await db.Contadores.findOne({
-      where: { 
+      where: {
         serie: req.params.serie,
-        estado: '1', 
+        estado: '1',
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
 
     let accesorios = await db.AccesorioCliente.findAll({
-      where: { 
+      where: {
         serie_equipo: req.params.serie,
         estado: 1,
       },
@@ -800,7 +913,7 @@ const vistaController = {
     });
 
     let accesoriosInstalar = await db.AccesorioCliente.findAll({
-      where: { 
+      where: {
         serie_equipo: req.params.serie,
         estado: 2,
        },
@@ -824,7 +937,7 @@ const vistaController = {
 
 
     let accesoriosRetirar = await db.AccesorioCliente.findAll({
-      where: { 
+      where: {
         serie_equipo: req.params.serie,
         estado: 3,
        },

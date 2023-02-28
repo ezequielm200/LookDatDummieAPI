@@ -22,11 +22,11 @@
                                 var x = 0;
                                 test = 0;
                                 inform.id_contrato.length = 1
-    
+
                                 <% for( let f = 0; f < contratos.length; f++ ) { %>
-    
+
                                     x = <%= contratos[f].cliente_id %>;
-    
+
                                     subcat = new Array();
                                     id_contratos = "<%= contratos[f].id_contrato %> - <%= contratos[f].TipoContrato.tipo_contrato_sigla %>";
                                     id_contratoof = "<%= contratos[f].cliente_id %>";
@@ -37,12 +37,12 @@
                                     if (subcat[x,1] == selecteditem) {
                                     var option<%= contratos[f].cliente_id %> = new Option(subcat[x,0], subcat[x,2]);
                                     inform.id_contrato.options[inform.id_contrato.length]=option<%= contratos[f].cliente_id %>;
-    
+
                                     }
-    
+
                                 <% } %>
-    
-    
+
+
                             }
                             </script>
                             <script language="JavaScript">
@@ -51,13 +51,13 @@
                                 //var x = 0;
                                 <% x = 0  %>
                               inform.serie_cliente.length = 1
-    
-    
-    
+
+
+
                               <% for( let f = 0; f < equipos.length; f++ ) { %>
-    
+
                                 <% x = x + 1 %>;
-    
+
                                 subcat = new Array();
                                 serie_ids = "<%= equipos[f].serie_cliente %> - <%= equipos[f].DetalleEquipo.ModeloEquipo.modelo %>";
                                 serie_idof = "<%= equipos[f].contrato_id %>";
@@ -87,13 +87,13 @@
                                         </h4>
 
 
-                                        <form class="needs-validation" novalidate="" method="post"
+                                        <form class="needs-validation orderForm" novalidate="" method="post"
                                             action="generarOrdenForm" enctype="application/x-www-form-urlencoded">
                                             <div class="row g-3">
 
                                                 <div class="col-sm-6">
                                                     <label for="state" class="form-label">Tipo</label>
-                                                    <select class="form-select" id="tipo_pedido" name="tipo_pedido"
+                                                    <select class="form-select <%= locals.errors && errors.tipo_pedido ? 'is-invalid' : null %>"" id="tipo_pedido" name="tipo_pedido"
                                                         required="">
                                                         <option value="">Seleccione Tipo de pedido</option>
                                                         <% for( let i=0; i < tipoPedido.length; i++ ) { %>
@@ -103,6 +103,10 @@
                                                             </option>
                                                             <% } %>
                                                     </select>
+                                                    <p id="tipo_pedidoError" class="errorTextFront"></p>
+                                                             <% if (locals.errors && errors.tipo_pedido) { %>
+                                                             <p class="errorTextBack"> <%= errors.tipo_pedido.msg %> </p>
+                                                             <% } %>
                                                     <div class="invalid-feedback">
 
                                                     </div>
