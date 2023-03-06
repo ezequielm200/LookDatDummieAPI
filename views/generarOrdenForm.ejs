@@ -47,7 +47,8 @@
                                                                 <button type="button" class="btn-close" aria-label="Close"></button>
                                                             </div>
                                                             <% estado_boton = "disabled" %>
-                                                        <%} else {%>                                                            
+                                                        <%} else {%> 
+                                                            <% estado_boton = "" %>                                                           
                                                         <% } %>
                                                         <!-- fin valido estado cliente -->
                                                         
@@ -140,7 +141,7 @@
 
                                                         <div class="g-3 row">
                                                             <label class="form-label col-form-label col-form-label-sm col-lg-2">Pais:</label>
-                                                            <div class="col"><%= equipo.DomicilioEquipo.pais.pais_nombre %></div>
+                                                            <div class="col"><%= equipo.DomicilioEquipo.Pais.pais_nombre %></div>
                                                         </div>
 
                                                         <div class="g-3 row">
